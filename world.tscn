@@ -1,0 +1,168 @@
+[gd_scene load_steps=7 format=4 uid="uid://dmugxhgpn1ka3"]
+
+[ext_resource type="Texture2D" uid="uid://i4semeikqxce" path="res://assets/mapPack_tilesheet.png" id="1_7gu41"]
+[ext_resource type="Script" path="res://main.gd" id="1_s0rs5"]
+[ext_resource type="PackedScene" uid="uid://cka1bkkxovgvg" path="res://crystal.tscn" id="2_kmwkd"]
+[ext_resource type="PackedScene" uid="uid://cc7i5s4vfuoig" path="res://node.tscn" id="3_4s80a"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ntxh5"]
+texture = ExtResource("1_7gu41")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+12:7/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+0:4/0 = 0
+0:5/0 = 0
+0:6/0 = 0
+0:7/0 = 0
+1:0/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+1:4/0 = 0
+1:5/0 = 0
+1:6/0 = 0
+1:7/0 = 0
+2:0/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+2:4/0 = 0
+2:5/0 = 0
+2:6/0 = 0
+2:7/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:4/0 = 0
+3:5/0 = 0
+4:0/0 = 0
+4:1/0 = 0
+4:4/0 = 0
+4:5/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+5:2/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+5:6/0 = 0
+5:7/0 = 0
+6:0/0 = 0
+6:1/0 = 0
+6:2/0 = 0
+6:4/0 = 0
+6:5/0 = 0
+6:6/0 = 0
+6:7/0 = 0
+7:0/0 = 0
+7:1/0 = 0
+7:2/0 = 0
+7:3/0 = 0
+7:5/0 = 0
+7:6/0 = 0
+7:7/0 = 0
+8:0/0 = 0
+8:1/0 = 0
+8:5/0 = 0
+9:0/0 = 0
+9:1/0 = 0
+9:4/0 = 0
+10:0/0 = 0
+10:0/0/terrain_set = 0
+10:0/0/terrains_peering_bit/right_side = 0
+10:0/0/terrains_peering_bit/bottom_side = 0
+10:1/0 = 0
+10:1/0/terrain_set = 0
+10:1/0/terrains_peering_bit/right_side = 0
+10:1/0/terrains_peering_bit/bottom_side = 0
+10:1/0/terrains_peering_bit/top_side = 0
+10:2/0 = 0
+10:2/0/terrain_set = 0
+10:2/0/terrains_peering_bit/right_side = 0
+10:2/0/terrains_peering_bit/top_side = 0
+10:3/0 = 0
+10:4/0 = 0
+10:6/0 = 0
+10:7/0 = 0
+11:0/0 = 0
+11:0/0/terrain_set = 0
+11:0/0/terrains_peering_bit/right_side = 0
+11:0/0/terrains_peering_bit/bottom_side = 0
+11:0/0/terrains_peering_bit/left_side = 0
+11:1/0 = 0
+11:1/0/terrain_set = 0
+11:1/0/terrains_peering_bit/right_side = 0
+11:1/0/terrains_peering_bit/bottom_side = 0
+11:1/0/terrains_peering_bit/left_side = 0
+11:1/0/terrains_peering_bit/top_side = 0
+11:2/0 = 0
+11:2/0/terrain_set = 0
+11:2/0/terrains_peering_bit/right_side = 0
+11:2/0/terrains_peering_bit/left_side = 0
+11:2/0/terrains_peering_bit/top_side = 0
+11:3/0 = 0
+11:4/0 = 0
+11:5/0 = 0
+11:7/0 = 0
+12:0/0 = 0
+12:0/0/terrain_set = 0
+12:0/0/terrains_peering_bit/bottom_side = 0
+12:0/0/terrains_peering_bit/left_side = 0
+12:1/0 = 0
+12:1/0/terrain_set = 0
+12:1/0/terrains_peering_bit/bottom_side = 0
+12:1/0/terrains_peering_bit/left_side = 0
+12:1/0/terrains_peering_bit/top_side = 0
+12:2/0 = 0
+12:2/0/terrain_set = 0
+12:2/0/terrains_peering_bit/left_side = 0
+12:2/0/terrains_peering_bit/top_side = 0
+12:3/0 = 0
+12:4/0 = 0
+12:5/0 = 0
+13:0/0 = 0
+13:1/0 = 0
+13:4/0 = 0
+13:5/0 = 0
+14:0/0 = 0
+14:1/0 = 0
+14:4/0 = 0
+14:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_rm1wn"]
+tile_size = Vector2i(64, 64)
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_ntxh5")
+
+[node name="Test map" type="Node2D"]
+script = ExtResource("1_s0rs5")
+
+[node name="Map" type="TileMapLayer" parent="."]
+position = Vector2(0, 1)
+tile_map_data = PackedByteArray("AAACAAEAAAALAAAAAAACAAIAAAALAAEAAAABAAIAAAAKAAEAAAABAAEAAAAKAAAAAAADAAIAAAALAAEAAAADAAEAAAALAAAAAAACAAMAAAALAAEAAAADAAMAAAALAAEAAAACAAQAAAALAAEAAAADAAQAAAALAAEAAAABAAcAAAAKAAEAAAABAAYAAAAKAAEAAAACAAYAAAALAAEAAAACAAcAAAALAAEAAAACAAUAAAALAAEAAAABAAUAAAAKAAEAAAADAAUAAAALAAEAAAADAAYAAAALAAEAAAADAAcAAAALAAEAAAADAAgAAAALAAIAAAAQAAgAAAAMAAIAAAAQAAcAAAAMAAEAAAAQAAYAAAAMAAEAAAAQAAUAAAAMAAEAAAAQAAQAAAAMAAEAAAAQAAMAAAAMAAEAAAAQAAIAAAAMAAEAAAAQAAEAAAAMAAAAAAAPAAgAAAALAAIAAAAPAAcAAAALAAEAAAAPAAYAAAALAAEAAAAPAAUAAAALAAEAAAAPAAQAAAALAAEAAAAPAAMAAAALAAEAAAAPAAIAAAALAAEAAAAPAAEAAAALAAAAAAAOAAgAAAALAAIAAAAOAAcAAAALAAEAAAAOAAYAAAALAAEAAAAOAAUAAAALAAEAAAAOAAQAAAALAAEAAAAOAAMAAAALAAEAAAAOAAIAAAALAAEAAAAOAAEAAAALAAAAAAANAAgAAAALAAIAAAANAAcAAAALAAEAAAANAAYAAAALAAEAAAANAAUAAAALAAEAAAANAAQAAAALAAEAAAANAAMAAAALAAEAAAANAAIAAAALAAEAAAANAAEAAAALAAAAAAAMAAgAAAALAAIAAAAMAAcAAAALAAEAAAAMAAYAAAALAAEAAAAMAAUAAAALAAEAAAAMAAQAAAALAAEAAAAMAAMAAAALAAEAAAAMAAIAAAALAAEAAAAMAAEAAAALAAAAAAALAAgAAAALAAIAAAALAAcAAAALAAEAAAALAAYAAAALAAEAAAALAAUAAAALAAEAAAALAAQAAAALAAEAAAALAAMAAAALAAEAAAALAAIAAAALAAEAAAALAAEAAAALAAAAAAAKAAgAAAALAAIAAAAKAAcAAAALAAEAAAAKAAYAAAALAAEAAAAKAAUAAAALAAEAAAAKAAQAAAALAAEAAAAKAAMAAAALAAEAAAAKAAIAAAALAAEAAAAKAAEAAAALAAAAAAAJAAgAAAALAAIAAAAJAAcAAAALAAEAAAAJAAYAAAALAAEAAAAJAAUAAAALAAEAAAAJAAQAAAALAAEAAAAJAAMAAAALAAEAAAAJAAIAAAALAAEAAAAJAAEAAAALAAAAAAAIAAgAAAALAAIAAAAIAAcAAAALAAEAAAAIAAYAAAALAAEAAAAIAAUAAAALAAEAAAAIAAQAAAALAAEAAAAIAAMAAAALAAEAAAAIAAIAAAALAAEAAAAIAAEAAAALAAAAAAAHAAgAAAALAAIAAAAHAAcAAAALAAEAAAAHAAYAAAALAAEAAAAHAAUAAAALAAEAAAAHAAQAAAALAAEAAAAHAAMAAAALAAEAAAAHAAIAAAALAAEAAAAHAAEAAAALAAAAAAAGAAgAAAALAAIAAAAGAAcAAAALAAEAAAAGAAYAAAALAAEAAAAGAAUAAAALAAEAAAAGAAQAAAALAAEAAAAGAAMAAAALAAEAAAAGAAIAAAALAAEAAAAGAAEAAAALAAAAAAAFAAgAAAALAAIAAAAFAAcAAAALAAEAAAAFAAYAAAALAAEAAAAFAAUAAAALAAEAAAAFAAQAAAALAAEAAAAFAAMAAAALAAEAAAAFAAIAAAALAAEAAAAFAAEAAAALAAAAAAAEAAgAAAALAAIAAAAEAAcAAAALAAEAAAAEAAYAAAALAAEAAAAEAAUAAAALAAEAAAAEAAQAAAALAAEAAAAEAAMAAAALAAEAAAAEAAIAAAALAAEAAAAEAAEAAAALAAAAAAABAAQAAAAKAAEAAAABAAMAAAAKAAEAAAACAAgAAAALAAIAAAABAAgAAAAKAAIAAAA=")
+tile_set = SubResource("TileSet_rm1wn")
+
+[node name="Crystal" parent="." instance=ExtResource("2_kmwkd")]
+position = Vector2(147, 143)
+
+[node name="Node" parent="." instance=ExtResource("3_4s80a")]
+position = Vector2(206, 245)
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Resources: 0"
+
+[connection signal="node_selected" from="Node" to="." method="_on_node_selected"]
+[connection signal="resources_generated" from="Node" to="." method="_on_node_resources_generated"]
