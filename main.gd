@@ -3,21 +3,45 @@ extends Node2D
 # UI related
 const NodeScene = preload("res://node.tscn")
 var selected_node = null
-@onready var resource_label: Label = $Label
 
-# Player stats
-var player_resources: int = 0
+@onready var hud: CanvasLayer = $HUD
+
+# Players
+@export var localPlayer: Player
+@export var AIPlayers: Array[Player]
+
+@onready var allPlayers = [localPlayer] + AIPlayers
+
+var level : Node = null
+var node_container : Node = null
 
 func _ready():
-	create_node(get_viewport().get_visible_rect().size / 2)
+	level = $LevelContainer/TestMap
+	node_container = level
 	
-func create_node(position, parent_node=null):
+	var factions = level.find_children("*", "Faction")
+	for faction : Faction in factions:
+		var player_index = faction.player_index
+		var controller = allPlayers[player_index]
+		faction.controller = controller
+		controller.factions.append(faction)
+		faction.resources_updated.connect(controller._on_resources_updated)
+	
+	var nodes = level.find_children("*", "NetworkNode")
+	for node : NetworkNode in nodes:
+		node.structure_selected.connect(_on_node_selected)
+	
+	hud.set_player(localPlayer)
+	
+
+func create_node(position, faction: Faction, parent_node : NetworkNode):
 	var new_node = NodeScene.instantiate()
 	new_node.global_position = position
+	new_node.faction = faction
 	new_node.parent_node = parent_node
-	new_node.node_selected.connect(_on_node_selected)
-	new_node.resources_generated.connect(_on_node_resources_generated)
-	add_child(new_node)
+	new_node.structure_selected.connect(_on_node_selected)
+	new_node.resources_generated.connect(faction._on_node_generated_resources)
+	node_container.add_child(new_node)
 	return new_node
 
 
@@ -26,7 +50,6 @@ func _on_node_selected(node):
 		selected_node.set_selected(false)
 	selected_node = node
 	selected_node.set_selected(true)
-	print(node, " selected")
 
 func unselect():
 	if selected_node:
@@ -36,14 +59,24 @@ func unselect():
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		if selected_node:
-			# If a node is selected, we are in build mode
-			create_node(get_global_mouse_position(), selected_node)
-			selected_node.set_selected(false)
-			selected_node = null
+			var faction = selected_node.faction
+			
+			if not faction:
+				# The selected node is not owned by anyone. Just bail.
+				return
+				
+			if faction.controller != localPlayer:
+				# Selected node is not owned by player. No command to issue.
+				return
+			
+			if faction.can_afford(faction.NODE_BUILD_COST):
+				faction.spend_resources(faction.NODE_BUILD_COST)
+				create_node(get_global_mouse_position(), faction, selected_node)
+
+				selected_node.set_selected(false)
+				selected_node = null
+			else:
+				print("Not enough resources!")
+				
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
 		unselect()
-
-func _on_node_resources_generated(amount: Variant) -> void:
-	player_resources += amount
-	resource_label.text = "Resources: %s" % player_resources
-	print("Total Resources: ", player_resources)
