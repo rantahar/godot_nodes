@@ -1,6 +1,9 @@
 class_name Structure
 extends Node2D
 
+@export var health: int = 100
+@export var faction: Node = null
+
 signal structure_selected(node)
 signal structure_destroyed(structure)
 
@@ -8,7 +11,6 @@ var parent_node = null
 var is_built = false
 var is_selected = false
 
-@export var faction: Node = null
 
 func _ready():
 	if parent_node:
@@ -37,3 +39,9 @@ func set_selected(is_selected: bool):
 func _on_build_timer_timeout() -> void:
 	is_built = true
 	modulate()
+
+func take_damage(amount: int):
+	health -= amount
+	if health <= 0:
+		emit_signal("structure_destroyed", self)
+		queue_free()

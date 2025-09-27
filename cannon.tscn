@@ -41,4 +41,8 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
+[node name="FireRateTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="timeout" from="BuildTimer" to="." method="_on_build_timer_timeout"]
+[connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]
