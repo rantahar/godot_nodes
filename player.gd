@@ -3,7 +3,11 @@ extends Node
 
 signal resources_updated()
 
+const NODE_BUILD_COST = 15
+const MAX_BUILD_DISTANCE = 128
+
 var factions: Array[Faction] = []
+
 
 var resources: int:
 	get:

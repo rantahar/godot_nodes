@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=4 uid="uid://yex0wyy4t8ed"]
 
+[ext_resource type="Script" path="res://test_map.gd" id="1_8p1n1"]
 [ext_resource type="Texture2D" uid="uid://i4semeikqxce" path="res://assets/mapPack_tilesheet.png" id="1_sp4mq"]
 [ext_resource type="PackedScene" uid="uid://cka1bkkxovgvg" path="res://crystal.tscn" id="2_8t7wh"]
 [ext_resource type="Script" path="res://faction.gd" id="4_s2kha"]
-[ext_resource type="PackedScene" uid="uid://cc7i5s4vfuoig" path="res://node.tscn" id="5_imqd4"]
 [ext_resource type="PackedScene" uid="uid://bsaldpf1g2xk8" path="res://cannon.tscn" id="5_uil6w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ntxh5"]
@@ -105,6 +105,7 @@ texture_region_size = Vector2i(64, 64)
 11:1/0/terrains_peering_bit/bottom_side = 0
 11:1/0/terrains_peering_bit/left_side = 0
 11:1/0/terrains_peering_bit/top_side = 0
+11:1/0/custom_data_0 = true
 11:2/0 = 0
 11:2/0/terrain_set = 0
 11:2/0/terrains_peering_bit/right_side = 0
@@ -144,9 +145,12 @@ tile_size = Vector2i(64, 64)
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+custom_data_layer_0/name = "is_buildable"
+custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_ntxh5")
 
-[node name="TestMap" type="Node"]
+[node name="TestMap" type="Node2D"]
+script = ExtResource("1_8p1n1")
 
 [node name="Map" type="TileMapLayer" parent="."]
 position = Vector2(0, 1)
@@ -159,36 +163,26 @@ position = Vector2(147, 143)
 [node name="Crystal2" parent="." instance=ExtResource("2_8t7wh")]
 position = Vector2(984, 472)
 
-[node name="LocalFaction" type="Node" parent="."]
-script = ExtResource("4_s2kha")
-
-[node name="Node" parent="." node_paths=PackedStringArray("faction") instance=ExtResource("5_imqd4")]
-position = Vector2(206, 245)
-faction = NodePath("../LocalFaction")
-
-[node name="EnemyFaction" type="Node" parent="."]
-script = ExtResource("4_s2kha")
-player_index = 1
-
-[node name="EnemyNode" parent="." node_paths=PackedStringArray("faction") instance=ExtResource("5_imqd4")]
-position = Vector2(938, 449)
-faction = NodePath("../EnemyFaction")
-
-[node name="Cannon" parent="." node_paths=PackedStringArray("faction") instance=ExtResource("5_uil6w")]
-position = Vector2(846, 429)
-faction = NodePath("../LocalFaction")
-
-[node name="EnemyFaction2" type="Node" parent="."]
-script = ExtResource("4_s2kha")
-
-[node name="Node2" parent="." node_paths=PackedStringArray("faction") instance=ExtResource("5_imqd4")]
-position = Vector2(860, 226)
-faction = NodePath("../EnemyFaction2")
-
 [node name="Crystal3" parent="." instance=ExtResource("2_8t7wh")]
 position = Vector2(979, 152)
 
 [node name="Crystal4" parent="." instance=ExtResource("2_8t7wh")]
 position = Vector2(173, 453)
 
-[connection signal="resources_generated" from="EnemyNode" to="EnemyFaction" method="_on_node_generated_resources"]
+[node name="Faction" type="Node2D" parent="."]
+position = Vector2(218, 194)
+script = ExtResource("4_s2kha")
+
+[node name="Faction2" type="Node2D" parent="."]
+position = Vector2(938, 458)
+script = ExtResource("4_s2kha")
+player_index = 1
+
+[node name="Faction3" type="Node2D" parent="."]
+position = Vector2(938, 165)
+script = ExtResource("4_s2kha")
+player_index = 2
+
+[node name="Cannon" parent="." node_paths=PackedStringArray("faction") instance=ExtResource("5_uil6w")]
+position = Vector2(846, 429)
+faction = NodePath("../Faction")

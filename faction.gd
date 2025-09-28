@@ -1,7 +1,5 @@
 class_name Faction
-extends Node
-
-const NODE_BUILD_COST = 15
+extends Node2D
 
 signal resources_updated()
 
@@ -18,6 +16,7 @@ func _on_node_generated_resources(amount: int):
 	self.resources += amount
 
 func can_afford(cost: int) -> bool:
+	print(resources, " afford ", cost)
 	return resources >= cost
 
 func spend_resources(cost: int):

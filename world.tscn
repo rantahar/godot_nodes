@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmugxhgpn1ka3"]
+[gd_scene load_steps=6 format=3 uid="uid://dmugxhgpn1ka3"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_s0rs5"]
 [ext_resource type="PackedScene" uid="uid://yex0wyy4t8ed" path="res://test_map.tscn" id="3_81cmm"]
+[ext_resource type="Script" path="res://input_controller.gd" id="5_3vb20"]
 [ext_resource type="Script" path="res://player.gd" id="5_fnshr"]
 [ext_resource type="PackedScene" uid="uid://tfl8g6kp58wu" path="res://hud.tscn" id="6_oemcp"]
 
@@ -21,3 +22,8 @@ script = ExtResource("5_fnshr")
 
 [node name="AIPlayer" type="Node" parent="."]
 script = ExtResource("5_fnshr")
+
+[node name="InputController" type="Node" parent="."]
+script = ExtResource("5_3vb20")
+
+[connection signal="build_button_clicked" from="HUD" to="." method="_on_build_button_pressed"]

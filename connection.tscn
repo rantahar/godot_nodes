@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctfgctnafxj41"]
+
+[ext_resource type="Script" path="res://connection.gd" id="1_kuing"]
+
+[node name="Connection" type="Node2D"]
+script = ExtResource("1_kuing")
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 3.0
+default_color = Color(0.207843, 0.713726, 0.32549, 1)

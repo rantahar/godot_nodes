@@ -7,15 +7,26 @@ extends Node2D
 signal structure_selected(node)
 signal structure_destroyed(structure)
 
-var parent_node = null
+
+var connections: Array[NetworkNode] = []
+
 var is_built = false
 var is_selected = false
 
 
 func _ready():
-	if parent_node:
-		$Line2D.points = [Vector2.ZERO, parent_node.global_position - self.global_position]
 	modulate()
+
+func setup_connections(nodes_to_connect: Array[NetworkNode]):
+	connections = nodes_to_connect
+	if connections.is_empty():
+		return
+		
+	var points = PackedVector2Array()
+	for connected_node in connections:
+		points.append(Vector2.ZERO)
+		points.append(connected_node.global_position - self.global_position)
+		
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
@@ -39,6 +50,9 @@ func set_selected(is_selected: bool):
 func _on_build_timer_timeout() -> void:
 	is_built = true
 	modulate()
+
+func add_connection(connection: Connection):
+	connections.append(connection)
 
 func take_damage(amount: int):
 	health -= amount

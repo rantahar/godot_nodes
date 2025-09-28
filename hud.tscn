@@ -9,3 +9,26 @@ script = ExtResource("1_fw7t4")
 offset_right = 97.0
 offset_bottom = 23.0
 text = "Resources: 0"
+
+[node name="CannonButton" type="Button" parent="."]
+offset_left = -1.0
+offset_top = 57.0
+offset_right = 67.0
+offset_bottom = 88.0
+text = "Cannon"
+
+[node name="MineButton" type="Button" parent="."]
+offset_top = 91.0
+offset_right = 47.0
+offset_bottom = 122.0
+text = "Mine"
+
+[node name="NodeButton" type="Button" parent="."]
+offset_top = 23.0
+offset_right = 50.0
+offset_bottom = 54.0
+text = "Node"
+
+[connection signal="pressed" from="CannonButton" to="." method="_on_cannon_button_pressed"]
+[connection signal="pressed" from="MineButton" to="." method="_on_mine_button_pressed"]
+[connection signal="pressed" from="NodeButton" to="." method="_on_node_button_pressed"]

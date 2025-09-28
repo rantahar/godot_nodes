@@ -2,7 +2,7 @@ class_name Projectile
 extends Area2D
 
 var velocity: Vector2 = Vector2.ZERO
-var damage: int = 100
+var damage: int = 10
 var faction: Faction = null
 
 func _ready():
