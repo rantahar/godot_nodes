@@ -27,3 +27,4 @@ script = ExtResource("5_fnshr")
 script = ExtResource("5_3vb20")
 
 [connection signal="build_button_clicked" from="HUD" to="InputController" method="_on_build_button_pressed"]
+[connection signal="build_approved" from="LocalPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]

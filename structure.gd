@@ -11,11 +11,15 @@ signal structure_destroyed(structure)
 var connections: Array[NetworkNode] = []
 
 var is_built = false
+var is_preview = false
 var is_selected = false
-
 
 func _ready():
 	modulate()
+
+func set_preview():
+	is_preview = true
+	$Area2D.collision_layer = 1 << 31
 
 func setup_connections(nodes_to_connect: Array[NetworkNode]):
 	connections = nodes_to_connect
@@ -34,6 +38,8 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		emit_signal("structure_selected", self)
 
 func modulate():
+	if is_preview:
+		return
 	if is_selected:
 		$Sprite2D.modulate = Color(0.8, 1.2, 0.8) 
 	else:

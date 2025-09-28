@@ -10,13 +10,10 @@ extends Node2D
 @onready var allPlayers = [localPlayer] + AIPlayers
 
 var level : Node = null
-var node_container : Node = null
 
 func _ready():
 	level = $LevelContainer/TestMap
-	for player in allPlayers:
-		player.node_container = level
-		player.inputController = inputController
+	inputController.level = level
 	
 	var factions = level.find_children("*", "Faction")
 	for faction : Faction in factions:

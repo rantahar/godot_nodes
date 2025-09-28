@@ -61,9 +61,9 @@ func scan_for_initial_targets():
 		_on_body_entered(area)
 
 func fire():
-	if not is_instance_valid(current_target):
+	if is_preview or not is_instance_valid(current_target):
 		return
-		
+	
 	var projectile = ProjectileScene.instantiate()
 	get_parent().add_child(projectile)
 	projectile.faction = self.faction
