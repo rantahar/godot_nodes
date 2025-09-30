@@ -1,29 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc7i5s4vfuoig"]
+[gd_scene load_steps=4 format=3 uid="uid://crawasxjjp02p"]
 
 [ext_resource type="Script" path="res://node.gd" id="1_0cqi8"]
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://structure.tscn" id="1_7sg16"]
 [ext_resource type="Texture2D" uid="uid://b6k5fq0x0l1hp" path="res://assets/check_round_greem.png" id="2_dk4xn"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lsq4u"]
-radius = 16.0
-
-[node name="Node" type="Node2D"]
+[node name="node" instance=ExtResource("1_7sg16")]
 script = ExtResource("1_0cqi8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_dk4xn")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_lsq4u")
-
-[node name="Timer" type="Timer" parent="."]
-
-[node name="BuildTimer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-autostart = true
-
-[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="BuildTimer" to="." method="_on_build_timer_timeout"]

@@ -17,3 +17,9 @@ input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["crystals"]]
 shape = SubResource("CircleShape2D_fdyx5")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 16.0
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+avoidance_layers = 2

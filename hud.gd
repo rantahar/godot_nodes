@@ -19,3 +19,6 @@ func _on_cannon_button_pressed() -> void:
 
 func _on_mine_button_pressed() -> void:
 	emit_signal("build_button_clicked", "mine")
+
+func _on_factory_button_pressed() -> void:
+	emit_signal("build_button_clicked", "factory")

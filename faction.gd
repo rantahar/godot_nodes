@@ -5,11 +5,12 @@ signal resources_updated()
 
 @export var player_index: int = 0
 var controller : Player = null
+var structures: Array[Structure] = []
+
 
 var resources: int = 50:
 	set(value):
 		resources = value
-		print("Faction resources updated: ", value, " ", self)
 		emit_signal("resources_updated")
 
 func _on_node_generated_resources(amount: int):
@@ -21,3 +22,6 @@ func can_afford(cost: int) -> bool:
 
 func spend_resources(cost: int):
 	self.resources -= cost
+
+func _on_structure_destroyed(structure):
+	structures.erase(structure)

@@ -21,6 +21,9 @@ func _on_node_selected(node):
 	selected_node.set_selected(true)
 
 func _on_build_button_pressed(mode):
+	if selected_node: 
+		unselect()
+	
 	if is_instance_valid(ghost_preview):
 		ghost_preview.queue_free()
 		ghost_preview = null
@@ -47,18 +50,18 @@ func _process(delta):
 	if is_instance_valid(ghost_preview):
 		var mouse_pos = get_global_mouse_position()
 		ghost_preview.global_position = mouse_pos
-		
-		# Query the level for placement validity
-		var collision_shape_node = ghost_preview.find_child("CollisionShape2D")
-		var shape_resource = collision_shape_node.shape
-		if level.is_build_location_valid(mouse_pos, shape_resource):
-			ghost_preview.modulate = Color(0, 1, 0, 0.5) # Green
+		var structure_data = player.buildable_structures[build_mode]
+		if player.build_location_valid(structure_data, mouse_pos, player.factions, player.MAX_BUILD_DISTANCE):
+			ghost_preview.modulate = Color(0, 1, 0, 0.5)
 		else:
-			ghost_preview.modulate = Color(1, 0, 0, 0.5) # Red
+			ghost_preview.modulate = Color(1, 0, 0, 0.5)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+		if selected_node: 
+			unselect()
+			
 		if not build_mode:
 			return
 		
@@ -69,7 +72,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		build_mode = null
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
-		unselect()
-		ghost_preview.queue_free()
-		ghost_preview = null
-		build_mode = null
+		if is_instance_valid(selected_node):
+			if selected_node is Factory:
+				selected_node.set_rally_point(get_global_mouse_position())
+		else:
+			if is_instance_valid(ghost_preview):
+				ghost_preview.queue_free()
+				ghost_preview = null
+			build_mode = null

@@ -9,11 +9,17 @@ extends Node2D
 
 @onready var allPlayers = [localPlayer] + AIPlayers
 
+# stats
+var start_time_msec: int = 0
+
 var level : Node = null
 
 func _ready():
 	level = $LevelContainer/TestMap
 	inputController.level = level
+	for player in allPlayers:
+		player.level = level
+		player.player_won.connect(_on_player_won)
 	
 	var factions = level.find_children("*", "Faction")
 	for faction : Faction in factions:
@@ -30,4 +36,11 @@ func _ready():
 	
 	hud.set_player(localPlayer)
 	inputController.set_player(localPlayer)
+
+func _on_player_won(player: Player, time_msec: int):
+	var time_seconds = (time_msec - start_time_msec) / 1000.0
+	print("--- PLAYER WINS: %s ---" % player.name)
+	print("Time to win: %.2f seconds" % time_seconds)
 	
+	# Pausing the game is a simple way to end the match
+	get_tree().paused = true

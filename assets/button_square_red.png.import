@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dg7nam4ga3uqs"
-path="res://.godot/imported/button_square_depth_gradient.png-70ab2b78eb11046b50a0fb0ec23b0ee4.ctex"
+uid="uid://7rj6clk0rwvq"
+path="res://.godot/imported/button_square_red.png-69cc7c123f55016f05b7425fd6773218.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/button_square_depth_gradient.png"
-dest_files=["res://.godot/imported/button_square_depth_gradient.png-70ab2b78eb11046b50a0fb0ec23b0ee4.ctex"]
+source_file="res://assets/button_square_red.png"
+dest_files=["res://.godot/imported/button_square_red.png-69cc7c123f55016f05b7425fd6773218.ctex"]
 
 [params]
 

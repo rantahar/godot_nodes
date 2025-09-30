@@ -4,7 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://i4semeikqxce" path="res://assets/mapPack_tilesheet.png" id="1_sp4mq"]
 [ext_resource type="PackedScene" uid="uid://cka1bkkxovgvg" path="res://crystal.tscn" id="2_8t7wh"]
 [ext_resource type="Script" path="res://faction.gd" id="4_s2kha"]
-[ext_resource type="PackedScene" uid="uid://bsaldpf1g2xk8" path="res://cannon.tscn" id="5_uil6w"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ry30h"]
+vertices = PackedVector2Array(979, 168, 984, 456, 976, 458.141, 189, 453, 971, 165.859, 970.141, 464, 995, 152, 1044.95, 106.977, 1043.05, 513, 1000, 472, 997.859, 464, 992.859, 160, 992, 458.141, 987, 165.859, 997.859, 480, 992.859, 144, 965.141, 144, 963, 152, 163, 143, 160.859, 135, 968, 472, 186.859, 461, 965.141, 160, 186.859, 445, 160.859, 151, 181, 439.141, 155, 156.859, 173, 437, 147, 159, 165, 439.141, 992, 485.859, 987, 138.141, 970.141, 480, 181, 466.859, 139, 156.859, 159.141, 445, 971, 138.141, 155, 129.141, 976, 485.859, 979, 136, 106, 106.008, 147, 127, 139, 129.141, 133.141, 135, 131, 143, 106, 513, 133.141, 151, 157, 453, 159.141, 461, 165, 466.859, 173, 469, 984, 488)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(3, 2, 5), PackedInt32Array(6, 7, 8, 9, 10, 11), PackedInt32Array(11, 10, 12, 13), PackedInt32Array(14, 9, 8), PackedInt32Array(7, 6, 15), PackedInt32Array(13, 12, 1, 0), PackedInt32Array(16, 17, 18, 19), PackedInt32Array(3, 5, 20, 21), PackedInt32Array(22, 4, 3, 23), PackedInt32Array(24, 18, 17, 22, 23, 25), PackedInt32Array(26, 24, 25, 27), PackedInt32Array(28, 26, 27, 29), PackedInt32Array(30, 14, 8), PackedInt32Array(7, 15, 31), PackedInt32Array(21, 20, 32, 33), PackedInt32Array(34, 28, 29, 35), PackedInt32Array(36, 16, 19, 37), PackedInt32Array(33, 32, 38), PackedInt32Array(7, 31, 39), PackedInt32Array(40, 7, 39, 36, 37, 41), PackedInt32Array(40, 41, 42), PackedInt32Array(40, 42, 43), PackedInt32Array(40, 43, 44), PackedInt32Array(45, 40, 44, 46), PackedInt32Array(45, 46, 34, 35, 47), PackedInt32Array(45, 47, 48), PackedInt32Array(45, 48, 49), PackedInt32Array(45, 49, 50), PackedInt32Array(8, 45, 50, 33, 38, 51), PackedInt32Array(8, 51, 30)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(96, 96, 1055, 97, 1053, 523, 96, 523)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ntxh5"]
 texture = ExtResource("1_sp4mq")
@@ -152,37 +156,37 @@ sources/0 = SubResource("TileSetAtlasSource_ntxh5")
 [node name="TestMap" type="Node2D"]
 script = ExtResource("1_8p1n1")
 
-[node name="Map" type="TileMapLayer" parent="."]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." groups=["nav_region"]]
+navigation_polygon = SubResource("NavigationPolygon_ry30h")
+navigation_layers = 2
+
+[node name="Map" type="TileMapLayer" parent="NavigationRegion2D"]
 position = Vector2(0, 1)
 tile_map_data = PackedByteArray("AAACAAEAAAALAAAAAAACAAIAAAALAAEAAAABAAIAAAAKAAEAAAABAAEAAAAKAAAAAAADAAIAAAALAAEAAAADAAEAAAALAAAAAAACAAMAAAALAAEAAAADAAMAAAALAAEAAAACAAQAAAALAAEAAAADAAQAAAALAAEAAAABAAcAAAAKAAEAAAABAAYAAAAKAAEAAAACAAYAAAALAAEAAAACAAcAAAALAAEAAAACAAUAAAALAAEAAAABAAUAAAAKAAEAAAADAAUAAAALAAEAAAADAAYAAAALAAEAAAADAAcAAAALAAEAAAADAAgAAAALAAIAAAAQAAgAAAAMAAIAAAAQAAcAAAAMAAEAAAAQAAYAAAAMAAEAAAAQAAUAAAAMAAEAAAAQAAQAAAAMAAEAAAAQAAMAAAAMAAEAAAAQAAIAAAAMAAEAAAAQAAEAAAAMAAAAAAAPAAgAAAALAAIAAAAPAAcAAAALAAEAAAAPAAYAAAALAAEAAAAPAAUAAAALAAEAAAAPAAQAAAALAAEAAAAPAAMAAAALAAEAAAAPAAIAAAALAAEAAAAPAAEAAAALAAAAAAAOAAgAAAALAAIAAAAOAAcAAAALAAEAAAAOAAYAAAALAAEAAAAOAAUAAAALAAEAAAAOAAQAAAALAAEAAAAOAAMAAAALAAEAAAAOAAIAAAALAAEAAAAOAAEAAAALAAAAAAANAAgAAAALAAIAAAANAAcAAAALAAEAAAANAAYAAAALAAEAAAANAAUAAAALAAEAAAANAAQAAAALAAEAAAANAAMAAAALAAEAAAANAAIAAAALAAEAAAANAAEAAAALAAAAAAAMAAgAAAALAAIAAAAMAAcAAAALAAEAAAAMAAYAAAALAAEAAAAMAAUAAAALAAEAAAAMAAQAAAALAAEAAAAMAAMAAAALAAEAAAAMAAIAAAALAAEAAAAMAAEAAAALAAAAAAALAAgAAAALAAIAAAALAAcAAAALAAEAAAALAAYAAAALAAEAAAALAAUAAAALAAEAAAALAAQAAAALAAEAAAALAAMAAAALAAEAAAALAAIAAAALAAEAAAALAAEAAAALAAAAAAAKAAgAAAALAAIAAAAKAAcAAAALAAEAAAAKAAYAAAALAAEAAAAKAAUAAAALAAEAAAAKAAQAAAALAAEAAAAKAAMAAAALAAEAAAAKAAIAAAALAAEAAAAKAAEAAAALAAAAAAAJAAgAAAALAAIAAAAJAAcAAAALAAEAAAAJAAYAAAALAAEAAAAJAAUAAAALAAEAAAAJAAQAAAALAAEAAAAJAAMAAAALAAEAAAAJAAIAAAALAAEAAAAJAAEAAAALAAAAAAAIAAgAAAALAAIAAAAIAAcAAAALAAEAAAAIAAYAAAALAAEAAAAIAAUAAAALAAEAAAAIAAQAAAALAAEAAAAIAAMAAAALAAEAAAAIAAIAAAALAAEAAAAIAAEAAAALAAAAAAAHAAgAAAALAAIAAAAHAAcAAAALAAEAAAAHAAYAAAALAAEAAAAHAAUAAAALAAEAAAAHAAQAAAALAAEAAAAHAAMAAAALAAEAAAAHAAIAAAALAAEAAAAHAAEAAAALAAAAAAAGAAgAAAALAAIAAAAGAAcAAAALAAEAAAAGAAYAAAALAAEAAAAGAAUAAAALAAEAAAAGAAQAAAALAAEAAAAGAAMAAAALAAEAAAAGAAIAAAALAAEAAAAGAAEAAAALAAAAAAAFAAgAAAALAAIAAAAFAAcAAAALAAEAAAAFAAYAAAALAAEAAAAFAAUAAAALAAEAAAAFAAQAAAALAAEAAAAFAAMAAAALAAEAAAAFAAIAAAALAAEAAAAFAAEAAAALAAAAAAAEAAgAAAALAAIAAAAEAAcAAAALAAEAAAAEAAYAAAALAAEAAAAEAAUAAAALAAEAAAAEAAQAAAALAAEAAAAEAAMAAAALAAEAAAAEAAIAAAALAAEAAAAEAAEAAAALAAAAAAABAAQAAAAKAAEAAAABAAMAAAAKAAEAAAACAAgAAAALAAIAAAABAAgAAAAKAAIAAAA=")
 tile_set = SubResource("TileSet_rm1wn")
 
-[node name="Crystal" parent="." instance=ExtResource("2_8t7wh")]
+[node name="Crystal" parent="NavigationRegion2D" instance=ExtResource("2_8t7wh")]
 position = Vector2(147, 143)
 
-[node name="Crystal2" parent="." instance=ExtResource("2_8t7wh")]
+[node name="Crystal2" parent="NavigationRegion2D" instance=ExtResource("2_8t7wh")]
 position = Vector2(984, 472)
 
-[node name="Crystal3" parent="." instance=ExtResource("2_8t7wh")]
+[node name="Crystal3" parent="NavigationRegion2D" instance=ExtResource("2_8t7wh")]
 position = Vector2(979, 152)
 
-[node name="Crystal4" parent="." instance=ExtResource("2_8t7wh")]
+[node name="Crystal4" parent="NavigationRegion2D" instance=ExtResource("2_8t7wh")]
 position = Vector2(173, 453)
 
-[node name="Faction" type="Node2D" parent="."]
+[node name="Faction" type="Node2D" parent="NavigationRegion2D"]
 position = Vector2(218, 194)
 script = ExtResource("4_s2kha")
 
-[node name="Faction2" type="Node2D" parent="."]
-position = Vector2(938, 458)
+[node name="Faction2" type="Node2D" parent="NavigationRegion2D"]
+position = Vector2(907, 430)
 script = ExtResource("4_s2kha")
 player_index = 1
 
-[node name="Faction3" type="Node2D" parent="."]
+[node name="Faction3" type="Node2D" parent="NavigationRegion2D"]
 position = Vector2(938, 165)
 script = ExtResource("4_s2kha")
 player_index = 2
-
-[node name="Cannon" parent="." node_paths=PackedStringArray("faction") instance=ExtResource("5_uil6w")]
-position = Vector2(846, 429)
-faction = NodePath("../Faction")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm48ukfjm7o21"]
+
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://structure.tscn" id="1_t1lhj"]
+[ext_resource type="Script" path="res://factory.gd" id="2_85ayf"]
+[ext_resource type="Texture2D" uid="uid://7rj6clk0rwvq" path="res://assets/button_square_red.png" id="2_wv2ad"]
+
+[node name="factory" instance=ExtResource("1_t1lhj")]
+script = ExtResource("2_85ayf")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_wv2ad")
+
+[node name="ProductionTimer" type="Timer" parent="." index="3"]
+wait_time = 5.0
+
+[node name="SpawnPoint" type="Marker2D" parent="." index="4"]
+position = Vector2(0, 42)
+
+[node name="RallyPoint" type="Marker2D" parent="." index="5"]
+position = Vector2(0, 55)
+
+[connection signal="timeout" from="ProductionTimer" to="." method="_on_production_timer_timeout"]

@@ -57,6 +57,7 @@ func find_new_target():
 
 func scan_for_initial_targets():
 	var initial_areas = targeting_area.get_overlapping_areas()
+	print("initial_areas ", initial_areas)
 	for area in initial_areas:
 		_on_body_entered(area)
 

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [global_group]
 
 crystals="All crystal resources"
+nav_region="navigation regions"
 
 [rendering]
 

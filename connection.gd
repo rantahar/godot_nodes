@@ -8,6 +8,8 @@ var node_b: Structure
 func update_line_visuals():
 	if is_instance_valid(node_a) and is_instance_valid(node_b):
 		line.points = [node_a.global_position, node_b.global_position]
+		print(node_a.faction.controller.color)
+		line.default_color = node_a.faction.controller.color
 
 func get_other_node(this_node: Structure):
 	if this_node == node_a:

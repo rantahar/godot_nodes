@@ -1,49 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsaldpf1g2xk8"]
+[gd_scene load_steps=6 format=3 uid="uid://dyuxxdn461a3a"]
 
 [ext_resource type="Script" path="res://cannon.gd" id="1_8ja70"]
-[ext_resource type="Texture2D" uid="uid://dg7nam4ga3uqs" path="res://assets/button_square_depth_gradient.png" id="2_yfexf"]
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://structure.tscn" id="1_43c3j"]
+[ext_resource type="Texture2D" uid="uid://dg7nam4ga3uqs" path="res://assets/button_square_bluet.png" id="2_yfexf"]
 [ext_resource type="Texture2D" uid="uid://bvfjjefifv1po" path="res://assets/arrow_basic_e.png" id="3_x1ji2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xvwo1"]
-size = Vector2(32, 32)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_a8pi4"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_cwjnv"]
 radius = 128.0
 
-[node name="Cannon" type="Node2D"]
+[node name="cannon" instance=ExtResource("1_43c3j")]
 script = ExtResource("1_8ja70")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" parent="." index="0"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_yfexf")
 
-[node name="Turret" type="Sprite2D" parent="Sprite2D"]
+[node name="Turret" type="Sprite2D" parent="Sprite2D" index="0"]
 z_index = 1
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_x1ji2")
 offset = Vector2(8, 0)
 
-[node name="Muzzle" type="Marker2D" parent="Sprite2D/Turret"]
+[node name="Muzzle" type="Marker2D" parent="Sprite2D/Turret" index="0"]
 position = Vector2(14, 0)
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_xvwo1")
-
-[node name="TargetingArea" type="Area2D" parent="."]
+[node name="TargetingArea" type="Area2D" parent="." index="3"]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingArea"]
-shape = SubResource("CircleShape2D_a8pi4")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingArea" index="0"]
+shape = SubResource("CircleShape2D_cwjnv")
 
-[node name="BuildTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-autostart = true
-
-[node name="FireRateTimer" type="Timer" parent="."]
+[node name="FireRateTimer" type="Timer" parent="." index="4"]
 wait_time = 2.0
 
-[connection signal="timeout" from="BuildTimer" to="." method="_on_build_timer_timeout"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]
