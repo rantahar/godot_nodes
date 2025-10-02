@@ -17,6 +17,10 @@ func disable():
 	is_active = false
 	set_process(false)
 
+func toggle():
+	# Some abilites can be toggled using the toggle active UI button
+	pass
+
 func charge_ability_cost(cost):
 	if cost > 0:
 		return parent.charge_ability_cost(cost)

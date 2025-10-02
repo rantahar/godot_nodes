@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4i8tgtj8c0ba"]
+
+[ext_resource type="Texture2D" uid="uid://bm5e0kkoo08vo" path="res://assets/kenney_ui-pack/PNG/Green/Default/slide_horizontal_color.png" id="1_mqbk7"]
+[ext_resource type="Script" path="res://health_bar.gd" id="2_1f4km"]
+
+[node name="HealthBar" type="TextureProgressBar"]
+offset_right = 96.0
+offset_bottom = 16.0
+value = 100.0
+texture_progress = ExtResource("1_mqbk7")
+script = ExtResource("2_1f4km")

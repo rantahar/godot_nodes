@@ -34,6 +34,7 @@ func disable():
 	current_target = null
 	targets_in_range.clear()
 
+
 func _on_area_entered(area: Node2D):
 	var body = area.get_parent()
 	if (body is Structure or body is Unit) and body.faction != parent.faction:

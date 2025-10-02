@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://doiybi8kglyg8"]
+[gd_scene load_steps=8 format=3 uid="uid://doiybi8kglyg8"]
 
 [ext_resource type="Script" path="res://scenes/units/unit.gd" id="1_2bwxn"]
 [ext_resource type="Script" path="res://scenes/resources/UnitStats.gd" id="2_7wbu3"]
 [ext_resource type="Texture2D" uid="uid://dhvmmi13eggqo" path="res://assets/selection_circle.png" id="3_8j228"]
+[ext_resource type="Texture2D" uid="uid://bm5e0kkoo08vo" path="res://assets/kenney_ui-pack/PNG/Green/Default/slide_horizontal_color.png" id="4_tvufk"]
 
 [sub_resource type="Resource" id="Resource_j7tye"]
 script = ExtResource("2_7wbu3")
@@ -46,3 +47,12 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_kps8i")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -5.0
+offset_top = -6.0
+offset_right = 91.0
+offset_bottom = 10.0
+scale = Vector2(0.11, 0.11)
+value = 100.0
+texture_progress = ExtResource("4_tvufk")

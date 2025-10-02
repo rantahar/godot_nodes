@@ -40,6 +40,7 @@ script = ExtResource("6_bcaeg")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="build_button_clicked" from="HUD" to="InputController" method="_on_build_button_pressed"]
+[connection signal="production_toggle_clicked" from="HUD" to="InputController" method="_on_production_toggle_pressed"]
 [connection signal="structure_selected" from="LevelContainer/TestMap" to="InputController" method="_on_node_selected"]
 [connection signal="build_approved" from="LocalPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]
 [connection signal="build_approved" from="AIPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]

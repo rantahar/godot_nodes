@@ -48,3 +48,4 @@ text = "Stop Production
 [connection signal="pressed" from="GridContainer/NodeButton" to="." method="_on_node_button_pressed"]
 [connection signal="pressed" from="GridContainer/CannonButton" to="." method="_on_cannon_button_pressed"]
 [connection signal="pressed" from="GridContainer/FactoryButton" to="." method="_on_factory_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_production_toggle_pressed"]

@@ -40,6 +40,11 @@ func _on_build_button_pressed(mode):
 		ghost_preview.set_preview()
 		level.add_child(ghost_preview)
 
+func _on_production_toggle_pressed():
+	for object in selected_objects:
+		if is_instance_valid(object):
+			object.toggle_abilities()
+
 func _process(delta):
 	if is_instance_valid(ghost_preview):
 		var mouse_pos = get_global_mouse_position()
@@ -129,9 +134,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			if build_mode:
 				var mouse_pos = get_global_mouse_position()
 				player.build_structure(mouse_pos, build_mode)
-				ghost_preview.queue_free()
-				ghost_preview = null
-				build_mode = null
+				if not Input.is_key_pressed(KEY_SHIFT):
+					ghost_preview.queue_free()
+					ghost_preview = null
+					build_mode = null
 				return 
 			
 			var drag_end_pos = get_viewport().get_mouse_position() 

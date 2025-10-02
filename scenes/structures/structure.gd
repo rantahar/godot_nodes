@@ -18,6 +18,12 @@ var is_preview = false
 
 func _ready():
 	disable_abilities()
+	$HealthBar.max_value = max_health
+	$HealthBar.value = health
+	var shape_size = $CollisionShape2D.shape.get_rect().size
+	$HealthBar.position.y = -shape_size.y/2-8
+	$HealthBar.position.x = -shape_size.x/2 - 4
+	$HealthBar.scale.x = (shape_size.x + 8) / 96
 	modulate()
 
 func disable_abilities():
@@ -30,8 +36,14 @@ func enable_abilities():
 		if child is Ability and not child.is_active:
 			child.enable()
 
+func toggle_abilities():
+	for child in get_children():
+		if child is Ability:
+			child.toggle()
+
 func set_preview():
 	is_preview = true
+	$HealthBar.visible = false
 	$Area2D.collision_layer = 1 << 31
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
@@ -72,10 +84,10 @@ func charge_ability_cost(cost) -> bool:
 func _on_maintenance_tick():
 	var maintained = faction.charge_maintenance(maintenance_cost)
 	if maintained:
-		enable_abilities()
+		#enable_abilities()
 		repair(1)
 	else:
-		disable_abilities()
+		#disable_abilities()
 		take_damage(1)
 
 func add_connection(connection: Connection):
@@ -93,7 +105,7 @@ func repair(amount: int):
 
 func take_damage(amount: int):
 	health -= amount
-	print(self, health)
+	$HealthBar.value = health
 	if health <= 0:
 		emit_signal("structure_destroyed", self)
 		_on_destroyed()
