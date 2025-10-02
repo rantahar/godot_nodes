@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyuxxdn461a3a"]
+
+[ext_resource type="Script" path="res://scenes/structures/cannon.gd" id="1_8ja70"]
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_43c3j"]
+[ext_resource type="Texture2D" uid="uid://dg7nam4ga3uqs" path="res://assets/button_square_bluet.png" id="2_yfexf"]
+[ext_resource type="Texture2D" uid="uid://bvfjjefifv1po" path="res://assets/arrow_basic_e.png" id="3_x1ji2"]
+[ext_resource type="PackedScene" uid="uid://bstq6kxq5up0o" path="res://scenes/abilities/fire_ability.tscn" id="5_sd73e"]
+[ext_resource type="PackedScene" uid="uid://17206mbfdj15" path="res://scenes/projectiles/projectile.tscn" id="6_vvg0n"]
+
+[node name="cannon" instance=ExtResource("1_43c3j")]
+script = ExtResource("1_8ja70")
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_yfexf")
+
+[node name="Turret" type="Sprite2D" parent="Sprite2D" index="0"]
+z_index = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_x1ji2")
+offset = Vector2(8, 0)
+
+[node name="NavigationObstacle2D" parent="." index="4"]
+radius = 0.0
+vertices = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="FireAbility" parent="." index="5" instance=ExtResource("5_sd73e")]
+scale = Vector2(0.75, 0.75)
+ProjectileScene = ExtResource("6_vvg0n")
+projectile_speed = 80.0
+detection_range = 256.0
+ability_cost = 5
+
+[node name="SelectionIndicator" parent="." index="6"]
+scale = Vector2(1.5, 1.5)

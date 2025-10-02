@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://tfl8g6kp58wu"]
+
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_fw7t4"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_fw7t4")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 113.0
+offset_bottom = 39.0
+text = "Crystal: 0"
+
+[node name="GridContainer" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 15.0
+offset_top = 45.0
+offset_right = 153.0
+offset_bottom = 181.0
+columns = 2
+
+[node name="MineButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Mine"
+
+[node name="NodeButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Node"
+
+[node name="CannonButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Cannon"
+
+[node name="FactoryButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Factory"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 16.0
+offset_top = 601.0
+offset_right = 149.0
+offset_bottom = 632.0
+text = "Stop Production
+"
+
+[connection signal="pressed" from="GridContainer/MineButton" to="." method="_on_mine_button_pressed"]
+[connection signal="pressed" from="GridContainer/NodeButton" to="." method="_on_node_button_pressed"]
+[connection signal="pressed" from="GridContainer/CannonButton" to="." method="_on_cannon_button_pressed"]
+[connection signal="pressed" from="GridContainer/FactoryButton" to="." method="_on_factory_button_pressed"]

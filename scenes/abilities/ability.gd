@@ -1,0 +1,23 @@
+class_name Ability
+extends Node2D
+
+var parent: Node2D
+var is_active = true
+@export var ability_cost: int = 1
+
+func _ready():
+	parent = get_parent()
+	enable()
+
+func enable():
+	is_active = true
+	set_process(true)
+
+func disable():
+	is_active = false
+	set_process(false)
+
+func charge_ability_cost(cost):
+	if cost > 0:
+		return parent.charge_ability_cost(cost)
+	return false

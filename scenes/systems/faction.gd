@@ -1,0 +1,33 @@
+class_name Faction
+extends Node2D
+
+signal resources_updated()
+
+@export var player_index: int = 0
+var controller : Player = null
+var structures: Array[Structure] = []
+
+
+var resources: int = 200:
+	set(value):
+		resources = value
+		emit_signal("resources_updated")
+
+func _on_node_generated_resources(amount: int):
+	self.resources += amount
+
+func can_afford(cost: int) -> bool:
+	return resources >= cost
+
+func spend_resources(cost: int):
+	self.resources -= cost
+
+func charge_maintenance(cost: int):
+	if can_afford(cost):
+		spend_resources(cost)
+		return true
+	else:
+		return false
+
+func _on_structure_destroyed(structure):
+	structures.erase(structure)

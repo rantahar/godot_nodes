@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://qxm1hgr3lot"]
+
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_1u0rm"]
+[ext_resource type="Script" path="res://scenes/structures/mine.gd" id="1_ain4l"]
+[ext_resource type="Texture2D" uid="uid://u8yjbnbalvcm" path="res://assets/check_round_color_blue.png" id="1_iry2s"]
+[ext_resource type="PackedScene" uid="uid://c5q4tjl04emlr" path="res://scenes/abilities/mine_ability.tscn" id="4_rnxtl"]
+
+[node name="mine" instance=ExtResource("1_1u0rm")]
+script = ExtResource("1_ain4l")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("1_iry2s")
+
+[node name="MineAbility" parent="." index="5" instance=ExtResource("4_rnxtl")]
+
+[connection signal="resources_generated" from="MineAbility" to="." method="_on_resouce_generated"]

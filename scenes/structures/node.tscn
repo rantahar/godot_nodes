@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://crawasxjjp02p"]
+
+[ext_resource type="Script" path="res://scenes/structures/node.gd" id="1_0cqi8"]
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_7sg16"]
+[ext_resource type="Texture2D" uid="uid://b6k5fq0x0l1hp" path="res://assets/check_round_greem.png" id="2_dk4xn"]
+
+[node name="node" instance=ExtResource("1_7sg16")]
+script = ExtResource("1_0cqi8")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_dk4xn")

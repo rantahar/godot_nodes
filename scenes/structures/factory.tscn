@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm48ukfjm7o21"]
+
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_t1lhj"]
+[ext_resource type="Script" path="res://scenes/structures/factory.gd" id="2_85ayf"]
+[ext_resource type="Texture2D" uid="uid://7rj6clk0rwvq" path="res://assets/button_square_red.png" id="2_wv2ad"]
+[ext_resource type="PackedScene" uid="uid://b0iovj8k0md8v" path="res://scenes/abilities/unit_produce_ability.tscn" id="4_x2hnn"]
+
+[node name="factory" instance=ExtResource("1_t1lhj")]
+script = ExtResource("2_85ayf")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_wv2ad")
+
+[node name="RallyPoint" type="Marker2D" parent="." index="3"]
+position = Vector2(0, 55)
+
+[node name="NavigationObstacle2D" parent="." index="4"]
+radius = 0.0
+vertices = PackedVector2Array(-28, -28, 28, -28, 28, 28, -28, 28)
+
+[node name="SelectionIndicator" parent="." index="5"]
+scale = Vector2(2.5, 2.5)
+
+[node name="UnitProduceAbility" parent="." index="6" instance=ExtResource("4_x2hnn")]
+ability_cost = 5

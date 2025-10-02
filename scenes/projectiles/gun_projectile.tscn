@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckpiper3s4vpb"]
+
+[ext_resource type="PackedScene" uid="uid://17206mbfdj15" path="res://scenes/projectiles/projectile.tscn" id="1_qml56"]
+[ext_resource type="Texture2D" uid="uid://7rj6clk0rwvq" path="res://assets/button_square_red.png" id="2_cqeda"]
+
+[node name="GunProjectile" instance=ExtResource("1_qml56")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 0)
+
+[node name="Sprite2D" parent="." index="1"]
+rotation = 1.57547
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_cqeda")

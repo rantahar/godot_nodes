@@ -1,0 +1,11 @@
+class_name Cannon
+extends Structure
+
+const ProjectileScene = preload("res://scenes/projectiles/projectile.tscn")
+
+@onready var turret: Sprite2D = $Sprite2D/Turret
+@onready var fire_ability : Ability = $FireAbility
+
+func _process(delta):
+	if is_instance_valid(fire_ability.current_target):
+		turret.look_at(fire_ability.current_target.global_position)

@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmugxhgpn1ka3"]
+
+[ext_resource type="Script" path="res://scenes/systems/main.gd" id="1_wvuob"]
+[ext_resource type="PackedScene" uid="uid://tfl8g6kp58wu" path="res://scenes/ui/hud.tscn" id="2_wfoj6"]
+[ext_resource type="PackedScene" uid="uid://yex0wyy4t8ed" path="res://scenes/levels/test_map.tscn" id="3_wgkm6"]
+[ext_resource type="Script" path="res://scenes/systems/player.gd" id="4_e6spv"]
+[ext_resource type="Script" path="res://scenes/systems/AIPlayer.gd" id="5_la7jx"]
+[ext_resource type="Script" path="res://scenes/ui/input_controller.gd" id="6_bcaeg"]
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("localPlayer", "AIPlayers")]
+script = ExtResource("1_wvuob")
+localPlayer = NodePath("LocalPlayer")
+AIPlayers = [NodePath("AIPlayer")]
+
+[node name="HUD" parent="." instance=ExtResource("2_wfoj6")]
+
+[node name="SelectionBox" type="ColorRect" parent="HUD"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0.827451, 0, 0.290196)
+
+[node name="LevelContainer" type="Node" parent="."]
+
+[node name="TestMap" parent="LevelContainer" instance=ExtResource("3_wgkm6")]
+
+[node name="LocalPlayer" type="Node" parent="."]
+script = ExtResource("4_e6spv")
+
+[node name="AIPlayer" type="Node" parent="."]
+script = ExtResource("5_la7jx")
+color = Color(1, 0, 0, 1)
+
+[node name="DecisionTimer" type="Timer" parent="AIPlayer"]
+autostart = true
+
+[node name="InputController" type="Node2D" parent="."]
+script = ExtResource("6_bcaeg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="build_button_clicked" from="HUD" to="InputController" method="_on_build_button_pressed"]
+[connection signal="structure_selected" from="LevelContainer/TestMap" to="InputController" method="_on_node_selected"]
+[connection signal="build_approved" from="LocalPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]
+[connection signal="build_approved" from="AIPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]

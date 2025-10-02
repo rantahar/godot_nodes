@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c48k251wumxqm"]
+
+[ext_resource type="Script" path="res://scenes/abilities/ability.gd" id="1_rjkqq"]
+
+[node name="Ability" type="Node2D"]
+rotation = -0.00034229
+script = ExtResource("1_rjkqq")
