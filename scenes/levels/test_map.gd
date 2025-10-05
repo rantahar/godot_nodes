@@ -70,10 +70,6 @@ func create_connection(node_a: Structure, node_b: Structure):
 func get_connecting_nodes(position, distance, all = false):
 	var connections = []
 	var objects = find_objects_at(position, distance)
-	for node in objects:
-		if node is Structure:
-			if all or node is NetworkNode:
-				connections.append(node)
 	return connections
 
 func find_connection_for_structure(position, max_distance, factions, all):
@@ -97,15 +93,11 @@ func is_structure_location_occupied(structure_data, position):
 func _on_structure_destroyed(structure):
 	bake_navigation_polygon()
 
-func _on_build_approved(structure_data, position, faction, connections):
+func _on_build_approved(structure_data, expansion, faction):
 	var new_node = structure_data.scene.instantiate()
-	new_node.global_position = position
 	new_node.faction = faction
-	faction.structures.append(new_node)
-	add_child(new_node)
-	for neighbor in connections:
-		create_connection(new_node, neighbor)
-	
+	expansion.add_child(new_node)
+
 	new_node.structure_destroyed.connect(faction._on_structure_destroyed)
 	new_node.structure_destroyed.connect(_on_structure_destroyed)
 	if structure_data.generates_resource:
