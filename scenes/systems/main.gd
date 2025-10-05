@@ -23,21 +23,16 @@ func _ready():
 		player.level = level
 		player.player_won.connect(_on_player_won)
 	
-	var factions = level.find_children("*", "Faction")
-	for faction : Faction in factions:
-		var player_index = faction.player_index
+	var expansions = level.find_children("*", "ExpansionNode")
+	for expansion : ExpansionNode in expansions:
+		var player_index = expansion.player_start_index
 		if player_index >= 0 and player_index < allPlayers.size():
 			var controller = allPlayers[player_index]
-			faction.controller = controller
-			controller.factions.append(faction)
-			faction.resources_updated.connect(controller._on_resources_updated)
-			controller.build_structure(faction.global_position, "network_node", true)
-		else:
-			faction.queue_free()
+			controller.factions.append(Faction.new())
+			controller.build_structure(expansion, "main_building", true)
 	
 	hud.set_player(localPlayer)
 	inputController.set_player(localPlayer)
-	camera.global_position = localPlayer.factions[0].global_position
 
 func _on_player_won(player: Player, time_msec: int):
 	var time_seconds = (time_msec - start_time_msec) / 1000.0

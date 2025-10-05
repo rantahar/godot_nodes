@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://yex0wyy4t8ed"]
+[gd_scene load_steps=8 format=4 uid="uid://yex0wyy4t8ed"]
 
 [ext_resource type="Script" path="res://scenes/levels/test_map.gd" id="1_8p1n1"]
 [ext_resource type="Texture2D" uid="uid://i4semeikqxce" path="res://assets/mapPack_tilesheet.png" id="1_sp4mq"]
 [ext_resource type="PackedScene" uid="uid://cka1bkkxovgvg" path="res://scenes/map_features/crystal.tscn" id="2_8t7wh"]
-[ext_resource type="Script" path="res://scenes/systems/faction.gd" id="4_s2kha"]
-[ext_resource type="PackedScene" uid="uid://dyuxxdn461a3a" path="res://scenes/structures/cannon.tscn" id="5_001x7"]
+[ext_resource type="PackedScene" uid="uid://cet1qjpxrsuw0" path="res://scenes/systems/ExpansionNode.tscn" id="4_fj8ed"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ry30h"]
 vertices = PackedVector2Array(1008, 143, 1044.95, 106.977, 1043.05, 513, 1008, 453, 1004.78, 441, 1004.78, 155, 996, 163.781, 996, 432.219, 1004.78, 465, 1004.78, 131, 984, 167, 984, 429, 996, 473.781, 996, 122.219, 171, 143, 963.219, 131, 960, 143, 167.781, 155, 167.781, 131, 972, 122.219, 963.219, 155, 159, 163.781, 972, 163.781, 972, 432.219, 171, 453, 963.219, 441, 960, 453, 167.781, 465, 167.781, 441, 963.219, 465, 159, 473.781, 984, 477, 106, 513, 972, 473.781, 147, 477, 159, 122.219, 984, 119, 159, 432.219, 147, 167, 147, 429, 135, 163.781, 135, 432.219, 126.219, 155, 126.219, 441, 106, 106.008, 123, 143, 135, 473.781, 126.219, 465, 123, 453, 126.219, 131, 135, 122.219, 147, 119)
@@ -165,32 +164,42 @@ position = Vector2(0, 1)
 tile_map_data = PackedByteArray("AAACAAEAAAALAAAAAAACAAIAAAALAAEAAAABAAIAAAAKAAEAAAABAAEAAAAKAAAAAAADAAIAAAALAAEAAAADAAEAAAALAAAAAAACAAMAAAALAAEAAAADAAMAAAALAAEAAAACAAQAAAALAAEAAAADAAQAAAALAAEAAAABAAcAAAAKAAEAAAABAAYAAAAKAAEAAAACAAYAAAALAAEAAAACAAcAAAALAAEAAAACAAUAAAALAAEAAAABAAUAAAAKAAEAAAADAAUAAAALAAEAAAADAAYAAAALAAEAAAADAAcAAAALAAEAAAADAAgAAAALAAIAAAAQAAgAAAAMAAIAAAAQAAcAAAAMAAEAAAAQAAYAAAAMAAEAAAAQAAUAAAAMAAEAAAAQAAQAAAAMAAEAAAAQAAMAAAAMAAEAAAAQAAIAAAAMAAEAAAAQAAEAAAAMAAAAAAAPAAgAAAALAAIAAAAPAAcAAAALAAEAAAAPAAYAAAALAAEAAAAPAAUAAAALAAEAAAAPAAQAAAALAAEAAAAPAAMAAAALAAEAAAAPAAIAAAALAAEAAAAPAAEAAAALAAAAAAAOAAgAAAALAAIAAAAOAAcAAAALAAEAAAAOAAYAAAALAAEAAAAOAAUAAAALAAEAAAAOAAQAAAALAAEAAAAOAAMAAAALAAEAAAAOAAIAAAALAAEAAAAOAAEAAAALAAAAAAANAAgAAAALAAIAAAANAAcAAAALAAEAAAANAAYAAAALAAEAAAANAAUAAAALAAEAAAANAAQAAAALAAEAAAANAAMAAAALAAEAAAANAAIAAAALAAEAAAANAAEAAAALAAAAAAAMAAgAAAALAAIAAAAMAAcAAAALAAEAAAAMAAYAAAALAAEAAAAMAAUAAAALAAEAAAAMAAQAAAALAAEAAAAMAAMAAAALAAEAAAAMAAIAAAALAAEAAAAMAAEAAAALAAAAAAALAAgAAAALAAIAAAALAAcAAAALAAEAAAALAAYAAAALAAEAAAALAAUAAAALAAEAAAALAAQAAAALAAEAAAALAAMAAAALAAEAAAALAAIAAAALAAEAAAALAAEAAAALAAAAAAAKAAgAAAALAAIAAAAKAAcAAAALAAEAAAAKAAYAAAALAAEAAAAKAAUAAAALAAEAAAAKAAQAAAALAAEAAAAKAAMAAAALAAEAAAAKAAIAAAALAAEAAAAKAAEAAAALAAAAAAAJAAgAAAALAAIAAAAJAAcAAAALAAEAAAAJAAYAAAALAAEAAAAJAAUAAAALAAEAAAAJAAQAAAALAAEAAAAJAAMAAAALAAEAAAAJAAIAAAALAAEAAAAJAAEAAAALAAAAAAAIAAgAAAALAAIAAAAIAAcAAAALAAEAAAAIAAYAAAALAAEAAAAIAAUAAAALAAEAAAAIAAQAAAALAAEAAAAIAAMAAAALAAEAAAAIAAIAAAALAAEAAAAIAAEAAAALAAAAAAAHAAgAAAALAAIAAAAHAAcAAAALAAEAAAAHAAYAAAALAAEAAAAHAAUAAAALAAEAAAAHAAQAAAALAAEAAAAHAAMAAAALAAEAAAAHAAIAAAALAAEAAAAHAAEAAAALAAAAAAAGAAgAAAALAAIAAAAGAAcAAAALAAEAAAAGAAYAAAALAAEAAAAGAAUAAAALAAEAAAAGAAQAAAALAAEAAAAGAAMAAAALAAEAAAAGAAIAAAALAAEAAAAGAAEAAAALAAAAAAAFAAgAAAALAAIAAAAFAAcAAAALAAEAAAAFAAYAAAALAAEAAAAFAAUAAAALAAEAAAAFAAQAAAALAAEAAAAFAAMAAAALAAEAAAAFAAIAAAALAAEAAAAFAAEAAAALAAAAAAAEAAgAAAALAAIAAAAEAAcAAAALAAEAAAAEAAYAAAALAAEAAAAEAAUAAAALAAEAAAAEAAQAAAALAAEAAAAEAAMAAAALAAEAAAAEAAIAAAALAAEAAAAEAAEAAAALAAAAAAABAAQAAAAKAAEAAAABAAMAAAAKAAEAAAACAAgAAAALAAIAAAABAAgAAAAKAAIAAAA=")
 tile_set = SubResource("TileSet_rm1wn")
 
-[node name="Crystal" parent="." instance=ExtResource("2_8t7wh")]
-position = Vector2(147, 143)
+[node name="ExpansionNode" parent="." instance=ExtResource("4_fj8ed")]
+position = Vector2(223, 203)
+connected_nodes = Array[NodePath]([NodePath("../ExpansionNode2"), NodePath("../ExpansionNode3"), NodePath("../ExpansionNode4"), NodePath("../ExpansionNode5")])
+crystals = Array[NodePath]([NodePath("Crystal")])
+player_start_index = 0
 
-[node name="Crystal2" parent="." instance=ExtResource("2_8t7wh")]
-position = Vector2(984, 453)
+[node name="Crystal" parent="ExpansionNode" instance=ExtResource("2_8t7wh")]
+position = Vector2(-76, -60)
 
-[node name="Crystal3" parent="." instance=ExtResource("2_8t7wh")]
-position = Vector2(984, 143)
+[node name="ExpansionNode2" parent="." instance=ExtResource("4_fj8ed")]
+position = Vector2(912, 419)
+connected_nodes = Array[NodePath]([NodePath("../ExpansionNode"), NodePath("../ExpansionNode3"), NodePath("../ExpansionNode4"), NodePath("../ExpansionNode5")])
+crystals = Array[NodePath]([NodePath("Crystal2")])
+player_start_index = 1
 
-[node name="Crystal4" parent="." instance=ExtResource("2_8t7wh")]
-position = Vector2(147, 453)
+[node name="Crystal2" parent="ExpansionNode2" instance=ExtResource("2_8t7wh")]
+position = Vector2(72, 34)
 
-[node name="Faction" type="Node2D" parent="."]
-position = Vector2(218, 194)
-script = ExtResource("4_s2kha")
+[node name="ExpansionNode3" parent="." instance=ExtResource("4_fj8ed")]
+position = Vector2(892, 201)
+connected_nodes = Array[NodePath]([NodePath("../ExpansionNode4"), NodePath("../ExpansionNode2"), NodePath("../ExpansionNode"), NodePath("../ExpansionNode5")])
+crystals = Array[NodePath]([NodePath("Crystal3")])
+player_start_index = 2
 
-[node name="Faction2" type="Node2D" parent="."]
-position = Vector2(907, 430)
-script = ExtResource("4_s2kha")
-player_index = 1
+[node name="Crystal3" parent="ExpansionNode3" instance=ExtResource("2_8t7wh")]
+position = Vector2(92, -58)
 
-[node name="Faction3" type="Node2D" parent="."]
-position = Vector2(938, 165)
-script = ExtResource("4_s2kha")
-player_index = 2
+[node name="ExpansionNode4" parent="." instance=ExtResource("4_fj8ed")]
+position = Vector2(211, 419)
+connected_nodes = Array[NodePath]([NodePath("../ExpansionNode2"), NodePath("../ExpansionNode3"), NodePath("../ExpansionNode"), NodePath("../ExpansionNode5")])
+crystals = Array[NodePath]([NodePath("Crystal4")])
+player_start_index = 3
 
-[node name="cannon" parent="." node_paths=PackedStringArray("faction") instance=ExtResource("5_001x7")]
-position = Vector2(616, 324)
-faction = NodePath("../Faction2")
+[node name="Crystal4" parent="ExpansionNode4" instance=ExtResource("2_8t7wh")]
+position = Vector2(-64, 34)
+
+[node name="ExpansionNode5" parent="." instance=ExtResource("4_fj8ed")]
+position = Vector2(501, 298)
+connected_nodes = Array[NodePath]([NodePath("../ExpansionNode2"), NodePath("../ExpansionNode3"), NodePath("../ExpansionNode4"), NodePath("../ExpansionNode")])

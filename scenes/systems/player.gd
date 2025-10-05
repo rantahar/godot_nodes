@@ -10,14 +10,15 @@ const WIN_CONDITION_RESOURCES = 1000
 var has_won: bool = false
 @export var color: Color = Color.GREEN
 
+var main_buildings: Array[MainBuilding] = []
 var factions: Array[Faction] = []
 var level: LevelLogic = null
 
 var buildable_structures = {
-	"network_node": {
+	"main_building": {
 		"name": "network_node",
-		"scene": preload("res://scenes/structures/node.tscn"),
-		"cost": 15,
+		"scene": preload("res://scenes/structures/main_building.tscn"),
+		"cost": 300,
 		"generates_resource": false
 	},
 	"mine": {
@@ -79,21 +80,23 @@ func build_location_valid(structure_data, position, factions, max_distance):
 	return true
 
 
-func build_structure(mouse_pos, build_mode, free = false) -> void:
+func build_structure(expansion, build_mode, free = false) -> void:
 	if not build_mode:
 		return
 	
-	var faction : Faction = null
-	var connections = []
+	if not expansion.is_free:
+		return
+	
+	var faction = null
 	var structure_data = buildable_structures[build_mode]
 	
 	if not free:
-		if not build_location_valid(structure_data, mouse_pos, factions, MAX_BUILD_DISTANCE):
-			return
+		for connection in expansion.connected_nodes:
+			if not connection.is_free:
+				var main_building = connection.main_building
+				if main_building.faction in factions:
+					faction = main_building.faction
 		
-		var connect_all = structure_data.name == "network_node"
-		connections = level.find_connection_for_structure(mouse_pos, MAX_BUILD_DISTANCE, factions, connect_all)
-		faction = connections[0].faction
 		if not faction.can_afford(structure_data.cost):
 			return
 		else:
@@ -102,10 +105,10 @@ func build_structure(mouse_pos, build_mode, free = false) -> void:
 		faction = factions[0]
 	
 	if structure_data.name == "mine":
-		var crystal = level.get_available_crystal_at(mouse_pos)
+		var crystal = level.get_available_crystal_at(expansion.global_position)
 		if crystal:
-			mouse_pos = crystal.global_position
+			var mouse_pos = crystal.global_position
 		else:
 			return
 
-	emit_signal("build_approved", structure_data, mouse_pos, faction, connections)
+	emit_signal("build_approved", structure_data, expansion, faction)

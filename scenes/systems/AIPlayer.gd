@@ -35,8 +35,7 @@ func execute_state_logic():
 			print("AI State: Building Defenses")
 
 func try_to_build_mine():
-	if factions.is_empty():
-		return
+	return
 	
 	var all_crystals = level.get_all_crystals()
 	for crystal in all_crystals:
