@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0564djdkh2do"]
+[gd_scene load_steps=7 format=3 uid="uid://d0564djdkh2do"]
 
 [ext_resource type="Script" path="res://scenes/structures/structure.gd" id="1_34bv7"]
 [ext_resource type="Texture2D" uid="uid://cddfbhrvw4mgx" path="res://assets/laserRed01.png" id="2_k3etx"]
 [ext_resource type="Texture2D" uid="uid://dhvmmi13eggqo" path="res://assets/selection_circle.png" id="3_yy407"]
 [ext_resource type="Texture2D" uid="uid://bm5e0kkoo08vo" path="res://assets/kenney_ui-pack/PNG/Green/Default/slide_horizontal_color.png" id="4_5up6g"]
+[ext_resource type="Texture2D" uid="uid://dau3bmo8hqm3r" path="res://assets/icon_cross.png" id="5_elkhm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fricf"]
 radius = 16.0
@@ -49,6 +50,12 @@ offset_bottom = -9.0
 scale = Vector2(0.5, 0.5)
 value = 100.0
 texture_progress = ExtResource("4_5up6g")
+
+[node name="DisabledSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-8, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_elkhm")
 
 [connection signal="timeout" from="BuildTimer" to="." method="_on_build_timer_timeout"]
 [connection signal="timeout" from="MaintenanceTimer" to="." method="_on_maintenance_tick"]

@@ -9,7 +9,3 @@ script = ExtResource("1_0cqi8")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_dk4xn")
-
-[node name="HealthBar" parent="." index="7"]
-offset_left = -24.0
-offset_right = 72.0

@@ -13,12 +13,6 @@ func _ready():
 	# Just keep trying to start producing units
 	production_check_timer.timeout.connect(produce_unit)
 
-func toggle():
-	if is_active:
-		disable()
-	else:
-		enable()
-
 func set_rally_point(location):
 	rally_point.global_position = location
 

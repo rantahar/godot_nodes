@@ -15,6 +15,7 @@ var connections: Array[Connection] = []
 
 @export var is_built = false
 var is_preview = false
+var is_active = true
 
 func _ready():
 	disable_abilities()
@@ -37,9 +38,15 @@ func enable_abilities():
 			child.enable()
 
 func toggle_abilities():
-	for child in get_children():
-		if child is Ability:
-			child.toggle()
+	if is_active:
+		is_active = false
+		$DisabledSprite.visible = true
+		disable_abilities()
+	else:
+		is_active = true
+		$DisabledSprite.visible = false
+		enable_abilities()
+	
 
 func set_preview():
 	is_preview = true

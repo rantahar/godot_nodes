@@ -7,8 +7,8 @@ var crystal : Crystal = null
 
 func enable():
 	super()
-	assert(resource_timer.timeout.is_connected(_on_timer_timeout), "Timer not connected")
 	resource_timer.start()
+	assert(resource_timer.timeout.is_connected(_on_timer_timeout), "Timer not connected")
 
 func disable():
 	resource_timer.stop()
