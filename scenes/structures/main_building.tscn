@@ -1,11 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdwnx4rh4bojc"]
+[gd_scene load_steps=5 format=3 uid="uid://cdwnx4rh4bojc"]
 
 [ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_tmvlf"]
 [ext_resource type="Script" path="res://scenes/structures/main_building.gd" id="2_20acv"]
 [ext_resource type="Texture2D" uid="uid://b6k5fq0x0l1hp" path="res://assets/check_round_greem.png" id="3_f3l57"]
+[ext_resource type="PackedScene" uid="uid://c50k7c0xkof47" path="res://scenes/abilities/build_ability.tscn" id="4_n6fam"]
 
 [node name="MainBuilding" instance=ExtResource("1_tmvlf")]
 script = ExtResource("2_20acv")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_f3l57")
+
+[node name="BuildAbility" parent="." index="9" instance=ExtResource("4_n6fam")]
+structure_to_build = "mine"
+action_name = "Mine"
+
+[node name="BuildAbility2" parent="." index="10" instance=ExtResource("4_n6fam")]
+structure_to_build = "factory"
+action_name = "Factory"
+
+[node name="BuildAbility3" parent="." index="11" instance=ExtResource("4_n6fam")]
+structure_to_build = "cannon"
+action_name = "Cannon"

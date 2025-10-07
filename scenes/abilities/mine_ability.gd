@@ -3,6 +3,8 @@ extends Ability
 @onready var resource_timer: Timer = $ResourceTimer
 signal resources_generated(amount)
 
+@export var resource_amount: int = 10
+
 var crystal : Crystal = null
 
 func enable():
@@ -14,4 +16,4 @@ func disable():
 	resource_timer.stop()
 
 func _on_timer_timeout():
-	emit_signal("resources_generated", 10)
+	EventBus.emit_signal("resources_generated", resource_amount, parent.grid)

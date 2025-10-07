@@ -14,8 +14,6 @@ var current_target: Node2D = null
 
 func _ready():
 	super()
-	detection_area.area_entered.connect(_on_area_entered)
-	detection_area.area_exited.connect(_on_area_exited)
 	fire_rate_timer.timeout.connect(_on_fire_rate_timer_timeout)
 	var collision_shape = detection_area.get_node("CollisionShape2D")
 	if collision_shape.shape is CircleShape2D:
@@ -24,20 +22,39 @@ func _ready():
 func enable():
 	super()
 	fire_rate_timer.start()
-	detection_area.monitoring = true
-	fire_rate_timer.start()
 
 func disable():
 	super()
-	detection_area.monitoring = false
 	fire_rate_timer.stop()
 	current_target = null
 	targets_in_range.clear()
 
+func scan_targets():
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsShapeQueryParameters2D.new()
+	var collision_shape = detection_area.get_node("CollisionShape2D")
+	query.shape = collision_shape.shape
+	query.transform = detection_area.global_transform
+	query.collision_mask = 1
+	query.collide_with_areas = true
+	query.exclude = []
+	
+	var results = space_state.intersect_shape(query)
+		
+	var closest_target = null
+	var closest_dist_sq = INF
+	for result in results:
+		var body = result.collider.get_parent().get_parent() # collider -> area -> object
+		if body is Structure and body.grid != parent.grid:
+			var dist_sq = parent.global_position.distance_squared_to(body.global_position)
+			if dist_sq < closest_dist_sq:
+				closest_dist_sq = dist_sq
+				closest_target = body
+	current_target = closest_target
 
 func _on_area_entered(area: Node2D):
 	var body = area.get_parent()
-	if (body is Structure or body is Unit) and body.faction != parent.faction:
+	if (body is Structure or body is Unit) and body.grid != parent.grid:
 		targets_in_range.append(body)
 		if not current_target:
 			current_target = body
@@ -59,6 +76,7 @@ func find_new_target():
 		current_target = null
 
 func fire():
+	scan_targets()
 	if not is_instance_valid(current_target):
 		return
 	
@@ -70,5 +88,5 @@ func fire():
 	projectile.target_position = current_target.global_position
 	projectile.speed = projectile_speed
 	projectile.damage = projectile_damage
-	projectile.faction = parent.faction
+	projectile.grid = parent.grid
 	parent.get_parent().add_child(projectile)

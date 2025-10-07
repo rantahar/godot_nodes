@@ -1,4 +1,4 @@
-class_name Faction
+class_name Grid
 extends Node2D
 
 signal resources_updated()
@@ -7,14 +7,17 @@ signal resources_updated()
 var controller : Player = null
 var structures: Array[Structure] = []
 
+func _init():
+	EventBus.resources_generated.connect(_on_resources_generated)
 
 var resources: int = 200:
 	set(value):
 		resources = value
 		emit_signal("resources_updated")
 
-func _on_node_generated_resources(amount: int):
-	self.resources += amount
+func _on_resources_generated(amount: int, target_grid: Grid):
+	if target_grid == self:
+		self.resources += amount
 
 func can_afford(cost: int) -> bool:
 	return resources >= cost

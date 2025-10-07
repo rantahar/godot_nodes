@@ -12,7 +12,7 @@ func _on_build_timer_timeout():
 	$MineAbility.enable()
 
 func _on_resouce_generated(amount):
-	if is_instance_valid(faction):
+	if is_instance_valid(grid):
 		emit_signal("resources_generated", amount)
 
 func _on_destroyed():

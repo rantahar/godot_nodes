@@ -15,6 +15,10 @@ run/main_scene="res://scenes/systems/world.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EventBus="*res://scenes/systems/event_bus.gd"
+
 [global_group]
 
 crystals="All crystal resources"

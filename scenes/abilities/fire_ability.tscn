@@ -16,6 +16,9 @@ detection_range = 4.0
 
 [node name="DetectionArea" type="Area2D" parent="." index="0"]
 collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
 shape = SubResource("CircleShape2D_kqjyv")

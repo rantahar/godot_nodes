@@ -6,7 +6,7 @@ var velocity: Vector2 = Vector2.ZERO
 var speed: float = 100.0
 var damage: int = 10
 
-var faction: Faction = null
+var grid: Grid = null
 
 func _ready():
 	area_entered.connect(_on_area_entered)
@@ -21,7 +21,7 @@ func _on_area_entered(area: Area2D):
 	var body = area.get_parent()
 
 	
-	if (body is Structure or body is Unit) and body.faction != faction:
+	if (body is Structure or body is Unit) and body.grid != grid:
 		body.take_damage(damage)
 		# Destroy the projectile on impact
 		queue_free()

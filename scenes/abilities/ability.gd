@@ -3,7 +3,8 @@ extends Node2D
 
 var parent: Node2D
 var is_active = true
-@export var ability_cost: int = 1
+@export var has_button = false
+@export var ability_cost: int = 0
 
 func _ready():
 	parent = get_parent()

@@ -36,6 +36,11 @@ autostart = true
 
 [node name="InputController" type="Node2D" parent="."]
 script = ExtResource("6_bcaeg")
+pan_speed = null
+edge_pan_margin = null
+min_zoom = null
+max_zoom = null
+camera_bounds = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -44,3 +49,4 @@ script = ExtResource("6_bcaeg")
 [connection signal="structure_selected" from="LevelContainer/TestMap" to="InputController" method="_on_node_selected"]
 [connection signal="build_approved" from="LocalPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]
 [connection signal="build_approved" from="AIPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]
+[connection signal="selection_changed" from="InputController" to="HUD" method="_on_selection_changed"]

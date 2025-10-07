@@ -1,9 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctfgctnafxj41"]
+[gd_scene load_steps=2 format=3 uid="uid://cxdp7b5q1nfcy"]
 
-[ext_resource type="Script" path="res://scenes/structures/connection.gd" id="1_kuing"]
+[sub_resource type="GDScript" id="GDScript_qsie4"]
+script/source = "class_name Connection
+extends Node2D
+
+var node_a: Structure
+var node_b: Structure
+@onready var line: Line2D = $Line2D
+
+func update_line_visuals():
+	if is_instance_valid(node_a) and is_instance_valid(node_b):
+		line.points = [node_a.global_position, node_b.global_position]
+		line.default_color = node_a.grid.controller.color
+
+func get_other_node(this_node: Structure):
+	if this_node == node_a:
+		return node_b
+	elif this_node == node_b:
+		return node_a
+	return null
+"
 
 [node name="Connection" type="Node2D"]
-script = ExtResource("1_kuing")
+script = SubResource("GDScript_qsie4")
 
 [node name="Line2D" type="Line2D" parent="."]
 width = 3.0

@@ -28,8 +28,11 @@ func _ready():
 		var player_index = expansion.player_start_index
 		if player_index >= 0 and player_index < allPlayers.size():
 			var controller = allPlayers[player_index]
-			controller.factions.append(Faction.new())
+			var init_grid = Grid.new()
+			init_grid.controller = controller
+			controller.grids.append(init_grid)
 			controller.build_structure(expansion, "main_building", true)
+			init_grid.resources_updated.connect(controller._on_resources_updated)
 	
 	hud.set_player(localPlayer)
 	inputController.set_player(localPlayer)

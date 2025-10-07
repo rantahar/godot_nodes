@@ -3,17 +3,17 @@ extends StaticBody2D
 
 @export var max_health: int = 30
 @export var health: int = 30
-@export var faction: Node = null
 @export var maintenance_cost: int = 1
+
+var grid: Node = null
+var expansion: ExpansionNode
 
 signal structure_selected(node)
 signal structure_destroyed(structure)
 
 @onready var selectionIndicator = $SelectionIndicator
 @onready var maintenance_timer: Timer = $MaintenanceTimer
-var connections: Array[Connection] = []
 
-@export var is_empty = true
 @export var is_built = false
 var is_active = true
 
@@ -53,8 +53,6 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		emit_signal("structure_selected", self)
 
 func modulate():
-	if is_empty:
-		$Sprite2D.modulate.a = 0.1
 	if is_built:
 		$Sprite2D.modulate.a = 1.0
 	else:
@@ -78,11 +76,11 @@ func _on_build_timer_timeout() -> void:
 
 func charge_ability_cost(cost) -> bool:
 	if cost > 0:
-		return faction.charge_maintenance(cost)
+		return grid.charge_maintenance(cost)
 	return true
 
 func _on_maintenance_tick():
-	var maintained = faction.charge_maintenance(maintenance_cost)
+	var maintained = grid.charge_maintenance(maintenance_cost)
 	if maintained:
 		repair(1)
 	else:
@@ -100,7 +98,4 @@ func take_damage(amount: int):
 	$HealthBar.value = health
 	if health <= 0:
 		emit_signal("structure_destroyed", self)
-		for connection in connections:
-			if is_instance_valid(connection):
-				connection.queue_free()
 		queue_free()

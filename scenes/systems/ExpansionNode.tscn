@@ -1,6 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://cet1qjpxrsuw0"]
+[gd_scene load_steps=5 format=3 uid="uid://cet1qjpxrsuw0"]
 
 [ext_resource type="Script" path="res://scenes/systems/expansion_node.gd" id="1_otmlr"]
+[ext_resource type="Texture2D" uid="uid://dhvmmi13eggqo" path="res://assets/selection_circle.png" id="2_s4k8t"]
+[ext_resource type="PackedScene" uid="uid://c50k7c0xkof47" path="res://scenes/abilities/build_ability.tscn" id="3_6jr56"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_odo8l"]
+radius = 32.0
 
 [node name="ExpansionNode" type="Node2D"]
 script = ExtResource("1_otmlr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_s4k8t")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_odo8l")
+
+[node name="SelectionIndicator" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_s4k8t")
+
+[node name="BuildAbility" parent="." instance=ExtResource("3_6jr56")]
+structure_to_build = "main_building"
+action_name = "Main Building"

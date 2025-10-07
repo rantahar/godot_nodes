@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c50k7c0xkof47"]
+
+[ext_resource type="PackedScene" uid="uid://c48k251wumxqm" path="res://scenes/abilities/ability.tscn" id="1_dl5ys"]
+[ext_resource type="Script" path="res://scenes/abilities/build_ability.gd" id="2_npr7t"]
+
+[node name="BuildAbility" instance=ExtResource("1_dl5ys")]
+script = ExtResource("2_npr7t")
+structure_to_build = ""
+action_name = ""
+action_icon = null
+has_button = true

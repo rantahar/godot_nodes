@@ -5,7 +5,7 @@
 
 [node name="MineAbility" instance=ExtResource("1_we3wb")]
 script = ExtResource("2_b4qkm")
-ability_cost = 0
+resource_amount = 10
 
 [node name="ResourceTimer" type="Timer" parent="." index="0"]
 

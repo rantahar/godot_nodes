@@ -1,6 +1,8 @@
 # in input_controller.gd
 extends Node2D
 
+signal selection_changed(selected_nodes)
+
 # Camera properties
 var camera: Camera2D
 @export var pan_speed: float = 500.0
@@ -25,20 +27,14 @@ var level = null
 func set_player(player_node):
 	player = player_node
 
-func _on_build_button_pressed(mode):
-	clear_selection()
-	
-	if is_instance_valid(ghost_preview):
-		ghost_preview.queue_free()
-		ghost_preview = null
-	
-	build_mode = mode
-
-	if not build_mode.is_empty():
-		var structure_data = player.buildable_structures[build_mode]
-		ghost_preview = structure_data.scene.instantiate()
-		ghost_preview.set_preview()
-		level.add_child(ghost_preview)
+func _on_build_button_pressed(mode, object):
+	if selected_objects:
+		var expansion = null
+		if  object is Structure:
+			expansion = object.get_parent()
+		else:
+			expansion = object
+		player.build_structure(expansion, mode)
 
 func _on_production_toggle_pressed():
 	for object in selected_objects:
@@ -50,7 +46,7 @@ func _process(delta):
 		var mouse_pos = get_global_mouse_position()
 		ghost_preview.global_position = mouse_pos
 		var structure_data = player.buildable_structures[build_mode]
-		if player.build_location_valid(structure_data, mouse_pos, player.factions, player.MAX_BUILD_DISTANCE):
+		if player.build_location_valid(structure_data, mouse_pos, player.grids, player.MAX_BUILD_DISTANCE):
 			ghost_preview.modulate = Color(0, 1, 0, 0.5)
 		else:
 			ghost_preview.modulate = Color(1, 0, 0, 0.5)
@@ -97,13 +93,16 @@ func select_units_in_box():
 	
 	var box_rect = selection_box.get_rect()
 	for unit in level.get_children():
-		if unit is Unit and unit.faction.controller == player:
+		if (unit is Unit or unit is UnitTest) and unit.grid.controller == player:
 			var unit_screen_pos = get_viewport().get_canvas_transform() * unit.global_position
 			if box_rect.has_point(unit_screen_pos):
 				selected_objects.append(unit)
 	
 	for object in selected_objects:
 		object.selectionIndicator.visible = true
+		
+	print("Selected objects: %s" % selected_objects.size())
+	emit_signal("selection_changed", selected_objects)
 
 func handle_click_selection():
 	var mouse_pos = get_global_mouse_position()
@@ -112,13 +111,21 @@ func handle_click_selection():
 	if not Input.is_key_pressed(KEY_SHIFT):
 		clear_selection()
 
-	if not results.is_empty():
-		var clicked_object = results[0]
-		if clicked_object is Structure and not selected_objects.has(clicked_object):
-			selected_objects.append(clicked_object)
+	var clicked_object = null
+	for result in results:
+		if result is Structure:
+			clicked_object = result
+		elif result is ExpansionNode:
+			if not clicked_object:
+				clicked_object = result
+	
+	if clicked_object and not selected_objects.has(clicked_object):
+		selected_objects.append(clicked_object)
 	
 	for object in selected_objects:
 		object.selectionIndicator.visible = true
+	
+	emit_signal("selection_changed", selected_objects)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

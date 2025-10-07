@@ -5,36 +5,19 @@
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_fw7t4")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 113.0
-offset_bottom = 39.0
-text = "Crystal: 0"
+[node name="ResourcePanel" type="Panel" parent="."]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 180.0
+offset_bottom = 57.0
 
-[node name="GridContainer" type="GridContainer" parent="."]
-custom_minimum_size = Vector2(64, 64)
+[node name="Label" type="Label" parent="ResourcePanel"]
+layout_mode = 0
 offset_left = 15.0
-offset_top = 45.0
-offset_right = 153.0
-offset_bottom = 181.0
-columns = 2
-
-[node name="MineButton" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "Mine"
-
-[node name="NodeButton" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "Node"
-
-[node name="CannonButton" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "Cannon"
-
-[node name="FactoryButton" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "Factory"
+offset_top = 15.0
+offset_right = 112.0
+offset_bottom = 38.0
+text = "Crystal: 0"
 
 [node name="Button" type="Button" parent="."]
 offset_left = 16.0
@@ -44,8 +27,19 @@ offset_bottom = 632.0
 text = "Stop Production
 "
 
-[connection signal="pressed" from="GridContainer/MineButton" to="." method="_on_mine_button_pressed"]
-[connection signal="pressed" from="GridContainer/NodeButton" to="." method="_on_node_button_pressed"]
-[connection signal="pressed" from="GridContainer/CannonButton" to="." method="_on_cannon_button_pressed"]
-[connection signal="pressed" from="GridContainer/FactoryButton" to="." method="_on_factory_button_pressed"]
+[node name="SelectionPanel" type="Panel" parent="."]
+visible = false
+offset_top = 60.0
+offset_right = 181.0
+offset_bottom = 156.0
+
+[node name="GridContainer" type="GridContainer" parent="SelectionPanel"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 11.0
+offset_right = 156.0
+offset_bottom = 147.0
+columns = 2
+
 [connection signal="pressed" from="Button" to="." method="_on_production_toggle_pressed"]

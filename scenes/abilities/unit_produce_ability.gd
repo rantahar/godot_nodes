@@ -6,18 +6,19 @@ extends Ability
 @onready var production_timer: Timer = $ProductionTimer
 @onready var production_check_timer: Timer = $ProductionCheckTimer
 
-var faction : Faction = null
+signal unit_produced(unit_data: Dictionary)
+var grid : Grid = null
 
 func _ready():
 	super()
-	# Just keep trying to start producing units
+	# Just keep trying to start producing units. If disabled, this will fail.
 	production_check_timer.timeout.connect(produce_unit)
 
 func set_rally_point(location):
 	rally_point.global_position = location
 
 func produce_unit():
-	if not is_instance_valid(faction):
+	if not is_instance_valid(grid):
 		return
 	if not is_active:
 		return
@@ -27,15 +28,16 @@ func produce_unit():
 		production_timer.start()
 
 func _on_production_timer_timeout():
-	if not is_instance_valid(faction):
+	if not is_instance_valid(grid):
 		return
-	
-	var new_unit = UnitScene.instantiate()
-	new_unit.faction = faction
-	new_unit.global_position = spawn_point.global_position
-	
-	parent.get_parent().add_child(new_unit)
-	new_unit.set_movement_target(rally_point.global_position)
+
+	var unit_data = {
+		"scene": UnitScene,
+		"grid": grid,
+		"position": $SpawnPoint.global_position,
+		"rally_point": rally_point
+	}
+	EventBus.emit_signal("unit_produced", unit_data)
 	
 	# immediate requeue
 	if is_active:
