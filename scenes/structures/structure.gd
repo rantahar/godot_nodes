@@ -58,6 +58,8 @@ func modulate():
 	else:
 		$Sprite2D.modulate.a = 0.5
 
+func force_navmesh_syn():
+	global_position.x += 0.001 
 
 func _on_build_timer_timeout() -> void:
 	is_built = true
@@ -68,7 +70,8 @@ func _on_build_timer_timeout() -> void:
 	if is_instance_valid(nav_region):
 		$NavigationObstacle2D.affect_navigation_mesh = true
 		$NavigationObstacle2D.carve_navigation_mesh = true
-		nav_region.bake_navigation_polygon()
+		force_navmesh_syn()
+		nav_region.refresh()
 	
 	if maintenance_timer:
 		maintenance_timer.timeout.connect(_on_maintenance_tick)

@@ -35,7 +35,8 @@ func _on_production_timer_timeout():
 		"scene": UnitScene,
 		"grid": grid,
 		"position": $SpawnPoint.global_position,
-		"rally_point": rally_point
+		"init_structure": parent,
+		"target_structure": parent.expansion.structures[0]
 	}
 	EventBus.emit_signal("unit_produced", unit_data)
 	

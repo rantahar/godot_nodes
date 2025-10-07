@@ -45,6 +45,8 @@ func build(structure_data, grid):
 	var new_node = structure_data.scene.instantiate()
 	new_node.grid = grid
 	new_node.expansion = self
+	structures.append(new_node)
+	print(structures)
 	slot.add_child(new_node)
 	slot.is_free = false
 	

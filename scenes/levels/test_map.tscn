@@ -157,7 +157,6 @@ sources/0 = SubResource("TileSetAtlasSource_ntxh5")
 
 [node name="TestMap" type="NavigationRegion2D" groups=["nav_region"]]
 navigation_polygon = SubResource("NavigationPolygon_ry30h")
-navigation_layers = 4
 script = ExtResource("1_8p1n1")
 
 [node name="Map" type="TileMapLayer" parent="."]

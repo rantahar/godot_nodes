@@ -10,7 +10,7 @@ var structures: Array[Structure] = []
 func _init():
 	EventBus.resources_generated.connect(_on_resources_generated)
 
-var resources: int = 200:
+var resources: int = 300:
 	set(value):
 		resources = value
 		emit_signal("resources_updated")

@@ -155,13 +155,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				handle_click_selection()
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
+		var clicked_objects = level.find_objects_at(event.position)
+		var target_structure = null
+		for clicked_object in clicked_objects:
+			if clicked_object is Structure:
+				target_structure = clicked_object
 		for object in selected_objects:
 			if is_instance_valid(object):
-				object.right_click_command(get_global_mouse_position())
-		if is_instance_valid(ghost_preview):
-			ghost_preview.queue_free()
-			ghost_preview = null
-		build_mode = null
+				object.right_click_command(target_structure)
 	
 	# camera controls
 	if event is InputEventMouseButton and camera:

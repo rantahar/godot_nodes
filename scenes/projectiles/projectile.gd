@@ -20,7 +20,6 @@ func _physics_process(delta):
 func _on_area_entered(area: Area2D):
 	var body = area.get_parent()
 
-	
 	if (body is Structure or body is Unit) and body.grid != grid:
 		body.take_damage(damage)
 		# Destroy the projectile on impact
