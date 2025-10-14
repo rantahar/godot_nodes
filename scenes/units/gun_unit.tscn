@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm7408wm1576t"]
+[gd_scene load_steps=5 format=3 uid="uid://dm7408wm1576t"]
 
 [ext_resource type="PackedScene" uid="uid://doiybi8kglyg8" path="res://scenes/units/unit.tscn" id="1_rwbk1"]
+[ext_resource type="Script" path="res://scenes/units/gun_unit.gd" id="2_ie0pe"]
 [ext_resource type="PackedScene" uid="uid://bstq6kxq5up0o" path="res://scenes/abilities/fire_ability.tscn" id="2_tbspj"]
 [ext_resource type="PackedScene" uid="uid://ckpiper3s4vpb" path="res://scenes/projectiles/gun_projectile.tscn" id="3_u0j8s"]
 
 [node name="GunUnit" instance=ExtResource("1_rwbk1")]
+script = ExtResource("2_ie0pe")
+unit_type = "gun_unit"
 
 [node name="FireAbility" parent="." index="4" instance=ExtResource("2_tbspj")]
 ProjectileScene = ExtResource("3_u0j8s")
-projectile_speed = 200.0
-projectile_damage = 1
-detection_range = 64.0
+detection_range = 16.0

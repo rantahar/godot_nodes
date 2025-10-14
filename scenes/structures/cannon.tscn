@@ -15,6 +15,7 @@ size = Vector2(32, 32)
 
 [node name="cannon" instance=ExtResource("1_43c3j")]
 script = ExtResource("1_8ja70")
+building_type = "cannon"
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_vu4e5")
@@ -37,11 +38,10 @@ radius = 0.0
 vertices = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="FireAbility" parent="." index="5" instance=ExtResource("5_sd73e")]
+position = Vector2(10, 0)
 scale = Vector2(0.75, 0.75)
 ProjectileScene = ExtResource("6_vvg0n")
-projectile_speed = 80.0
-detection_range = 256.0
-ability_cost = 5
+detection_range = 128.0
 
 [node name="SelectionIndicator" parent="." index="6"]
 scale = Vector2(1.5, 1.5)

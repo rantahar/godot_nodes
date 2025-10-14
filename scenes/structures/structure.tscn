@@ -23,7 +23,6 @@ texture = ExtResource("2_k3etx")
 [node name="BuildTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 0
@@ -41,6 +40,7 @@ scale = Vector2(1.25, 1.25)
 texture = ExtResource("3_yy407")
 
 [node name="MaintenanceTimer" type="Timer" parent="."]
+wait_time = 5.0
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = -24.0

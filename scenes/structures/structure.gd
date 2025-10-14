@@ -3,9 +3,9 @@ extends StaticBody2D
 
 @export var max_health: int = 30
 @export var health: int = 30
-@export var maintenance_cost: int = 1
 
 var grid: Node = null
+var slot
 var expansion: ExpansionNode
 
 signal structure_selected(node)
@@ -14,11 +14,20 @@ signal structure_destroyed(structure)
 @onready var selectionIndicator = $SelectionIndicator
 @onready var maintenance_timer: Timer = $MaintenanceTimer
 
+@export var building_type = ""
 @export var is_built = false
 var is_active = true
 
 func _ready():
+	var gamedata = GameData
+	var structure_data = gamedata.buildable_structures[building_type]
+	var build_time = structure_data["build_time"]
+	$BuildTimer.wait_time = build_time
+	$BuildTimer.start()
+	max_health = structure_data["max_health"]
+	health = max_health
 	disable_abilities()
+	
 	$HealthBar.max_value = max_health
 	$HealthBar.value = health
 	var shape_size = $CollisionShape2D.shape.get_rect().size
@@ -78,16 +87,10 @@ func _on_build_timer_timeout() -> void:
 		maintenance_timer.start()
 
 func charge_ability_cost(cost) -> bool:
-	if cost > 0:
-		return grid.charge_maintenance(cost)
-	return true
+	return grid.charge_maintenance(cost)
 
 func _on_maintenance_tick():
-	var maintained = grid.charge_maintenance(maintenance_cost)
-	if maintained:
-		repair(1)
-	else:
-		take_damage(1)
+	repair(1)
 
 func right_click_command(location):
 	pass
@@ -96,9 +99,15 @@ func repair(amount: int):
 	if health < max_health:
 		health += 1
 
+func destroy():
+	slot.is_free = true
+	grid.structures.erase(self)
+	emit_signal("structure_destroyed", self)
+	queue_free()
+
 func take_damage(amount: int):
 	health -= amount
+	print("Damage ", health, " ", amount)
 	$HealthBar.value = health
 	if health <= 0:
-		emit_signal("structure_destroyed", self)
-		queue_free()
+		destroy()

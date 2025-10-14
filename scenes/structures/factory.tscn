@@ -13,6 +13,7 @@ size = Vector2(32, 32)
 
 [node name="factory" instance=ExtResource("1_t1lhj")]
 script = ExtResource("2_85ayf")
+building_type = "factory"
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(1, 1)
@@ -34,7 +35,6 @@ radius = 0.0
 vertices = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
 
 [node name="UnitProduceAbility" parent="." index="5" instance=ExtResource("4_x2hnn")]
-ability_cost = 5
 
 [node name="SelectionIndicator" parent="." index="6"]
 scale = Vector2(2.5, 2.5)

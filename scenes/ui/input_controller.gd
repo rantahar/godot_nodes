@@ -9,7 +9,7 @@ var camera: Camera2D
 @export var edge_pan_margin: int = 40
 @export var min_zoom: float = 0.1
 @export var max_zoom: float = 5.0
-@export var camera_bounds: Rect2 = Rect2(0, 0, 1152, 648)
+@export var camera_bounds: Rect2 = Rect2(0, 0, 3000, 3000)
 
 # Selection, player
 var selected_objects: Array[Node2D] = []
@@ -45,7 +45,7 @@ func _process(delta):
 	if is_instance_valid(ghost_preview):
 		var mouse_pos = get_global_mouse_position()
 		ghost_preview.global_position = mouse_pos
-		var structure_data = player.buildable_structures[build_mode]
+		var structure_data = GameData.buildable_structures[build_mode]
 		if player.build_location_valid(structure_data, mouse_pos, player.grids, player.MAX_BUILD_DISTANCE):
 			ghost_preview.modulate = Color(0, 1, 0, 0.5)
 		else:
@@ -155,14 +155,16 @@ func _unhandled_input(event: InputEvent) -> void:
 				handle_click_selection()
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
-		var clicked_objects = level.find_objects_at(event.position)
+		var mouse_pos = get_global_mouse_position()
+		var clicked_objects = level.find_objects_at(mouse_pos)
 		var target_structure = null
 		for clicked_object in clicked_objects:
 			if clicked_object is Structure:
 				target_structure = clicked_object
-		for object in selected_objects:
-			if is_instance_valid(object):
-				object.right_click_command(target_structure)
+		if target_structure:
+			for object in selected_objects:
+				if is_instance_valid(object):
+					object.right_click_command(target_structure)
 	
 	# camera controls
 	if event is InputEventMouseButton and camera:

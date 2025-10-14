@@ -3,7 +3,10 @@ extends CanvasLayer
 signal build_button_clicked(type)
 signal production_toggle_clicked()
 
-@onready var resource_label: Label = $ResourcePanel/Label
+@onready var crystal_label: Label = $ResourcePanel/Gray
+@onready var green_crystal_label: Label = $ResourcePanel/Green
+@onready var red_crystal_label: Label = $ResourcePanel/Red
+@onready var blue_crystal_label: Label = $ResourcePanel/Blue
 @onready var selection_panel: Panel = $SelectionPanel
 @onready var ability_button_container: GridContainer = $SelectionPanel/GridContainer
 var player: Player = null
@@ -37,8 +40,11 @@ func set_player(player_node):
 	player_node.resources_updated.connect(update_resource_label)
 	update_resource_label(player_node.resources)
 
-func update_resource_label(new_amount: int):
-	resource_label.text = "Resources: %s" % new_amount
+func update_resource_label(new_amount):
+	crystal_label.text = "Crystals: %s" % new_amount["crystal"]
+	green_crystal_label.text = "Crystals: %s" % new_amount["green_crystal"]
+	red_crystal_label.text = "Crystals: %s" % new_amount["red_crystal"]
+	blue_crystal_label.text = "Crystals: %s" % new_amount["blue_crystal"]
 
 func _on_production_toggle_pressed() -> void:
 	emit_signal("production_toggle_clicked")

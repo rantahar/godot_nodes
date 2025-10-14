@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://hej5e4id8n8e"]
+
+[ext_resource type="PackedScene" uid="uid://c48k251wumxqm" path="res://scenes/abilities/ability.tscn" id="1_34kvh"]
+[ext_resource type="Script" path="res://scenes/abilities/refine_ability.gd" id="2_cwo4q"]
+
+[node name="RefineAbility" instance=ExtResource("1_34kvh")]
+script = ExtResource("2_cwo4q")
+resource_generated = ""
+
+[node name="Timer" type="Timer" parent="." index="0"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

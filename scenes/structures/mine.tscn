@@ -7,10 +7,9 @@
 
 [node name="mine" instance=ExtResource("1_1u0rm")]
 script = ExtResource("1_ain4l")
+building_type = "mine"
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("1_iry2s")
 
 [node name="MineAbility" parent="." index="5" instance=ExtResource("4_rnxtl")]
-
-[connection signal="resources_generated" from="MineAbility" to="." method="_on_resouce_generated"]

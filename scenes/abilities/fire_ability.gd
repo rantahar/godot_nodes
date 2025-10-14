@@ -2,12 +2,11 @@ extends Ability
 
 @export var ProjectileScene: PackedScene
 @export var projectile_speed = 100.0
-@export var projectile_damage: int = 10
+var projectile_damage: int = 10
 @export var detection_range: float = 4
 
 @onready var detection_area: Area2D = $DetectionArea
 @onready var fire_rate_timer: Timer = $FireRateTimer
-@onready var muzzle: Marker2D = $Muzzle
 
 var targets_in_range: Array[Node2D] = []
 var current_target: Node2D = null
@@ -35,7 +34,7 @@ func scan_targets():
 	var collision_shape = detection_area.get_node("CollisionShape2D")
 	query.shape = collision_shape.shape
 	query.transform = detection_area.global_transform
-	query.collision_mask = 1
+	query.collision_mask = 2 | 3
 	query.collide_with_areas = true
 	query.exclude = []
 	
@@ -44,49 +43,29 @@ func scan_targets():
 	var closest_target = null
 	var closest_dist_sq = INF
 	for result in results:
-		var body = result.collider.get_parent().get_parent() # collider -> area -> object
-		if body is Structure and body.grid != parent.grid:
-			var dist_sq = parent.global_position.distance_squared_to(body.global_position)
-			if dist_sq < closest_dist_sq:
-				closest_dist_sq = dist_sq
-				closest_target = body
+		var body = result.collider.get_parent()
+		if body is Structure or body is Unit:
+			if body.grid != parent.grid:
+				var dist_sq = parent.global_position.distance_squared_to(body.global_position)
+				if dist_sq < closest_dist_sq:
+					closest_dist_sq = dist_sq
+					closest_target = body
 	current_target = closest_target
-
-func _on_area_entered(area: Node2D):
-	var body = area.get_parent()
-	if (body is Structure or body is Unit) and body.grid != parent.grid:
-		targets_in_range.append(body)
-		if not current_target:
-			current_target = body
-			
-func _on_area_exited(area: Node2D):
-	var body = area.get_parent()
-	if body in targets_in_range:
-		targets_in_range.erase(body)
-		if current_target == body:
-			find_new_target()
 
 func _on_fire_rate_timer_timeout():
 	fire()
 
-func find_new_target():
-	if not targets_in_range.is_empty():
-		current_target = targets_in_range[0]
-	else:
-		current_target = null
-
 func fire():
 	scan_targets()
+	print("fire ", current_target)
 	if not is_instance_valid(current_target):
 		return
 	
-	if not charge_ability_cost(ability_cost):
-		return
-	
 	var projectile = ProjectileScene.instantiate()
-	projectile.global_position = muzzle.global_position
 	projectile.target_position = current_target.global_position
 	projectile.speed = projectile_speed
 	projectile.damage = projectile_damage
 	projectile.grid = parent.grid
-	parent.get_parent().add_child(projectile)
+	parent.add_child(projectile)
+	print(projectile)
+	projectile.global_position = parent.global_position

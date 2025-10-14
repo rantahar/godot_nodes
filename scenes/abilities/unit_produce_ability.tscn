@@ -6,7 +6,9 @@
 
 [node name="UnitProduceAbility" instance=ExtResource("1_4wg4k")]
 script = ExtResource("2_mcsag")
+unit_type = "gun_unit"
 UnitScene = ExtResource("3_qgy6m")
+max_units = 4
 
 [node name="ProductionTimer" type="Timer" parent="." index="0"]
 wait_time = 2.0

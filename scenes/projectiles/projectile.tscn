@@ -8,6 +8,8 @@ radius = 5.0
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 0
+collision_mask = 3
+monitorable = false
 script = ExtResource("1_8t0ty")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -17,3 +19,10 @@ shape = SubResource("CircleShape2D_j5paf")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
 texture = ExtResource("1_mc2gn")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="DestroyTimer" to="." method="destroy"]

@@ -7,6 +7,7 @@
 
 [node name="MainBuilding" instance=ExtResource("1_tmvlf")]
 script = ExtResource("2_20acv")
+building_type = "main_building"
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_f3l57")
@@ -22,3 +23,15 @@ action_name = "Factory"
 [node name="BuildAbility3" parent="." index="11" instance=ExtResource("4_n6fam")]
 structure_to_build = "cannon"
 action_name = "Cannon"
+
+[node name="BuildAbility4" parent="." index="12" instance=ExtResource("4_n6fam")]
+structure_to_build = "green_refinery"
+action_name = "Green Refinery"
+
+[node name="BuildAbility5" parent="." index="13" instance=ExtResource("4_n6fam")]
+structure_to_build = "blue_refinery"
+action_name = "Blue Refinery"
+
+[node name="BuildAbility6" parent="." index="14" instance=ExtResource("4_n6fam")]
+structure_to_build = "red_refinery"
+action_name = "Red Refinery"

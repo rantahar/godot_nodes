@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+GameData="*res://scenes/resources/game_data.gd"
 EventBus="*res://scenes/systems/event_bus.gd"
 
 [global_group]

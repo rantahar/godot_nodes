@@ -16,7 +16,7 @@ var start_time_msec: int = 0
 var level : Node = null
 
 func _ready():
-	level = $LevelContainer/TestMap
+	level = $LevelContainer/Map
 	inputController.level = level
 	inputController.camera = camera
 	for player in allPlayers:

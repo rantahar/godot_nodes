@@ -2,8 +2,8 @@ class_name ExpansionNode
 extends Node2D
 
 @export var connected_nodes: Array[ExpansionNode]
-@export var crystals: Array[Crystal]
-@export var slots: Array[BuildingSlot]
+var crystals: Array[Crystal] = []
+var slots: Array[BuildingSlot] = []
 @export var structures: Array[Structure]
 @export var player_start_index: int = -1
 
@@ -11,6 +11,14 @@ extends Node2D
 
 var is_free = true
 var grid: Grid = null
+
+func _ready():
+	for child in get_children():
+		if child is BuildingSlot:
+			slots.append(child)
+		if child is Crystal:
+			crystals.append(child) 
+	print("Found %s build slots and %s crystal locations for %s" % [slots.size(), crystals.size(), self.name])
 
 func free_crystal():
 	for crystal in crystals:
@@ -33,6 +41,7 @@ func find_available_slot(structure_data):
 		return free_slot()
 
 func can_build(structure_data):
+	print("can_build ", structure_data)
 	var slot = find_available_slot(structure_data)
 	if is_instance_valid(slot):
 		return true
@@ -45,12 +54,13 @@ func build(structure_data, grid):
 	var new_node = structure_data.scene.instantiate()
 	new_node.grid = grid
 	new_node.expansion = self
+	new_node.slot = slot
 	structures.append(new_node)
-	print(structures)
 	slot.add_child(new_node)
 	slot.is_free = false
 	
 	if structure_data.location == "main":
 		self.grid = grid
+		grid.expansions.append(self)
 		
 	new_node.structure_destroyed.connect(grid._on_structure_destroyed)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxdp7b5q1nfcy"]
+[gd_scene load_steps=2 format=3 uid="uid://dxtsmrwcmiioq"]
 
 [sub_resource type="GDScript" id="GDScript_qsie4"]
 script/source = "class_name Connection

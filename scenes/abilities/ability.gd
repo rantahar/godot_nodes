@@ -4,7 +4,7 @@ extends Node2D
 var parent: Node2D
 var is_active = true
 @export var has_button = false
-@export var ability_cost: int = 0
+@export var ability_cost: Dictionary = {}
 
 func _ready():
 	parent = get_parent()
@@ -23,6 +23,4 @@ func toggle():
 	pass
 
 func charge_ability_cost(cost):
-	if cost > 0:
-		return parent.charge_ability_cost(cost)
-	return false
+	return parent.charge_ability_cost(cost)

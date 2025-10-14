@@ -20,7 +20,7 @@ func _on_decision_timer_timeout():
 
 func choose_next_state():
 	if current_state == State.BUILDING_ECONOMY:
-		current_state = State.EXPANDING_NETWORK
+		current_state = State.BUILDING_DEFENSES
 	else:
 		current_state = State.BUILDING_ECONOMY
 
@@ -33,10 +33,18 @@ func execute_state_logic():
 			print("AI State: Expanding Network")
 		State.BUILDING_DEFENSES:
 			print("AI State: Building Defenses")
+			try_to_build_cannon()
 
 func try_to_build_mine():
-	return
-	
-	var all_crystals = level.get_all_crystals()
-	for crystal in all_crystals:
-		build_structure(crystal.global_position, "mine")
+	for grid in grids:
+		for expansion in grid.expansions:
+			var result = build_structure(expansion, "mine")
+			if result:
+				return
+				
+func try_to_build_cannon():
+	for grid in grids:
+		for expansion in grid.expansions:
+			var result = build_structure(expansion, "cannon")
+			if result:
+				return

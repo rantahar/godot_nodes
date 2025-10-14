@@ -1,15 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://doiybi8kglyg8"]
+[gd_scene load_steps=6 format=3 uid="uid://doiybi8kglyg8"]
 
 [ext_resource type="Script" path="res://scenes/units/unit.gd" id="1_2bwxn"]
-[ext_resource type="Script" path="res://scenes/resources/UnitStats.gd" id="2_7wbu3"]
 [ext_resource type="Texture2D" uid="uid://dhvmmi13eggqo" path="res://assets/selection_circle.png" id="3_8j228"]
 [ext_resource type="Texture2D" uid="uid://bm5e0kkoo08vo" path="res://assets/kenney_ui-pack/PNG/Green/Default/slide_horizontal_color.png" id="4_tvufk"]
-
-[sub_resource type="Resource" id="Resource_j7tye"]
-script = ExtResource("2_7wbu3")
-health = 100
-speed = 75.0
-damage = 10
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kps8i"]
 radius = 4.0
@@ -22,7 +15,6 @@ collision_layer = 3
 collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_2bwxn")
-stats = SubResource("Resource_j7tye")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kps8i")
@@ -34,12 +26,12 @@ polygon = PackedVector2Array(-3, -1, -1, -3, 1, -3, 3, -1, 3, 0, 3, 1, 1, 3, -1,
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 6.0
 target_desired_distance = 6.0
-navigation_layers = 4
 avoidance_enabled = true
 radius = 4.0
 neighbor_distance = 10.0
 avoidance_layers = 16
 avoidance_mask = 16
+debug_enabled = true
 
 [node name="SelectionIndicator" type="Sprite2D" parent="."]
 visible = false

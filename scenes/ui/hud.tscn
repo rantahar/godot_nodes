@@ -9,14 +9,41 @@ script = ExtResource("1_fw7t4")
 offset_left = 1.0
 offset_top = 1.0
 offset_right = 180.0
-offset_bottom = 57.0
+offset_bottom = 160.0
 
-[node name="Label" type="Label" parent="ResourcePanel"]
+[node name="Gray" type="Label" parent="ResourcePanel"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 15.0
 offset_right = 112.0
 offset_bottom = 38.0
+text = "Crystal: 0"
+
+[node name="Red" type="Label" parent="ResourcePanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 107.0
+offset_right = 113.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(1, 0.367788, 0.300217, 1)
+text = "Crystal: 0"
+
+[node name="Green" type="Label" parent="ResourcePanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 79.0
+offset_right = 115.0
+offset_bottom = 102.0
+theme_override_colors/font_color = Color(8.47101e-06, 0.720339, 0, 1)
+text = "Crystal: 0"
+
+[node name="Blue" type="Label" parent="ResourcePanel"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 47.0
+offset_right = 114.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.233148, 0.457125, 1, 1)
 text = "Crystal: 0"
 
 [node name="Button" type="Button" parent="."]
@@ -28,10 +55,10 @@ text = "Stop Production
 "
 
 [node name="SelectionPanel" type="Panel" parent="."]
-visible = false
-offset_top = 60.0
-offset_right = 181.0
-offset_bottom = 156.0
+offset_left = -1.0
+offset_top = 168.0
+offset_right = 180.0
+offset_bottom = 264.0
 
 [node name="GridContainer" type="GridContainer" parent="SelectionPanel"]
 custom_minimum_size = Vector2(64, 64)

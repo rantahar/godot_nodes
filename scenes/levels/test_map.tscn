@@ -164,11 +164,9 @@ position = Vector2(0, 1)
 tile_map_data = PackedByteArray("AAACAAEAAAALAAAAAAACAAIAAAALAAEAAAABAAIAAAAKAAEAAAABAAEAAAAKAAAAAAADAAIAAAALAAEAAAADAAEAAAALAAAAAAACAAMAAAALAAEAAAADAAMAAAALAAEAAAACAAQAAAALAAEAAAADAAQAAAALAAEAAAABAAcAAAAKAAEAAAABAAYAAAAKAAEAAAACAAYAAAALAAEAAAACAAcAAAALAAEAAAACAAUAAAALAAEAAAABAAUAAAAKAAEAAAADAAUAAAALAAEAAAADAAYAAAALAAEAAAADAAcAAAALAAEAAAADAAgAAAALAAIAAAAQAAgAAAAMAAIAAAAQAAcAAAAMAAEAAAAQAAYAAAAMAAEAAAAQAAUAAAAMAAEAAAAQAAQAAAAMAAEAAAAQAAMAAAAMAAEAAAAQAAIAAAAMAAEAAAAQAAEAAAAMAAAAAAAPAAgAAAALAAIAAAAPAAcAAAALAAEAAAAPAAYAAAALAAEAAAAPAAUAAAALAAEAAAAPAAQAAAALAAEAAAAPAAMAAAALAAEAAAAPAAIAAAALAAEAAAAPAAEAAAALAAAAAAAOAAgAAAALAAIAAAAOAAcAAAALAAEAAAAOAAYAAAALAAEAAAAOAAUAAAALAAEAAAAOAAQAAAALAAEAAAAOAAMAAAALAAEAAAAOAAIAAAALAAEAAAAOAAEAAAALAAAAAAANAAgAAAALAAIAAAANAAcAAAALAAEAAAANAAYAAAALAAEAAAANAAUAAAALAAEAAAANAAQAAAALAAEAAAANAAMAAAALAAEAAAANAAIAAAALAAEAAAANAAEAAAALAAAAAAAMAAgAAAALAAIAAAAMAAcAAAALAAEAAAAMAAYAAAALAAEAAAAMAAUAAAALAAEAAAAMAAQAAAALAAEAAAAMAAMAAAALAAEAAAAMAAIAAAALAAEAAAAMAAEAAAALAAAAAAALAAgAAAALAAIAAAALAAcAAAALAAEAAAALAAYAAAALAAEAAAALAAUAAAALAAEAAAALAAQAAAALAAEAAAALAAMAAAALAAEAAAALAAIAAAALAAEAAAALAAEAAAALAAAAAAAKAAgAAAALAAIAAAAKAAcAAAALAAEAAAAKAAYAAAALAAEAAAAKAAUAAAALAAEAAAAKAAQAAAALAAEAAAAKAAMAAAALAAEAAAAKAAIAAAALAAEAAAAKAAEAAAALAAAAAAAJAAgAAAALAAIAAAAJAAcAAAALAAEAAAAJAAYAAAALAAEAAAAJAAUAAAALAAEAAAAJAAQAAAALAAEAAAAJAAMAAAALAAEAAAAJAAIAAAALAAEAAAAJAAEAAAALAAAAAAAIAAgAAAALAAIAAAAIAAcAAAALAAEAAAAIAAYAAAALAAEAAAAIAAUAAAALAAEAAAAIAAQAAAALAAEAAAAIAAMAAAALAAEAAAAIAAIAAAALAAEAAAAIAAEAAAALAAAAAAAHAAgAAAALAAIAAAAHAAcAAAALAAEAAAAHAAYAAAALAAEAAAAHAAUAAAALAAEAAAAHAAQAAAALAAEAAAAHAAMAAAALAAEAAAAHAAIAAAALAAEAAAAHAAEAAAALAAAAAAAGAAgAAAALAAIAAAAGAAcAAAALAAEAAAAGAAYAAAALAAEAAAAGAAUAAAALAAEAAAAGAAQAAAALAAEAAAAGAAMAAAALAAEAAAAGAAIAAAALAAEAAAAGAAEAAAALAAAAAAAFAAgAAAALAAIAAAAFAAcAAAALAAEAAAAFAAYAAAALAAEAAAAFAAUAAAALAAEAAAAFAAQAAAALAAEAAAAFAAMAAAALAAEAAAAFAAIAAAALAAEAAAAFAAEAAAALAAAAAAAEAAgAAAALAAIAAAAEAAcAAAALAAEAAAAEAAYAAAALAAEAAAAEAAUAAAALAAEAAAAEAAQAAAALAAEAAAAEAAMAAAALAAEAAAAEAAIAAAALAAEAAAAEAAEAAAALAAAAAAABAAQAAAAKAAEAAAABAAMAAAAKAAEAAAACAAgAAAALAAIAAAABAAgAAAAKAAIAAAA=")
 tile_set = SubResource("TileSet_rm1wn")
 
-[node name="ExpansionNode" parent="." node_paths=PackedStringArray("connected_nodes", "crystals", "slots") instance=ExtResource("4_fj8ed")]
+[node name="ExpansionNode" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("4_fj8ed")]
 position = Vector2(223, 203)
 connected_nodes = [NodePath("../ExpansionNode4"), NodePath("../ExpansionNode5")]
-crystals = [NodePath("Crystal"), NodePath("Crystal2"), NodePath("Crystal3")]
-slots = [NodePath("BuildingSlot"), NodePath("BuildingSlot2"), NodePath("BuildingSlot3")]
 player_start_index = 0
 
 [node name="Crystal" parent="ExpansionNode" instance=ExtResource("2_8t7wh")]
@@ -189,10 +187,9 @@ position = Vector2(63, -59)
 [node name="BuildingSlot3" parent="ExpansionNode" instance=ExtResource("5_c0lxb")]
 position = Vector2(68, 8)
 
-[node name="ExpansionNode2" parent="." node_paths=PackedStringArray("connected_nodes", "crystals") instance=ExtResource("4_fj8ed")]
+[node name="ExpansionNode2" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("4_fj8ed")]
 position = Vector2(912, 419)
 connected_nodes = [NodePath("../ExpansionNode3"), NodePath("../ExpansionNode5")]
-crystals = [NodePath("Crystal2"), NodePath("Crystal3"), NodePath("Crystal4")]
 player_start_index = 1
 
 [node name="Crystal2" parent="ExpansionNode2" instance=ExtResource("2_8t7wh")]
@@ -204,24 +201,31 @@ position = Vector2(0, 71)
 [node name="Crystal4" parent="ExpansionNode2" instance=ExtResource("2_8t7wh")]
 position = Vector2(-71, 47)
 
-[node name="ExpansionNode3" parent="." node_paths=PackedStringArray("connected_nodes", "crystals") instance=ExtResource("4_fj8ed")]
+[node name="BuildingSlot" parent="ExpansionNode2" instance=ExtResource("5_c0lxb")]
+position = Vector2(-5, -64)
+
+[node name="BuildingSlot2" parent="ExpansionNode2" instance=ExtResource("5_c0lxb")]
+position = Vector2(-75, -12)
+
+[node name="BuildingSlot3" parent="ExpansionNode2" instance=ExtResource("5_c0lxb")]
+position = Vector2(69, -21)
+
+[node name="ExpansionNode3" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("4_fj8ed")]
 position = Vector2(892, 201)
 connected_nodes = [NodePath("../ExpansionNode4"), NodePath("../ExpansionNode5")]
-crystals = [NodePath("Crystal3")]
 player_start_index = 2
 
 [node name="Crystal3" parent="ExpansionNode3" instance=ExtResource("2_8t7wh")]
 position = Vector2(92, -58)
 
-[node name="ExpansionNode4" parent="." node_paths=PackedStringArray("connected_nodes", "crystals") instance=ExtResource("4_fj8ed")]
+[node name="ExpansionNode4" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("4_fj8ed")]
 position = Vector2(211, 419)
 connected_nodes = [NodePath("../ExpansionNode"), NodePath("../ExpansionNode5")]
-crystals = [NodePath("Crystal4")]
 player_start_index = 3
 
 [node name="Crystal4" parent="ExpansionNode4" instance=ExtResource("2_8t7wh")]
 position = Vector2(-64, 34)
 
 [node name="ExpansionNode5" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("4_fj8ed")]
-position = Vector2(501, 298)
+position = Vector2(544, 299)
 connected_nodes = [NodePath("../ExpansionNode2"), NodePath("../ExpansionNode3"), NodePath("../ExpansionNode4"), NodePath("../ExpansionNode")]

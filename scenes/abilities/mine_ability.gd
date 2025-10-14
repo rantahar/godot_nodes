@@ -1,11 +1,14 @@
 extends Ability
 
 @onready var resource_timer: Timer = $ResourceTimer
-signal resources_generated(amount)
+signal resources_generated(amount: Dictionary)
 
-@export var resource_amount: int = 10
-
+var resource_amount: int
 var crystal : Crystal = null
+
+func _ready():
+	super()
+	resource_amount = GameData.buildable_structures["mine"]["generation_rate"]
 
 func enable():
 	super()
@@ -16,4 +19,4 @@ func disable():
 	resource_timer.stop()
 
 func _on_timer_timeout():
-	EventBus.emit_signal("resources_generated", resource_amount, parent.grid)
+	EventBus.emit_signal("resources_generated", {"crystal": resource_amount}, parent.grid)

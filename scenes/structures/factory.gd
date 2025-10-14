@@ -1,8 +1,6 @@
 class_name Factory
 extends Structure
 
-const UnitScene = preload("res://scenes/units/gun_unit.tscn")
-
 func _on_build_timer_timeout():
 	super()
 	$UnitProduceAbility.grid = grid

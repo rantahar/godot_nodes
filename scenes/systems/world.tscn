@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/systems/main.gd" id="1_wvuob"]
 [ext_resource type="PackedScene" uid="uid://tfl8g6kp58wu" path="res://scenes/ui/hud.tscn" id="2_wfoj6"]
-[ext_resource type="PackedScene" uid="uid://yex0wyy4t8ed" path="res://scenes/levels/test_map.tscn" id="3_wgkm6"]
+[ext_resource type="PackedScene" uid="uid://ct82g1ujntueq" path="res://scenes/levels/map1.tscn" id="3_rrnob"]
 [ext_resource type="Script" path="res://scenes/systems/player.gd" id="4_e6spv"]
 [ext_resource type="Script" path="res://scenes/systems/AIPlayer.gd" id="5_la7jx"]
 [ext_resource type="Script" path="res://scenes/ui/input_controller.gd" id="6_bcaeg"]
@@ -22,7 +22,7 @@ color = Color(0, 0.827451, 0, 0.290196)
 
 [node name="LevelContainer" type="Node" parent="."]
 
-[node name="TestMap" parent="LevelContainer" instance=ExtResource("3_wgkm6")]
+[node name="Map" parent="LevelContainer" instance=ExtResource("3_rrnob")]
 
 [node name="LocalPlayer" type="Node" parent="."]
 script = ExtResource("4_e6spv")
@@ -41,7 +41,4 @@ script = ExtResource("6_bcaeg")
 
 [connection signal="build_button_clicked" from="HUD" to="InputController" method="_on_build_button_pressed"]
 [connection signal="production_toggle_clicked" from="HUD" to="InputController" method="_on_production_toggle_pressed"]
-[connection signal="structure_selected" from="LevelContainer/TestMap" to="InputController" method="_on_node_selected"]
-[connection signal="build_approved" from="LocalPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]
-[connection signal="build_approved" from="AIPlayer" to="LevelContainer/TestMap" method="_on_build_approved"]
 [connection signal="selection_changed" from="InputController" to="HUD" method="_on_selection_changed"]
