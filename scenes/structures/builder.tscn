@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfxcr4fn0ngjk"]
+
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_e5q3v"]
+[ext_resource type="Script" path="res://scenes/structures/builder.gd" id="2_xcjth"]
+[ext_resource type="PackedScene" uid="uid://d3oes1kkdejq" path="res://scenes/abilities/construction_ability.tscn" id="3_52mt8"]
+[ext_resource type="Texture2D" uid="uid://inq3t8c0mfap" path="res://assets/kenney_ui-pack/PNG/Grey/Default/arrow_basic_n.png" id="3_kulai"]
+
+[node name="Builder" instance=ExtResource("1_e5q3v")]
+script = ExtResource("2_xcjth")
+building_type = "builder"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_kulai")
+
+[node name="ConstructionAbility" parent="." index="9" instance=ExtResource("3_52mt8")]
+has_button = false
+ability_cost = {}

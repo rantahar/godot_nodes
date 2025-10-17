@@ -23,18 +23,15 @@ shape = SubResource("RectangleShape2D_hpnyv")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_wv2ad")
 
-[node name="Area2D" parent="." index="3"]
+[node name="Area2D" parent="." index="2"]
 monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 shape = SubResource("RectangleShape2D_cn0b7")
 
-[node name="NavigationObstacle2D" parent="." index="4"]
+[node name="NavigationObstacle2D" parent="." index="3"]
 radius = 0.0
 vertices = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
 
 [node name="UnitProduceAbility" parent="." index="5" instance=ExtResource("4_x2hnn")]
-
-[node name="SelectionIndicator" parent="." index="6"]
-scale = Vector2(2.5, 2.5)

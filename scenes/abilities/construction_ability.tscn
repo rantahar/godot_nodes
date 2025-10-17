@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3oes1kkdejq"]
+
+[ext_resource type="PackedScene" uid="uid://c48k251wumxqm" path="res://scenes/abilities/ability.tscn" id="1_x6vb2"]
+[ext_resource type="Script" path="res://scenes/abilities/construction_ability.gd" id="2_4067s"]
+
+[node name="ConstructionAbility" instance=ExtResource("1_x6vb2")]
+script = ExtResource("2_4067s")

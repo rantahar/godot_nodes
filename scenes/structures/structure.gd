@@ -2,7 +2,7 @@ class_name Structure
 extends StaticBody2D
 
 @export var max_health: int = 30
-@export var health: int = 30
+@export var health: float = 1
 
 var grid: Node = null
 var slot
@@ -13,19 +13,20 @@ signal structure_destroyed(structure)
 
 @onready var selectionIndicator = $SelectionIndicator
 @onready var maintenance_timer: Timer = $MaintenanceTimer
+var progress_ability: Ability = null
 
 @export var building_type = ""
 @export var is_built = false
 var is_active = true
+var build_progress: float = 0.0
+var build_time: float = 100.0
 
 func _ready():
 	var gamedata = GameData
 	var structure_data = gamedata.buildable_structures[building_type]
-	var build_time = structure_data["build_time"]
-	$BuildTimer.wait_time = build_time
-	$BuildTimer.start()
+	build_time = structure_data["build_time"]
 	max_health = structure_data["max_health"]
-	health = max_health
+	progress_ability = find_progress_ability()
 	disable_abilities()
 	
 	$HealthBar.max_value = max_health
@@ -34,7 +35,49 @@ func _ready():
 	$HealthBar.position.y = -shape_size.y/2-8
 	$HealthBar.position.x = -shape_size.x/2 - 4
 	$HealthBar.scale.x = (shape_size.x + 8) / 96
+	$ProgressBar.position.y = -shape_size.y/2-16
+	$ProgressBar.position.x = -shape_size.x/2 - 4
+	$ProgressBar.scale.x = (shape_size.x + 8) / 96
+	$ProgressBar.max_value = 100
 	modulate()
+
+func _process(delta):
+	$HealthBar.value = health
+	if is_instance_valid(progress_ability):
+		var progress = progress_ability.get_progress()
+		if progress.in_progress:
+			$ProgressBar.visible = true
+			$ProgressBar.value = progress.current
+		else:
+			$ProgressBar.visible = false
+	
+	if is_built:
+		enforce_ability_priority(delta)
+
+func enforce_ability_priority(delta):
+	var abilities = get_abilities_in_order()
+	
+	var an_ability_is_blocking = false
+	for ability in abilities:
+		if not ability.is_passive:
+			continue
+		if an_ability_is_blocking:
+			ability.disable()
+		else:
+			ability.enable()
+			if ability.is_executing():
+				an_ability_is_blocking = true
+
+func find_progress_ability() -> Ability:
+	var construction = get_node_or_null("ConstructionAbility")
+	if construction:
+		return construction
+	
+	var production = get_node_or_null("UnitProduceAbility")
+	if production:
+		return production
+	
+	return null
 
 func disable_abilities():
 	for child in get_children():
@@ -55,7 +98,14 @@ func toggle_abilities():
 		is_active = true
 		$DisabledSprite.visible = false
 		enable_abilities()
-	
+
+
+func get_abilities_in_order() -> Array[Ability]:
+	var result: Array[Ability] = []
+	for child in get_children():
+		if child is Ability:
+			result.append(child)
+	return result
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
@@ -70,10 +120,10 @@ func modulate():
 func force_navmesh_syn():
 	global_position.x += 0.001 
 
-func _on_build_timer_timeout() -> void:
+func finish_build() -> void:
 	is_built = true
-	modulate()
 	enable_abilities()
+	modulate()
 	
 	var nav_region = get_tree().get_first_node_in_group("nav_region")
 	if is_instance_valid(nav_region):
@@ -101,13 +151,15 @@ func repair(amount: int):
 
 func destroy():
 	slot.is_free = true
-	grid.structures.erase(self)
 	emit_signal("structure_destroyed", self)
 	queue_free()
 
-func take_damage(amount: int):
+func take_damage(amount: float):
 	health -= amount
-	print("Damage ", health, " ", amount)
-	$HealthBar.value = health
 	if health <= 0:
 		destroy()
+
+func heal(amount: float):
+	health += amount
+	if health > max_health:
+		health = max_health

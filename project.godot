@@ -25,6 +25,7 @@ EventBus="*res://scenes/systems/event_bus.gd"
 crystals="All crystal resources"
 nav_region="navigation regions"
 structures=""
+expansions=""
 
 [rendering]
 

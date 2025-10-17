@@ -4,7 +4,7 @@ extends Structure
 var crystal : Crystal = null
 
 
-func _on_build_timer_timeout():
+func finish_build():
 	super()
 	$MineAbility.enable()
 

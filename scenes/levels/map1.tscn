@@ -173,8 +173,8 @@ tile_set = SubResource("TileSet_rm1wn")
 
 [node name="ExpansionNode" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
 position = Vector2(330, 248)
-connected_nodes = [NodePath("../ExpansionNode3")]
 player_start_index = 0
+connected_nodes = [NodePath("../ExpansionNode3")]
 
 [node name="Crystal" parent="ExpansionNode" instance=ExtResource("4_hmg06")]
 position = Vector2(-196, -104)
@@ -239,8 +239,8 @@ position = Vector2(126, 12)
 [node name="ExpansionNode2" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
 position = Vector2(1911, 1389)
 rotation = 0.0161998
-connected_nodes = [NodePath("../ExpansionNode6")]
 player_start_index = 1
+connected_nodes = [NodePath("../ExpansionNode6")]
 
 [node name="Crystal" parent="ExpansionNode2" instance=ExtResource("4_hmg06")]
 position = Vector2(-113.01, 123.773)

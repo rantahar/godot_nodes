@@ -29,9 +29,14 @@ func _ready():
 		if player_index >= 0 and player_index < allPlayers.size():
 			var controller = allPlayers[player_index]
 			var init_grid = Grid.new()
+			init_grid.set_level(level)
 			init_grid.controller = controller
 			controller.grids.append(init_grid)
 			controller.build_structure(expansion, "main_building", true)
+			var init_main = init_grid.main_buildings[0]
+			init_main.level = 1
+			init_main.health = init_main.max_health
+			init_main.finish_build()
 			init_grid.resources_updated.connect(controller._on_resources_updated)
 	
 	hud.set_player(localPlayer)

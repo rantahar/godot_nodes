@@ -15,5 +15,6 @@ func _ready():
 	$FireAbility/FireRateTimer.wait_time = stats["fire_rate"]
 
 func _process(delta):
+	super(delta)
 	if is_instance_valid(fire_ability.current_target):
 		turret.look_at(fire_ability.current_target.global_position)

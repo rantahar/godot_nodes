@@ -10,18 +10,5 @@ unit_type = "gun_unit"
 UnitScene = ExtResource("3_qgy6m")
 max_units = 4
 
-[node name="ProductionTimer" type="Timer" parent="." index="0"]
-wait_time = 2.0
-one_shot = true
-
-[node name="SpawnPoint" type="Marker2D" parent="." index="1"]
+[node name="SpawnPoint" type="Marker2D" parent="." index="0"]
 position = Vector2(0, 42)
-
-[node name="RallyPoint" type="Marker2D" parent="." index="2"]
-position = Vector2(0, 55)
-
-[node name="ProductionCheckTimer" type="Timer" parent="." index="3"]
-wait_time = 5.0
-autostart = true
-
-[connection signal="timeout" from="ProductionTimer" to="." method="_on_production_timer_timeout"]

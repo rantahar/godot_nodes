@@ -9,7 +9,6 @@ var damage: int = 10
 var grid: Grid = null
 
 func _ready():
-	print("projectile created")
 	area_entered.connect(_on_area_entered)
 	var direction = (target_position - global_position).normalized()
 	velocity = direction * speed
@@ -23,9 +22,9 @@ func destroy():
 
 func _on_area_entered(area: Area2D):
 	var body = area.get_parent()
-	print("projectile _on_area_entered ", body)
+	
 
-	if (body is Structure or body is Unit) and body.grid != grid:
-		print("projectile hit ", body)
-		body.take_damage(damage)
-		queue_free()
+	if body is Structure or body is Unit:
+		if body.grid.controller != grid.controller:
+			body.take_damage(damage)
+			queue_free()

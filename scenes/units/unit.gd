@@ -44,18 +44,48 @@ func _ready():
 	AI_timer.timeout.connect(_update_ai)
 	AI_timer.start(randf_range(0.0, AI_timer.wait_time))
 
+func _process(delta):
+	enforce_ability_priority(delta)
+
+func enforce_ability_priority(delta):
+	var abilities = get_abilities_in_order()
+	
+	var an_ability_is_blocking = false
+	for ability in abilities:
+		if not ability.is_passive:
+			continue
+		if an_ability_is_blocking:
+			ability.disable()
+		else:
+			ability.enable()
+			if ability.is_executing():
+				an_ability_is_blocking = true
+
+func get_abilities_in_order() -> Array[Ability]:
+	var result: Array[Ability] = []
+	for child in get_children():
+		if child is Ability:
+			result.append(child)
+	return result
+
 func get_cached_path(target):
 	var level = get_parent()
-	if not target_structure in level.path_cache:
+	var target_exp
+	if target is Structure:
+		target_exp = target.expansion
+	elif target is ExpansionNode:
+		target_exp = target
+	else:
+		return
+	if not target_exp in level.path_cache:
 		cached_path = []
 		return
-	var paths = level.path_cache[target_structure]
+	var paths = level.path_cache[target_structure.expansion]
 	if not target in paths:
 		cached_path = []
 		return
-	cached_path = level.path_cache[target_structure][target]
+	cached_path = paths[target.expansion]
 	cached_path_index = 0
-	print(cached_path)
 
 func set_movement_target(target: Structure):
 	if not target or target == target_structure:

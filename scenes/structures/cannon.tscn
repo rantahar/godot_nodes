@@ -33,15 +33,18 @@ offset = Vector2(8, 0)
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 shape = SubResource("RectangleShape2D_ke7am")
 
-[node name="NavigationObstacle2D" parent="." index="4"]
+[node name="NavigationObstacle2D" parent="." index="3"]
 radius = 0.0
 vertices = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="SelectionIndicator" parent="." index="4"]
+scale = Vector2(1.5, 1.5)
 
 [node name="FireAbility" parent="." index="5" instance=ExtResource("5_sd73e")]
 position = Vector2(10, 0)
 scale = Vector2(0.75, 0.75)
 ProjectileScene = ExtResource("6_vvg0n")
-detection_range = 128.0
+detection_range = 256.0
 
-[node name="SelectionIndicator" parent="." index="6"]
-scale = Vector2(1.5, 1.5)
+[node name="ProgressBar" parent="." index="9"]
+step = 0.05

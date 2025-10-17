@@ -20,11 +20,9 @@ func _ready():
 
 func enable():
 	super()
-	fire_rate_timer.start()
 
 func disable():
 	super()
-	fire_rate_timer.stop()
 	current_target = null
 	targets_in_range.clear()
 
@@ -57,7 +55,6 @@ func _on_fire_rate_timer_timeout():
 
 func fire():
 	scan_targets()
-	print("fire ", current_target)
 	if not is_instance_valid(current_target):
 		return
 	
@@ -67,5 +64,4 @@ func fire():
 	projectile.damage = projectile_damage
 	projectile.grid = parent.grid
 	parent.add_child(projectile)
-	print(projectile)
 	projectile.global_position = parent.global_position

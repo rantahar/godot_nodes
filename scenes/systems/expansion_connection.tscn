@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://draa3agskfwmh"]
+
+[ext_resource type="Script" path="res://scenes/systems/expansion_connection.gd" id="1_bndrt"]
+
+[node name="ExpansionConnection" type="Line2D"]
+script = ExtResource("1_bndrt")

@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_odo8l"]
 radius = 32.0
 
-[node name="ExpansionNode" type="Node2D"]
+[node name="ExpansionNode" type="Node2D" groups=["expansions"]]
 script = ExtResource("1_otmlr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

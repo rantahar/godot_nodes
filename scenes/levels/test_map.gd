@@ -68,18 +68,18 @@ func remove_close_waypoints(path):
 
 func recalculate_all_paths():
 	path_cache.clear()
-	var structures = get_tree().get_nodes_in_group("structures")
+	var expansions = get_tree().get_nodes_in_group("expansions")
 	var nav_map = get_world_2d().navigation_map
-	for structure_a in structures:
-		path_cache[structure_a] = {}
-		for structure_b in structures:
-			if structure_a == structure_b:
+	for exp_a in expansions:
+		path_cache[exp_a] = {}
+		for exp_b in expansions:
+			if exp_a == exp_b:
 				continue
-			var start_point = NavigationServer2D.map_get_closest_point(nav_map, structure_a.global_position)
-			var path = NavigationServer2D.map_get_path(nav_map, start_point, structure_b.global_position, true)
+			var start_point = NavigationServer2D.map_get_closest_point(nav_map, exp_a.global_position)
+			var path = NavigationServer2D.map_get_path(nav_map, start_point, exp_a.global_position, true)
 			path = remove_close_waypoints(path)
-			path_cache[structure_a][structure_b] = path
-	print("Path cache recalculated for %s structures." % structures.size())
+			path_cache[exp_a][exp_b] = path
+	print("Path cache recalculated for %s expansions." % expansions.size())
 
 func _on_structure_destroyed(structure):
 	refresh()

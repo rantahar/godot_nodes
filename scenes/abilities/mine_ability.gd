@@ -12,11 +12,7 @@ func _ready():
 
 func enable():
 	super()
-	resource_timer.start()
 	assert(resource_timer.timeout.is_connected(_on_timer_timeout), "Timer not connected")
-
-func disable():
-	resource_timer.stop()
 
 func _on_timer_timeout():
 	EventBus.emit_signal("resources_generated", {"crystal": resource_amount}, parent.grid)
