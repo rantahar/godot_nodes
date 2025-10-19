@@ -39,8 +39,8 @@ func _on_unit_produced(unit_data: Dictionary):
 	add_child(new_unit)
 	new_unit.grid = unit_data.grid
 	new_unit.global_position = unit_data.position
-	new_unit.target_structure = unit_data["init_structure"]
-	new_unit.set_movement_target(unit_data["target_structure"])
+	new_unit.target_expansion = unit_data["init_expansion"]
+	new_unit.set_movement_target(unit_data["target_expansion"])
 	unit_data.ability._on_unit_created(new_unit)
 
 func refresh():

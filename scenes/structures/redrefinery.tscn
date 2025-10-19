@@ -13,5 +13,5 @@ building_type = "red_refinery"
 position = Vector2(0, -2)
 texture = ExtResource("2_20sse")
 
-[node name="RefineAbility" parent="." index="9" instance=ExtResource("3_pnpbh")]
+[node name="RefineAbility" parent="." index="8" instance=ExtResource("3_pnpbh")]
 resource_generated = "red_crystal"

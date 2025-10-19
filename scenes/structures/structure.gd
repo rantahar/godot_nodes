@@ -9,7 +9,6 @@ var slot
 var expansion: ExpansionNode
 
 signal structure_selected(node)
-signal structure_destroyed(structure)
 
 @onready var selectionIndicator = $SelectionIndicator
 @onready var maintenance_timer: Timer = $MaintenanceTimer
@@ -20,6 +19,7 @@ var progress_ability: Ability = null
 var is_active = true
 var build_progress: float = 0.0
 var build_time: float = 100.0
+var size = 16
 
 func _ready():
 	var gamedata = GameData
@@ -80,23 +80,25 @@ func find_progress_ability() -> Ability:
 	return null
 
 func disable_abilities():
+	is_active = false
+	$DisabledSprite.visible = true
 	for child in get_children():
 		if child is Ability:
 			child.disable()
 
 func enable_abilities():
-	for child in get_children():
-		if child is Ability and not child.is_active:
-			child.enable()
+	var main = expansion.main_building
+	if is_instance_valid(main) and main.grid == grid:
+		is_active = true
+		$DisabledSprite.visible = false
+		for child in get_children():
+			if child is Ability and not child.is_active:
+				child.enable()
 
 func toggle_abilities():
 	if is_active:
-		is_active = false
-		$DisabledSprite.visible = true
 		disable_abilities()
 	else:
-		is_active = true
-		$DisabledSprite.visible = false
 		enable_abilities()
 
 
@@ -131,27 +133,16 @@ func finish_build() -> void:
 		$NavigationObstacle2D.carve_navigation_mesh = true
 		force_navmesh_syn()
 		nav_region.refresh()
-	
-	if maintenance_timer:
-		maintenance_timer.timeout.connect(_on_maintenance_tick)
-		maintenance_timer.start()
 
 func charge_ability_cost(cost) -> bool:
 	return grid.charge_maintenance(cost)
 
-func _on_maintenance_tick():
-	repair(1)
-
 func right_click_command(location):
 	pass
 
-func repair(amount: int):
-	if health < max_health:
-		health += 1
-
 func destroy():
 	slot.is_free = true
-	emit_signal("structure_destroyed", self)
+	expansion.remove_structure(self)
 	queue_free()
 
 func take_damage(amount: float):

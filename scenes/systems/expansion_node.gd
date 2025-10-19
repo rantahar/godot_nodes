@@ -6,6 +6,8 @@ extends Node2D
 @export var main_building: MainBuilding
 var crystals: Array[Crystal] = []
 var slots: Array[BuildingSlot] = []
+var structures: Array[Structure] = []
+var size = 16
 
 @onready var selectionIndicator = $SelectionIndicator
 
@@ -24,6 +26,22 @@ func _ready():
 		if child is Crystal:
 			crystals.append(child) 
 	print("Found %s build slots and %s crystal locations for %s" % [slots.size(), crystals.size(), self.name])
+
+func append_structure(structure):
+	structures.append(structure)
+
+func remove_structure(structure):
+	structures.erase(structure)
+
+func disable_all_structures():
+	for structure in structures:
+		if structure != main_building:
+			structure.disable_abilities()
+
+func enable_all_structures():
+	for structure in structures:
+		if structure != main_building:
+			structure.enable_abilities()
 
 func free_crystal():
 	for crystal in crystals:
@@ -69,23 +87,48 @@ func build(structure_data, grid):
 	new_node.grid = grid
 	new_node.expansion = self
 	new_node.slot = slot
+	append_structure(new_node)
 	slot.add_child(new_node)
 	slot.is_free = false
-	
+		
 	if structure_data.location == "main":
 		main_building = new_node
 		grid.add_expansion(self)
 		if not new_node.is_built:
 			assign_main_building_to_constructor(new_node)
 	elif is_instance_valid(main_building):
-		main_building.add_structure(new_node)
+		if not new_node.is_built:
+			assign_to_constructor(new_node)
+
+func assign_to_constructor(structure):
+	var constructors = find_constructors()
+	if constructors.is_empty():
+		return
 	
-	new_node.structure_destroyed.connect(main_building._on_structure_destroyed)
+	var best_constructor = constructors[0]
+	var min_queue_size = best_constructor.construction_ability.queue_size()
+	for constructor in constructors:
+		if is_instance_valid(constructor) and constructor.is_built:
+			var queue_size = constructor.construction_ability.queue_size()
+			print("C ", constructor, " ", constructor.construction_ability.build_queue)
+			if queue_size < min_queue_size:
+				best_constructor = constructor
+				min_queue_size = queue_size
+	
+	best_constructor.construction_ability.add_to_queue(structure)
+
+func find_constructors() -> Array:
+	var result = []
+	for s in structures:
+		if is_instance_valid(s) and s.is_built:
+			if s is Builder or s is MainBuilding:
+				result.append(s)
+	return result
 
 func assign_main_building_to_constructor(main_building: MainBuilding):
 	for neighbor in connected_nodes:
 		if is_instance_valid(neighbor.main_building):
-			neighbor.main_building.assign_to_constructor(main_building)
+			neighbor.assign_to_constructor(main_building)
 			return
 	
 	print("Warning: No neighboring constructor found for new main building")

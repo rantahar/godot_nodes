@@ -115,9 +115,10 @@ func handle_click_selection():
 	for result in results:
 		if result is Structure:
 			clicked_object = result
-		elif result is ExpansionNode:
-			if not clicked_object:
-				clicked_object = result
+			break
+	
+	if not clicked_object:
+		clicked_object = find_nearest_expansion(mouse_pos, 256.0)
 	
 	if clicked_object and not selected_objects.has(clicked_object):
 		selected_objects.append(clicked_object)
@@ -126,6 +127,25 @@ func handle_click_selection():
 		object.selectionIndicator.visible = true
 	
 	emit_signal("selection_changed", selected_objects)
+
+func find_nearest_expansion(position: Vector2, max_range: float):
+	var nearest = null
+	var nearest_dist = max_range
+	
+	for child in level.get_children():
+		if child is ExpansionNode:
+			var dist = position.distance_to(child.global_position)
+			if dist < nearest_dist:
+				nearest = child
+				nearest_dist = dist
+	
+	if nearest:
+		if is_instance_valid(nearest.main_building):
+			return nearest.main_building
+		else:
+			return nearest
+	
+	return null
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -157,14 +177,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
 		var mouse_pos = get_global_mouse_position()
 		var clicked_objects = level.find_objects_at(mouse_pos)
-		var target_structure = null
-		for clicked_object in clicked_objects:
-			if clicked_object is Structure:
-				target_structure = clicked_object
-		if target_structure:
+		var target_expansion = find_nearest_expansion(mouse_pos, 512.0)
+		if target_expansion:
+			if target_expansion is Structure:
+				target_expansion = target_expansion.expansion
 			for object in selected_objects:
 				if is_instance_valid(object):
-					object.right_click_command(target_structure)
+					object.right_click_command(target_expansion)
 	
 	# camera controls
 	if event is InputEventMouseButton and camera:

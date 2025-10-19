@@ -13,5 +13,3 @@ building_type = "builder"
 texture = ExtResource("3_kulai")
 
 [node name="ConstructionAbility" parent="." index="9" instance=ExtResource("3_52mt8")]
-has_button = false
-ability_cost = {}

@@ -43,5 +43,3 @@ structure_to_build = "red_refinery"
 action_name = "Red Refinery"
 
 [node name="ConstructionAbility" parent="." index="16" instance=ExtResource("5_bkfb8")]
-has_button = false
-ability_cost = {}

@@ -10,7 +10,13 @@ func _ready():
 
 func add_to_queue(structure: Structure):
 	build_queue.append(structure)
-	print("Added ", structure.building_type, " to build queue. Queue size: ", build_queue.size())
+	print("Added ", structure.building_type, " to build queue. Queue size: ", queue_size())
+
+func queue_size():
+	var size = build_queue.size()
+	if is_instance_valid(current_build):
+		size += 1
+	return size
 
 func _process(delta):
 	if not is_instance_valid(current_build):

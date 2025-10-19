@@ -5,6 +5,7 @@ extends CharacterBody2D
 var stats
 var max_health: int = 5
 var health: int = 5
+var size = 4
 
 var grid: Grid = null
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
@@ -12,19 +13,26 @@ var grid: Grid = null
 @onready var separation_area = $SeparationArea
 @onready var AI_timer = $AITimer
 
-enum State { SWARMING, TRAVELING }
-var target_structure: Structure
+enum State { TRAVELING, ENGAGING }
+var current_state = State.ENGAGING
+var target_expansion: ExpansionNode
+var current_target: Node2D = null
+var ARRIVAL_RANGE: float = 64
+var ENGAGEMENT_RANGE: float = 14
+var DETECTION_RANGE: float = 256
+
+var target_priorities = ["units", "main_building", "mine"]
+
+# traveling:
 var target_waypoint
 var WAYPOINT_TARGET_RADIUS = 32
 var cached_path
 var cached_path_index = 0
-var current_state = State.SWARMING
-var ARRIVAL_RADIUS = 48.0
+# engaging:
 var SEPARATION_WEIGHT = 10
-var GRAVITY_WEIGHT = 5
-var DRAG_FACTOR = 20
-var STOP_THRESHOLD_SPEED = 1
-var turn_speed = 2
+var FRICTION = 20
+var turn_speed = 5
+var desired_velocity = Vector2.ZERO
 
 var resource = 5
 
@@ -70,28 +78,23 @@ func get_abilities_in_order() -> Array[Ability]:
 
 func get_cached_path(target):
 	var level = get_parent()
-	var target_exp
-	if target is Structure:
-		target_exp = target.expansion
-	elif target is ExpansionNode:
-		target_exp = target
-	else:
-		return
-	if not target_exp in level.path_cache:
+	if not target_expansion in level.path_cache:
 		cached_path = []
 		return
-	var paths = level.path_cache[target_structure.expansion]
+	var paths = level.path_cache[target_expansion]
 	if not target in paths:
 		cached_path = []
 		return
-	cached_path = paths[target.expansion]
+	cached_path = paths[target]
 	cached_path_index = 0
 
-func set_movement_target(target: Structure):
-	if not target or target == target_structure:
+func set_movement_target(target):
+	if target is Structure:
+		target = target.expansion
+	if not target or not target is ExpansionNode or target == target_expansion:
 		return
 	get_cached_path(target)
-	target_structure = target
+	target_expansion = target
 	nav_agent.avoidance_enabled = true
 	current_state = State.TRAVELING
 	set_waypoint()
@@ -99,8 +102,8 @@ func set_movement_target(target: Structure):
 
 func set_waypoint():
 	if cached_path_index >= cached_path.size():
-		if is_instance_valid(target_structure):
-			target_waypoint = target_structure.global_position
+		if is_instance_valid(target_expansion):
+			target_waypoint = target_expansion.global_position
 	else:
 		target_waypoint = cached_path[cached_path_index]
 
@@ -109,6 +112,30 @@ func check_waypoint():
 		cached_path_index += 1
 		set_waypoint()
 		nav_agent.target_position = target_waypoint
+
+func find_target_in_expansion():
+	if not is_instance_valid(target_expansion):
+		return null
+	
+	var level = get_parent()
+	for child in level.get_children():
+		if child is Unit and child.grid != grid:
+			var dist = global_position.distance_to(child.global_position)
+			if dist < DETECTION_RANGE:
+				return child
+	
+	for priority_type in target_priorities:
+		for structure in target_expansion.structures:
+			if structure.grid == grid:
+				continue
+			
+			if structure.building_type == priority_type:
+				return structure
+	
+	for structure in target_expansion.structures:
+			if structure.grid == grid:
+				continue
+			return structure
 
 func right_click_command(location):
 	set_movement_target(location)
@@ -137,13 +164,13 @@ func get_separation_force() -> Vector2:
 func _travel_process(delta):
 	check_waypoint()
 	var target_position
-	if is_instance_valid(target_structure):
-		target_position = target_structure.global_position
+	if is_instance_valid(target_expansion):
+		target_position = target_expansion.global_position
 	else:
 		target_position = global_position
 	var distance_to_target = global_position.distance_to(target_position)
-	if distance_to_target < ARRIVAL_RADIUS:
-		current_state = State.SWARMING
+	if distance_to_target < ARRIVAL_RANGE:
+		current_state = State.ENGAGING
 		nav_agent.target_position = global_position
 		nav_agent.avoidance_enabled = false
 		return
@@ -153,33 +180,51 @@ func _travel_process(delta):
 	nav_agent.set_velocity(new_velocity)
 
 func _on_velocity_computed(safe_velocity: Vector2):
-	velocity = safe_velocity
+	if current_state == State.TRAVELING:
+		velocity = safe_velocity
 
-func _swarm_process(delta):
-	var target_position
-	if is_instance_valid(target_structure):
-		target_position = target_structure.global_position
+func _engage_process(delta):
+	if not is_instance_valid(current_target):
+		current_target = find_target_in_expansion()
+	
+	desired_velocity = Vector2.ZERO
+	
+	if not is_instance_valid(current_target):
+		var target_position = global_position
+		if is_instance_valid(target_expansion):
+			target_position = target_expansion.global_position
+		var to_target = target_position - global_position
+		var distance = to_target.length() - target_expansion.size
+		if distance > ENGAGEMENT_RANGE:
+			desired_velocity = to_target.normalized() * stats.speed
+		var separation_force = get_separation_force() * SEPARATION_WEIGHT 
+		desired_velocity += separation_force * stats.speed
+	
 	else:
-		target_position = global_position
-	var final_force = Vector2.ZERO
-	final_force += GRAVITY_WEIGHT * (target_position - global_position).normalized()
-	var separation_force = get_separation_force()
-	final_force += separation_force * SEPARATION_WEIGHT
-	var target_velocity = final_force * stats.speed
-	velocity = velocity.lerp(Vector2.ZERO, DRAG_FACTOR * delta)
-	velocity = velocity.lerp(target_velocity, turn_speed * delta)
-	velocity = velocity.limit_length(stats.speed)
-	if velocity.length() < STOP_THRESHOLD_SPEED:
-		velocity = Vector2.ZERO
-
-
+		var to_target = current_target.global_position - global_position
+		var distance = to_target.length() - current_target.size
+		if distance > ENGAGEMENT_RANGE:
+			desired_velocity = to_target.normalized() * stats.speed
+		elif distance < ENGAGEMENT_RANGE * 0.7:
+			desired_velocity = -to_target.normalized() * stats.speed * 0.5
+		var separation_force = get_separation_force() * SEPARATION_WEIGHT
+		desired_velocity += separation_force * stats.speed
+	
+	desired_velocity = desired_velocity.limit_length(stats.speed)
+	
 func _physics_process(delta):
+	if current_state == State.ENGAGING:
+		velocity = velocity.lerp(desired_velocity, turn_speed * delta)
+		if desired_velocity.length() < 1:
+			velocity = velocity.lerp(Vector2.ZERO, turn_speed * delta)
+			if velocity.length() < 2:
+				velocity = Vector2.ZERO
 	move_and_slide()
 
 func _update_ai():
 	match current_state:
-		State.SWARMING:
-			_swarm_process(AI_timer.wait_time)
+		State.ENGAGING:
+			_engage_process(AI_timer.wait_time)
 		State.TRAVELING:
 			_travel_process(AI_timer.wait_time)
 

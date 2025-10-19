@@ -23,7 +23,6 @@ func destroy():
 func _on_area_entered(area: Area2D):
 	var body = area.get_parent()
 	
-
 	if body is Structure or body is Unit:
 		if body.grid.controller != grid.controller:
 			body.take_damage(damage)

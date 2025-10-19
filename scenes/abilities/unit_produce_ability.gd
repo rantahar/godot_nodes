@@ -55,9 +55,9 @@ func production_complete():
 		"scene": UnitScene,
 		"grid": grid,
 		"position": $SpawnPoint.global_position,
-		"init_structure": parent,
+		"init_expansion": parent.expansion,
 		"ability": self,
-		"target_structure": parent.expansion.main_building
+		"target_expansion": parent.expansion
 	}
 	EventBus.emit_signal("unit_produced", unit_data)
 
@@ -72,7 +72,7 @@ func is_executing():
 	return is_producing
 
 func get_progress() -> Dictionary:
-	var progress = 100 - 100 * production_progress / production_time 
+	var progress = 100 * production_progress / production_time 
 	return {
 		"current": progress,
 		"in_progress": true
