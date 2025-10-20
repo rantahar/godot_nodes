@@ -13,5 +13,5 @@ building_type = "blue_refinery"
 position = Vector2(0, -2)
 texture = ExtResource("2_kveg2")
 
-[node name="RefineAbility" parent="." index="9" instance=ExtResource("3_byypy")]
+[node name="RefineAbility" parent="." index="8" instance=ExtResource("3_byypy")]
 resource_generated = "blue_crystal"

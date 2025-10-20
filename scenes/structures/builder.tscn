@@ -12,4 +12,4 @@ building_type = "builder"
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_kulai")
 
-[node name="ConstructionAbility" parent="." index="9" instance=ExtResource("3_52mt8")]
+[node name="ConstructionAbility" parent="." index="8" instance=ExtResource("3_52mt8")]

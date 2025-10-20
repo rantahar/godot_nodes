@@ -4,13 +4,10 @@ extends Node2D
 var parent: Node2D
 var is_active = true
 var is_passive = true
-@export var has_button = false
-@export var ability_cost: Dictionary = {}
+var has_button = false
 
 func _ready():
 	parent = get_parent()
-	if has_button:
-		is_passive = false
 	disable()
 
 func enable():

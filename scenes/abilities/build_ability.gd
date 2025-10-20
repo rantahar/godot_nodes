@@ -1,9 +1,12 @@
 class_name BuildAbility
-extends Ability
+extends ButtonAbility
 
 @export var structure_to_build: String = ""
-@export var action_name: String = ""
-@export var action_icon: Texture2D = null
+
+
+func _ready():
+	super()
+	ability_data = GameData.buildable_structures[structure_to_build]
 
 func execute():
 	var input_controller = get_tree().root.get_node("Game/InputController")

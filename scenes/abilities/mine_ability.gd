@@ -1,3 +1,4 @@
+class_name MineAbility
 extends Ability
 
 @onready var resource_timer: Timer = $ResourceTimer

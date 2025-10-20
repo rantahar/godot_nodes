@@ -15,10 +15,11 @@ var grid: Grid = null
 
 enum State { TRAVELING, ENGAGING }
 var current_state = State.ENGAGING
-var target_expansion: ExpansionNode
+var expansion: ExpansionNode
 var current_target: Node2D = null
+var engagement_range: float = 16
+var engagement_tolerance: float = 8
 var ARRIVAL_RANGE: float = 64
-var ENGAGEMENT_RANGE: float = 14
 var DETECTION_RANGE: float = 256
 
 var target_priorities = ["units", "main_building", "mine"]
@@ -41,6 +42,8 @@ func _ready():
 	stats = gamedata.buildable_units[unit_type]
 	max_health = stats["max_health"]
 	health = max_health
+	
+	engagement_range = stats["range"]
 	
 	$HealthBar.max_value = max_health
 	$HealthBar.value = health
@@ -78,10 +81,10 @@ func get_abilities_in_order() -> Array[Ability]:
 
 func get_cached_path(target):
 	var level = get_parent()
-	if not target_expansion in level.path_cache:
+	if not expansion in level.path_cache:
 		cached_path = []
 		return
-	var paths = level.path_cache[target_expansion]
+	var paths = level.path_cache[expansion]
 	if not target in paths:
 		cached_path = []
 		return
@@ -91,10 +94,12 @@ func get_cached_path(target):
 func set_movement_target(target):
 	if target is Structure:
 		target = target.expansion
-	if not target or not target is ExpansionNode or target == target_expansion:
+	expansion.unregister_unit(self)
+	target.register_unit(self)
+	if not target or not target is ExpansionNode or target == expansion:
 		return
 	get_cached_path(target)
-	target_expansion = target
+	expansion = target
 	nav_agent.avoidance_enabled = true
 	current_state = State.TRAVELING
 	set_waypoint()
@@ -102,8 +107,8 @@ func set_movement_target(target):
 
 func set_waypoint():
 	if cached_path_index >= cached_path.size():
-		if is_instance_valid(target_expansion):
-			target_waypoint = target_expansion.global_position
+		if is_instance_valid(expansion):
+			target_waypoint = expansion.global_position
 	else:
 		target_waypoint = cached_path[cached_path_index]
 
@@ -114,25 +119,25 @@ func check_waypoint():
 		nav_agent.target_position = target_waypoint
 
 func find_target_in_expansion():
-	if not is_instance_valid(target_expansion):
+	if not is_instance_valid(expansion):
 		return null
 	
 	var level = get_parent()
-	for child in level.get_children():
-		if child is Unit and child.grid != grid:
-			var dist = global_position.distance_to(child.global_position)
+	for unit in expansion.units:
+		if unit is Unit and unit.grid != grid:
+			var dist = global_position.distance_to(unit.global_position)
 			if dist < DETECTION_RANGE:
-				return child
+				return unit
 	
 	for priority_type in target_priorities:
-		for structure in target_expansion.structures:
+		for structure in expansion.structures:
 			if structure.grid == grid:
 				continue
 			
 			if structure.building_type == priority_type:
 				return structure
 	
-	for structure in target_expansion.structures:
+	for structure in expansion.structures:
 			if structure.grid == grid:
 				continue
 			return structure
@@ -164,8 +169,8 @@ func get_separation_force() -> Vector2:
 func _travel_process(delta):
 	check_waypoint()
 	var target_position
-	if is_instance_valid(target_expansion):
-		target_position = target_expansion.global_position
+	if is_instance_valid(expansion):
+		target_position = expansion.global_position
 	else:
 		target_position = global_position
 	var distance_to_target = global_position.distance_to(target_position)
@@ -191,11 +196,11 @@ func _engage_process(delta):
 	
 	if not is_instance_valid(current_target):
 		var target_position = global_position
-		if is_instance_valid(target_expansion):
-			target_position = target_expansion.global_position
+		if is_instance_valid(expansion):
+			target_position = expansion.global_position
 		var to_target = target_position - global_position
-		var distance = to_target.length() - target_expansion.size
-		if distance > ENGAGEMENT_RANGE:
+		var distance = to_target.length() - expansion.size
+		if distance > engagement_range:
 			desired_velocity = to_target.normalized() * stats.speed
 		var separation_force = get_separation_force() * SEPARATION_WEIGHT 
 		desired_velocity += separation_force * stats.speed
@@ -203,9 +208,9 @@ func _engage_process(delta):
 	else:
 		var to_target = current_target.global_position - global_position
 		var distance = to_target.length() - current_target.size
-		if distance > ENGAGEMENT_RANGE:
+		if distance > engagement_range:
 			desired_velocity = to_target.normalized() * stats.speed
-		elif distance < ENGAGEMENT_RANGE * 0.7:
+		elif distance < (engagement_range - engagement_tolerance):
 			desired_velocity = -to_target.normalized() * stats.speed * 0.5
 		var separation_force = get_separation_force() * SEPARATION_WEIGHT
 		desired_velocity += separation_force * stats.speed
@@ -233,3 +238,7 @@ func take_damage(amount: int):
 	$HealthBar.value = health
 	if health <= 0:
 		queue_free()
+
+func _exit_tree():
+	if is_instance_valid(expansion):
+		expansion.unregister_unit(self)

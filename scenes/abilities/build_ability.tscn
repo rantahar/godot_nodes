@@ -8,4 +8,3 @@ script = ExtResource("2_npr7t")
 structure_to_build = ""
 action_name = ""
 action_icon = null
-has_button = true

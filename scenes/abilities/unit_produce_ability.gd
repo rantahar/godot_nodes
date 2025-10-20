@@ -13,6 +13,7 @@ var grid : Grid = null
 var production_time: int
 var production_progress: float = 0
 var is_producing: bool = false
+var ability_cost: int = 0
 
 func _ready():
 	super()
@@ -52,7 +53,7 @@ func production_complete():
 		return
 
 	var unit_data = {
-		"scene": UnitScene,
+		"scene": load(UnitScene),
 		"grid": grid,
 		"position": $SpawnPoint.global_position,
 		"init_expansion": parent.expansion,

@@ -5,7 +5,6 @@ extends Ability
 var projectile_damage: int = 10
 @export var detection_range: float = 4
 
-@onready var detection_area: Area2D = $DetectionArea
 @onready var fire_rate_timer: Timer = $FireRateTimer
 
 var targets_in_range: Array[Node2D] = []
@@ -14,9 +13,6 @@ var current_target: Node2D = null
 func _ready():
 	super()
 	fire_rate_timer.timeout.connect(_on_fire_rate_timer_timeout)
-	var collision_shape = detection_area.get_node("CollisionShape2D")
-	if collision_shape.shape is CircleShape2D:
-		collision_shape.shape.radius = detection_range
 
 func enable():
 	super()
@@ -27,27 +23,33 @@ func disable():
 	targets_in_range.clear()
 
 func scan_targets():
-	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsShapeQueryParameters2D.new()
-	var collision_shape = detection_area.get_node("CollisionShape2D")
-	query.shape = collision_shape.shape
-	query.transform = detection_area.global_transform
-	query.collision_mask = 2 | 3
-	query.collide_with_areas = true
-	query.exclude = []
+	if parent is Unit and is_instance_valid(parent.current_target):
+		var target = parent.current_target
+		var target_positon = target.global_position
+		var dist = global_position.distance_to(target_positon) - target.size
+		print("detection_range ", detection_range, " dist ", dist)
+		if dist < detection_range:
+			current_target = parent.current_target
+			return
 	
-	var results = space_state.intersect_shape(query)
-		
+	if not is_instance_valid(parent.expansion):
+		return
+	
+	var parent_expansion = parent.expansion
+	if not is_instance_valid(parent_expansion):
+		current_target = null
+		return
+	
+	var potential_targets = parent_expansion.units + parent_expansion.structures
 	var closest_target = null
-	var closest_dist_sq = INF
-	for result in results:
-		var body = result.collider.get_parent()
-		if body is Structure or body is Unit:
-			if body.grid != parent.grid:
-				var dist_sq = parent.global_position.distance_squared_to(body.global_position)
-				if dist_sq < closest_dist_sq:
-					closest_dist_sq = dist_sq
-					closest_target = body
+	var closest_dist = detection_range
+	var grid = parent.grid
+	for target in potential_targets:
+		if is_instance_valid(target) and target.grid != grid:
+			var dist = global_position.distance_to(target.global_position) - target.size
+			if dist < closest_dist:
+				closest_dist = dist
+				closest_target = target
 	current_target = closest_target
 
 func _on_fire_rate_timer_timeout():

@@ -7,6 +7,7 @@ extends Node2D
 var crystals: Array[Crystal] = []
 var slots: Array[BuildingSlot] = []
 var structures: Array[Structure] = []
+var units: Array[Unit] = []
 var size = 16
 
 @onready var selectionIndicator = $SelectionIndicator
@@ -32,6 +33,13 @@ func append_structure(structure):
 
 func remove_structure(structure):
 	structures.erase(structure)
+
+func register_unit(unit: Unit):
+	if unit not in units:
+		units.append(unit)
+
+func unregister_unit(unit: Unit):
+	units.erase(unit)
 
 func disable_all_structures():
 	for structure in structures:
@@ -83,7 +91,7 @@ func can_build(structure_data, grid):
 func build(structure_data, grid):
 	var slot = find_available_slot(structure_data)
 
-	var new_node = structure_data.scene.instantiate()
+	var new_node = load(structure_data.scene).instantiate()
 	new_node.grid = grid
 	new_node.expansion = self
 	new_node.slot = slot

@@ -43,6 +43,7 @@ func _ready():
 
 func _process(delta):
 	$HealthBar.value = health
+	progress_ability = find_progress_ability()
 	if is_instance_valid(progress_ability):
 		var progress = progress_ability.get_progress()
 		if progress.in_progress:
@@ -59,8 +60,6 @@ func enforce_ability_priority(delta):
 	
 	var an_ability_is_blocking = false
 	for ability in abilities:
-		if not ability.is_passive:
-			continue
 		if an_ability_is_blocking:
 			ability.disable()
 		else:
@@ -69,14 +68,10 @@ func enforce_ability_priority(delta):
 				an_ability_is_blocking = true
 
 func find_progress_ability() -> Ability:
-	var construction = get_node_or_null("ConstructionAbility")
-	if construction:
-		return construction
-	
-	var production = get_node_or_null("UnitProduceAbility")
-	if production:
-		return production
-	
+	var abilities = get_abilities_in_order()
+	for ability in abilities:
+		if ability.is_executing():
+			return ability
 	return null
 
 func disable_abilities():

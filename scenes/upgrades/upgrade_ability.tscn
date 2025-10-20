@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://jt0y3q4fn2ru"]
+
+[ext_resource type="PackedScene" uid="uid://c48k251wumxqm" path="res://scenes/abilities/ability.tscn" id="1_mkouk"]
+[ext_resource type="Script" path="res://scenes/upgrades/upgrade_ability.gd" id="2_1xgul"]
+
+[node name="UpgradeAbility" instance=ExtResource("1_mkouk")]
+script = ExtResource("2_1xgul")
+upgrade_name = ""
+action_name = ""
+action_icon = null
