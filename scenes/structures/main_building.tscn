@@ -18,35 +18,40 @@ texture = ExtResource("3_f3l57")
 
 [node name="UpgradeAbility1" parent="." index="8" instance=ExtResource("4_1lhae")]
 script = ExtResource("5_21xpn")
-upgrade_name = "main_building_level_2"
-action_name = "Upgrade"
+button_text = "Upgrade"
+ability_name = "main_building_level_2"
 
-[node name="BuildAbility" parent="." index="9" instance=ExtResource("4_n6fam")]
-structure_to_build = "mine"
-action_name = "Mine"
+[node name="BlueMineUpgrade" parent="." index="9" instance=ExtResource("4_1lhae")]
+button_text = "Advanced Mining"
+ability_name = "blue_mining_speed"
 
-[node name="BuildAbility7" parent="." index="10" instance=ExtResource("4_n6fam")]
-structure_to_build = "builder"
-action_name = "Builder"
+[node name="BuildAbility" parent="." index="10" instance=ExtResource("4_n6fam")]
+button_text = "Mine"
+ability_name = "build_mine"
 
-[node name="BuildAbility2" parent="." index="11" instance=ExtResource("4_n6fam")]
-structure_to_build = "factory"
-action_name = "Factory"
+[node name="BuildAbility7" parent="." index="11" instance=ExtResource("4_n6fam")]
+button_text = "Builder"
+ability_name = "build_builder"
 
-[node name="BuildAbility3" parent="." index="12" instance=ExtResource("4_n6fam")]
-structure_to_build = "cannon"
-action_name = "Cannon"
+[node name="BuildAbility2" parent="." index="12" instance=ExtResource("4_n6fam")]
+button_text = "Factory"
+ability_name = "build_factory"
 
-[node name="BuildAbility4" parent="." index="13" instance=ExtResource("4_n6fam")]
-structure_to_build = "green_refinery"
-action_name = "Green Refinery"
+[node name="BuildAbility3" parent="." index="13" instance=ExtResource("4_n6fam")]
+button_text = "Cannon"
+ability_name = "build_cannon"
 
-[node name="BuildAbility5" parent="." index="14" instance=ExtResource("4_n6fam")]
-structure_to_build = "blue_refinery"
-action_name = "Blue Refinery"
+[node name="BuildAbility4" parent="." index="14" instance=ExtResource("4_n6fam")]
+button_text = "Green Refinery"
+ability_name = "build_green_refinery"
 
-[node name="BuildAbility6" parent="." index="15" instance=ExtResource("4_n6fam")]
-structure_to_build = "red_refinery"
-action_name = "Red Refinery"
+[node name="BuildAbility5" parent="." index="15" instance=ExtResource("4_n6fam")]
+button_text = "Blue Refinery"
+ability_name = "build_blue_refinery"
 
-[node name="ConstructionAbility" parent="." index="16" instance=ExtResource("5_bkfb8")]
+[node name="BuildAbility6" parent="." index="16" instance=ExtResource("4_n6fam")]
+button_text = "Red Refinery"
+ability_name = "build_red_refinery"
+
+[node name="ConstructionAbility" parent="." index="17" instance=ExtResource("5_bkfb8")]
+ability_name = "construction"

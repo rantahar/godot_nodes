@@ -24,5 +24,5 @@ visible = false
 texture = ExtResource("2_s4k8t")
 
 [node name="BuildAbility" parent="." instance=ExtResource("3_6jr56")]
-structure_to_build = "main_building"
-action_name = "Main Building"
+button_text = "Expand"
+ability_name = "build_main_building"

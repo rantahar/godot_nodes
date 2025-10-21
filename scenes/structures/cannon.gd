@@ -8,9 +8,10 @@ const ProjectileScene = preload("res://scenes/projectiles/projectile.tscn")
 
 func _ready():
 	super()
-	var gamedata = GameData
-	var stats = gamedata.buildable_structures[building_type]
-	
+	apply_stats()
+
+func apply_stats():
+	super()
 	$FireAbility.projectile_damage = stats["damage"]
 	$FireAbility/FireRateTimer.wait_time = stats["fire_rate"]
 	$FireAbility.detection_range = stats["range"]

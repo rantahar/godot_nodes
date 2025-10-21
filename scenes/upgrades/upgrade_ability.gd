@@ -1,8 +1,6 @@
 class_name UpgradeAbility
 extends ButtonAbility
 
-@export var upgrade_name: String = ""
-
 var is_upgrading = false
 var upgrade_cost = {}
 var upgrade_progress = 0.0
@@ -10,13 +8,11 @@ var upgrade_time = 10.0
 
 func _ready():
 	super()
-	is_passive = true # uprgade runs with timer
-	ability_data = GameData.upgrades[upgrade_name]
+	is_passive = true
 	upgrade_cost = ability_data.cost
 	upgrade_time = ability_data.build_time
 
 func execute():
-	print("clicked")
 	if not charge_ability_cost(upgrade_cost):
 		return false
 	
@@ -33,6 +29,10 @@ func _process(delta):
 func complete_upgrade():
 	is_upgrading = false
 	upgrade_progress = 0.0
+	var player = parent.grid.controller
+	if is_instance_valid(player):
+		player.register_upgrade(ability_name)
+		EventBus.emit_signal("upgrade_completed", ability_name, player)
 
 func is_executing():
 	return is_upgrading

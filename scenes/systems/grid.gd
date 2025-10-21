@@ -32,10 +32,18 @@ func _init():
 func set_level(map: Node2D):
 	level = map
 
-func add_resources(type: String, amount: int):
+func add_resources(type: String, amount: float):
+	print("add_resources ", type, amount)
 	if resources.has(type):
 		resources[type] += amount
 	emit_signal("resources_updated")
+
+func has_structure_type(structure_type: String) -> bool:
+	for expansion in expansions:
+		for structure in expansion.structures:
+			if structure.building_type == structure_type:
+				return true
+	return false
 
 func can_build_expansion() -> bool:
 	return expansions.size() < total_node_capacity

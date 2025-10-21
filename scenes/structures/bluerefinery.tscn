@@ -15,3 +15,4 @@ texture = ExtResource("2_kveg2")
 
 [node name="RefineAbility" parent="." index="8" instance=ExtResource("3_byypy")]
 resource_generated = "blue_crystal"
+ability_name = "refinery"

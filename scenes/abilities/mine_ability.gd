@@ -4,7 +4,7 @@ extends Ability
 @onready var resource_timer: Timer = $ResourceTimer
 signal resources_generated(amount: Dictionary)
 
-var resource_amount: int
+var resource_amount: float
 var crystal : Crystal = null
 
 func _ready():

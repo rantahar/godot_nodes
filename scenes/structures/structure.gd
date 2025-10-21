@@ -16,6 +16,7 @@ var progress_ability: Ability = null
 
 @export var building_type = ""
 @export var is_built = false
+var stats: Dictionary
 var is_active = true
 var build_progress: float = 0.0
 var build_time: float = 100.0
@@ -55,15 +56,25 @@ func _process(delta):
 	if is_built:
 		enforce_ability_priority(delta)
 
+func apply_stats():
+	if not grid or not grid.controller:
+		return
+	var player = grid.controller
+	stats = player.get_structure_stats(building_type)
+	max_health = stats["max_health"]
+	$HealthBar.max_value = max_health
+
 func enforce_ability_priority(delta):
 	var abilities = get_abilities_in_order()
 	
 	var an_ability_is_blocking = false
 	for ability in abilities:
+		
 		if an_ability_is_blocking:
 			ability.disable()
 		else:
-			ability.enable()
+			if not ability.is_active:
+				ability.enable()
 			if ability.is_executing():
 				an_ability_is_blocking = true
 
@@ -121,6 +132,7 @@ func finish_build() -> void:
 	is_built = true
 	enable_abilities()
 	modulate()
+	EventBus.emit_signal("structure_built", self)
 	
 	var nav_region = get_tree().get_first_node_in_group("nav_region")
 	if is_instance_valid(nav_region):

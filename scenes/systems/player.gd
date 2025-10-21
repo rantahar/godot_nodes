@@ -13,6 +13,7 @@ var has_won: bool = false
 var main_buildings: Array[MainBuilding] = []
 var grids: Array[Grid] = []
 var level: LevelLogic = null
+var completed_upgrades: Array[String] = []
 
 var node_container : Node = null
 
@@ -60,6 +61,41 @@ func can_claim_expansion(expansion: ExpansionNode) -> bool:
 		if not connection.is_free and connection.grid in grids:
 			return true
 	return false
+
+func has_upgrade(upgrade_name: String) -> bool:
+	return upgrade_name in completed_upgrades
+
+func register_upgrade(upgrade_name: String):
+	print(upgrade_name)
+	if upgrade_name not in completed_upgrades:
+		completed_upgrades.append(upgrade_name)
+	refresh_existing_structures()
+
+func get_structure_stats(structure_type: String) -> Variant:
+	var stats = GameData.buildable_structures[structure_type]
+	
+	if stats.has("damage") and has_upgrade("red_damage_boost"):
+		stats["damage"] += 5 
+	
+	if structure_type == "mine" and has_upgrade("blue_mining_speed"):
+		if structure_type == "mine":
+			stats["generation_rate"] *= 1.5
+	
+	return stats
+
+func get_unit_stats(unit_type: String) -> Variant:
+	var stats = GameData.buildable_units.get(unit_type, {}).duplicate()
+	
+	if stats.has("damage") and has_upgrade("red_damage_boost"):
+		stats["damage"] = stats["damage"] + 3
+	
+	return stats
+
+func refresh_existing_structures():
+	for grid in grids:
+		for expansion in grid.expansions:
+			for structure in expansion.structures:
+				structure.apply_stats()
 
 func _on_grid_may_need_split(old_grid: Grid):
 	var resource_owner = old_grid.get_resource_owner()

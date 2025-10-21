@@ -1,13 +1,57 @@
 extends Node
 
-var upgrades = {
+
+var abilities = {
+	# upgrades including cost
 	"main_building_level_2": {
-		"name": "Main Building Level 2",
+		"name": "main_building_level_2",
 		"cost": {"crystal": 50},
 		"build_time": 30.0,
 		"prerequisites": {
 		},
 	},
+	"blue_mining_speed": {
+		"name": "blue_mining_speed",
+		"cost": {"crystal": 10, "blue_crystal": 1},
+		"build_time": 1.0,
+		"prerequisites": {
+			"structure": "blue_refinery"
+		},
+	},
+	"red_damage_boost": {
+		"prerequisites": {
+			"requires_structure": "red_refinery"
+		}
+	},
+	# structures, only prerequisites here
+	"build_main_building": {
+		"structure_type": "main_building"
+	},
+	"build_mine": {
+		"structure_type": "mine"
+	},
+	"build_builder": {
+		"structure_type": "builder"
+	},
+	"build_cannon": {
+		"structure_type": "cannon"
+	},
+	"build_factory": {
+		"prerequisites": {
+			"upgrade": "main_building_level_2"
+		},
+		"structure_type": "factory"
+	},
+	"build_red_refinery": {
+		"structure_type": "red_refinery"
+	},
+	"build_blue_refinery": {
+		"structure_type": "blue_refinery"
+	},
+	"build_green_refinery": {
+		"structure_type": "green_refinery"
+	}
+	
 }
 
 var buildable_structures = {
@@ -33,7 +77,7 @@ var buildable_structures = {
 		"name": "mine",
 		"scene": "res://scenes/structures/mine.tscn",
 		"cost": {"crystal": 40},
-		"build_time": 5.0,
+		"build_time": 1.0,
 		"generation_rate": 1,
 		"max_health": 150,
 		"location": "crystal"
@@ -60,7 +104,7 @@ var buildable_structures = {
 	},
 	"refinery": {
 		"resource_amount": 1,
-		"crystal_cost": 1,
+		"resource_cost": {"crystal": 1},
 		"refine_time": 1,
 	},
 	"red_refinery": {
@@ -75,7 +119,7 @@ var buildable_structures = {
 		"name": "blue refinery",
 		"scene": "res://scenes/structures/bluerefinery.tscn",
 		"cost": {"crystal": 100},
-		"build_time": 15.0,
+		"build_time": 1.0,
 		"max_health": 600,
 		"location": "building_slot"
 	},

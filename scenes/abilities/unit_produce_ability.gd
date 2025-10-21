@@ -13,7 +13,7 @@ var grid : Grid = null
 var production_time: int
 var production_progress: float = 0
 var is_producing: bool = false
-var ability_cost: int = 0
+var ability_cost: Dictionary
 
 func _ready():
 	super()

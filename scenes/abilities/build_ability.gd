@@ -1,12 +1,14 @@
 class_name BuildAbility
 extends ButtonAbility
 
-@export var structure_to_build: String = ""
-
+var structure_to_build: String = ""
+var structure_data: Dictionary
 
 func _ready():
 	super()
-	ability_data = GameData.buildable_structures[structure_to_build]
+	print(ability_name, ability_data)
+	structure_to_build = ability_data["structure_type"]
+	structure_data = GameData.buildable_structures[structure_to_build]
 
 func execute():
 	var input_controller = get_tree().root.get_node("Game/InputController")

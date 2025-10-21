@@ -39,7 +39,7 @@ var resource = 5
 
 func _ready():
 	var gamedata = GameData
-	stats = gamedata.buildable_units[unit_type]
+	stats = grid.controller.get_unit_stats(unit_type)
 	max_health = stats["max_health"]
 	health = max_health
 	
