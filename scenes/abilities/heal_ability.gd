@@ -19,10 +19,10 @@ func _on_heal_timer_timeout():
 		current_target.heal(heal_rate)
 
 func find_damaged_structure() -> Structure:
-	if not parent.expansion or not parent.expansion.main_building:
+	if not parent.expansion or not parent.expansion:
 		return null
 	
-	var structures = parent.expansion.main_building.structures
+	var structures = parent.expansion.structures
 	for structure in structures:
 		if structure.health < structure.max_health:
 			return structure
@@ -31,3 +31,6 @@ func find_damaged_structure() -> Structure:
 
 func is_executing() -> bool:
 	return is_instance_valid(current_target)
+
+func get_progress() -> Dictionary:
+	return {"current": 0.0, "total": 0.0, "in_progress": false}

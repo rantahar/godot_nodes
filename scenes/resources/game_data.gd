@@ -3,22 +3,31 @@ extends Node
 
 var abilities = {
 	# upgrades including cost
-	"main_building_level_2": {
-		"name": "main_building_level_2",
+	"main_building_level_1": {
+		"name": "main_building_level_1",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"cost": {"crystal": 50},
 		"build_time": 30.0,
-		"prerequisites": {
-		},
+		"prerequisites": {},
+	},
+	"main_building_level_2": {
+		"name": "main_building_level_2",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
+		"cost": {"crystal": 100},
+		"build_time": 30.0,
+		"prerequisites": {},
 	},
 	"blue_mining_speed": {
 		"name": "blue_mining_speed",
-		"cost": {"crystal": 10, "blue_crystal": 1},
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
+		"cost": {"crystal": 20, "blue_crystal": 10},
 		"build_time": 1.0,
 		"prerequisites": {
 			"structure": "blue_refinery"
 		},
 	},
 	"red_damage_boost": {
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"prerequisites": {
 			"requires_structure": "red_refinery"
 		}
@@ -29,9 +38,6 @@ var abilities = {
 	},
 	"build_mine": {
 		"structure_type": "mine"
-	},
-	"build_builder": {
-		"structure_type": "builder"
 	},
 	"build_cannon": {
 		"structure_type": "cannon"
@@ -57,35 +63,28 @@ var abilities = {
 var buildable_structures = {
 	"main_building": {
 		"name": "network_node",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/main_building.tscn",
-		"cost": {"crystal": 150},
+		"cost": {"crystal": 300},
 		"build_time": 30.0,
 		"max_health": 1500,
 		"location": "main"
 	},
-	"builder": {
-		"name": "builder",
-		"scene": "res://scenes/structures/builder.tscn",
-		"cost": {"crystal": 30},
-		"build_time": 5.0,
-		"max_health": 200,
-		"heal_amount": 5,
-		"heal_rate": 5,
-		"location": "building_slot"
-	},
 	"mine": {
 		"name": "mine",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/mine.tscn",
 		"cost": {"crystal": 40},
 		"build_time": 1.0,
-		"generation_rate": 1,
+		"generation_rate": 2,
 		"max_health": 150,
 		"location": "crystal"
 	},
 	"cannon": {
 		"name": "cannon",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/cannon.tscn",
-		"cost": {"crystal": 60},
+		"cost": {"crystal": 120},
 		"build_time": 15.0,
 		"max_health": 500,
 		"damage": 12,
@@ -95,38 +94,42 @@ var buildable_structures = {
 	},
 	"factory": {
 		"name": "factory",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/factory.tscn",
-		"cost": {"crystal": 80},
+		"cost": {"crystal": 150},
 		"build_time": 15.0,
 		"max_health": 800,
 		"supply": 4,
 		"location": "building_slot"
 	},
 	"refinery": {
-		"resource_amount": 1,
-		"resource_cost": {"crystal": 1},
+		"resource_amount": 2,
+		"resource_cost": {"crystal": 2},
 		"refine_time": 1,
 	},
 	"red_refinery": {
 		"name": "red refinery",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/redrefinery.tscn",
-		"cost": {"crystal": 100},
+		"cost": {"crystal": 200},
 		"build_time": 15.0,
 		"max_health": 600,
 		"location": "building_slot"
 	},
 	"blue_refinery": {
 		"name": "blue refinery",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/bluerefinery.tscn",
-		"cost": {"crystal": 100},
+		"cost": {"crystal": 200},
 		"build_time": 1.0,
 		"max_health": 600,
 		"location": "building_slot"
 	},
 	"green_refinery": {
 		"name": "green refinery",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/greenrefinery.tscn",
-		"cost": {"crystal": 100},
+		"cost": {"crystal": 200},
 		"build_time": 15.0,
 		"max_health": 600,
 		"location": "building_slot"
@@ -136,7 +139,8 @@ var buildable_structures = {
 var buildable_units = {
 	"gun_unit": {
 		"scene": "res://scenes/units/gun_unit.tscn",
-		"cost": {"crystal": 25},
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
+		"cost": {"crystal": 50},
 		"build_time": 10.0,
 		"max_health": 75,
 		"speed": 100,

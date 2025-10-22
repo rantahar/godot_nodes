@@ -15,8 +15,6 @@ var grids: Array[Grid] = []
 var level: LevelLogic = null
 var completed_upgrades: Array[String] = []
 
-var node_container : Node = null
-
 var resources: Dictionary:
 	get:
 		var total = {
@@ -59,7 +57,8 @@ func can_claim_expansion(expansion: ExpansionNode) -> bool:
 
 	for connection in expansion.connected_nodes:
 		if not connection.is_free and connection.grid in grids:
-			return true
+			if is_instance_valid(connection.main_building) and connection.main_building.is_built:
+				return true
 	return false
 
 func has_upgrade(upgrade_name: String) -> bool:
@@ -79,7 +78,7 @@ func get_structure_stats(structure_type: String) -> Variant:
 	
 	if structure_type == "mine" and has_upgrade("blue_mining_speed"):
 		if structure_type == "mine":
-			stats["generation_rate"] *= 1.5
+			stats["generation_rate"] += 1
 	
 	return stats
 
@@ -176,11 +175,6 @@ func build_structure(expansion, build_mode, free = false) -> bool:
 	if not free:
 		if not is_instance_valid(grid):
 			print("Build failed: No valid friendly grid.")
-		if not grid.can_afford(structure_data.cost):
-			print("Build failed: Cannot afford.")
-			return false
-		else:
-			grid.spend_resources(structure_data.cost)
 	
 	expansion.build(structure_data, grid)
 	return true

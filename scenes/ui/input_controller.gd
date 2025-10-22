@@ -18,9 +18,6 @@ var is_dragging = false
 var drag_start_pos = Vector2.ZERO
 var CLICK_DRAG_THRESHOLD = 10
 
-var build_mode = null
-var ghost_preview = null
-
 var player: Player = null
 var level = null
 
@@ -41,16 +38,7 @@ func _on_production_toggle_pressed():
 		if is_instance_valid(object):
 			object.toggle_abilities()
 
-func _process(delta):
-	if is_instance_valid(ghost_preview):
-		var mouse_pos = get_global_mouse_position()
-		ghost_preview.global_position = mouse_pos
-		var structure_data = GameData.buildable_structures[build_mode]
-		if player.build_location_valid(structure_data, mouse_pos, player.grids, player.MAX_BUILD_DISTANCE):
-			ghost_preview.modulate = Color(0, 1, 0, 0.5)
-		else:
-			ghost_preview.modulate = Color(1, 0, 0, 0.5)
-	
+func _process(delta):	
 	if is_dragging:
 		var current_mouse_pos = get_viewport().get_mouse_position()
 		selection_box.size = current_mouse_pos - drag_start_pos
@@ -93,7 +81,7 @@ func select_units_in_box():
 	
 	var box_rect = selection_box.get_rect()
 	for unit in level.get_children():
-		if (unit is Unit or unit is UnitTest) and unit.grid.controller == player:
+		if unit is Unit and unit.grid.controller == player:
 			var unit_screen_pos = get_viewport().get_canvas_transform() * unit.global_position
 			if box_rect.has_point(unit_screen_pos):
 				selected_objects.append(unit)
@@ -157,15 +145,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif is_dragging:
 			is_dragging = false
 			selection_box.visible = false
-			
-			if build_mode:
-				var mouse_pos = get_global_mouse_position()
-				player.build_structure(mouse_pos, build_mode)
-				if not Input.is_key_pressed(KEY_SHIFT):
-					ghost_preview.queue_free()
-					ghost_preview = null
-					build_mode = null
-				return 
 			
 			var drag_end_pos = get_viewport().get_mouse_position() 
 			var drag_vector = drag_end_pos - drag_start_pos

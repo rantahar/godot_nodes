@@ -128,8 +128,8 @@ func assign_to_constructor(structure):
 func find_constructors() -> Array:
 	var result = []
 	for s in structures:
-		if is_instance_valid(s) and s.is_built:
-			if s is Builder or s is MainBuilding:
+		if is_instance_valid(s):
+			if s is MainBuilding:
 				result.append(s)
 	return result
 

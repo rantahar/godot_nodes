@@ -9,6 +9,11 @@ var ability_data: Dictionary
 
 @export var ability_name: String = ""
 
+# for active abilities that have a cost. We split the cost into individual
+# packets that get spent as the ability proceeds.
+var cost_packets: Array[String] = []
+var packets_charged: int = 0
+
 func _ready():
 	print(ability_name)
 	parent = get_parent()
@@ -56,6 +61,42 @@ func is_executing() -> bool:
 
 func can_execute() -> bool:
 	return false
+
+func calculate_cost_packets(cost: Dictionary):
+	cost_packets.clear()
+	var added: Dictionary = {}
+	var total_packets = 0
+	
+	for resource_type in cost.keys():
+		added[resource_type] = 0
+		total_packets += cost[resource_type]
+	
+	for i in range(total_packets):
+		var best_resource = ""
+		var lowest_percent = 2.0
+		
+		for resource_type in cost.keys():
+			if added[resource_type] < cost[resource_type]:
+				var percent = float(added[resource_type]) / cost[resource_type]
+				if percent < lowest_percent:
+					lowest_percent = percent
+					best_resource = resource_type
+		
+		cost_packets.append(best_resource)
+		added[best_resource] += 1
+
+func charge_cost_up_to(progress_fraction: float):
+	if cost_packets.is_empty():
+		return true
+	
+	var packets_due = floor(progress_fraction * cost_packets.size())
+	while packets_charged < packets_due:
+		var resource_type = cost_packets[packets_charged]
+		if parent.charge_ability_cost({resource_type: 1}):
+			packets_charged += 1
+		else:
+			return false
+	return true
 
 func charge_ability_cost(cost):
 	return parent.charge_ability_cost(cost)

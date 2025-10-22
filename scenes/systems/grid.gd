@@ -12,7 +12,7 @@ var connections: Array[ExpansionConnection] = []
 var level: Node2D = null
 
 var resources: Dictionary = {
-	"crystal": 200,
+	"crystal": 100,
 	"red_crystal": 0,
 	"blue_crystal": 0,
 	"green_crystal": 0
@@ -32,7 +32,7 @@ func _init():
 func set_level(map: Node2D):
 	level = map
 
-func add_resources(type: String, amount: float):
+func add_resources(type: String, amount: int):
 	print("add_resources ", type, amount)
 	if resources.has(type):
 		resources[type] += amount

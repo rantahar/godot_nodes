@@ -26,8 +26,14 @@ func _process(delta):
 			return
 		current_build = build_queue.pop_front()
 		build_progress = 0.0
+		packets_charged = 0
+		var stats = GameData.buildable_structures[current_build.building_type]
+		calculate_cost_packets(stats.cost)
 		print("Started building ", current_build.building_type)
 		
+	if not charge_cost_up_to(build_progress / current_build.build_time):
+		return
+
 	build_progress += delta
 	current_build.build_progress = build_progress
 	var heal_amount = delta * current_build.max_health / current_build.build_time
