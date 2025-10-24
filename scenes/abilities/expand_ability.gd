@@ -1,4 +1,4 @@
-class_name BuildAbility
+class_name ExpandAbility
 extends ButtonAbility
 
 var structure_to_build: String = ""
@@ -10,5 +10,4 @@ func _ready():
 	structure_data = GameData.buildable_structures[structure_to_build]
 
 func execute(player: Player):
-	print(parent.expansion, structure_to_build)
-	player.build_structure(parent.expansion, structure_to_build)
+	player.claim_expansion(parent, structure_to_build)

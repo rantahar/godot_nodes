@@ -15,12 +15,10 @@ var cost_packets: Array[String] = []
 var packets_charged: int = 0
 
 func _ready():
-	print(ability_name)
 	parent = get_parent()
 	ability_data = GameData.abilities.get(ability_name, {})
 
 func check_prerequisites() -> bool:
-	print(ability_data, " ", ability_data.has("prerequisites"))
 	if not ability_data or not ability_data.has("prerequisites"):
 		return true
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmugxhgpn1ka3"]
+[gd_scene load_steps=8 format=3 uid="uid://dmugxhgpn1ka3"]
 
 [ext_resource type="Script" path="res://scenes/systems/main.gd" id="1_wvuob"]
 [ext_resource type="PackedScene" uid="uid://tfl8g6kp58wu" path="res://scenes/ui/hud.tscn" id="2_wfoj6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scenes/systems/player.gd" id="4_e6spv"]
 [ext_resource type="Script" path="res://scenes/systems/AIPlayer.gd" id="5_la7jx"]
 [ext_resource type="Script" path="res://scenes/ui/input_controller.gd" id="6_bcaeg"]
+[ext_resource type="Script" path="res://scenes/systems/terraform_manager.gd" id="7_81gkn"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("localPlayer", "AIPlayers")]
 script = ExtResource("1_wvuob")
@@ -39,6 +40,13 @@ script = ExtResource("6_bcaeg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="GameTimer" type="Timer" parent="."]
+
+[node name="TerraformManager" type="Node2D" parent="."]
+z_index = 6
+script = ExtResource("7_81gkn")
+
 [connection signal="build_button_clicked" from="HUD" to="InputController" method="_on_build_button_pressed"]
 [connection signal="production_toggle_clicked" from="HUD" to="InputController" method="_on_production_toggle_pressed"]
 [connection signal="selection_changed" from="InputController" to="HUD" method="_on_selection_changed"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

@@ -1,8 +1,6 @@
 class_name LevelLogic
 extends NavigationRegion2D
 
-signal structure_selected(node)
-
 @onready var tile_map: TileMapLayer = $Map
 @onready var rebake_timer: Timer = $RebakeTimer
 var path_cache: Dictionary = {}

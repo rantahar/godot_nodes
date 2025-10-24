@@ -12,13 +12,14 @@ extends Node2D
 
 # stats
 var start_time_msec: int = 0
+@onready var game_timer: Timer = $GameTimer
 
 var level : Node = null
 
 func _ready():
 	level = $LevelContainer/Map
-	inputController.level = level
-	inputController.camera = camera
+	inputController.set_level(level)
+	inputController.set_camera(camera)
 	for player in allPlayers:
 		player.level = level
 		player.player_won.connect(_on_player_won)
@@ -32,7 +33,9 @@ func _ready():
 			init_grid.set_level(level)
 			init_grid.controller = controller
 			controller.grids.append(init_grid)
-			controller.build_structure(expansion, "main_building", true)
+			var structure_data = GameData.buildable_structures["main_building"]
+			expansion.claim(structure_data, init_grid)
+			
 			var init_main = init_grid.main_buildings[0]
 			init_main.level = 1
 			init_main.health = init_main.max_health
@@ -49,3 +52,14 @@ func _on_player_won(player: Player, time_msec: int):
 	
 	# Pausing the game is a simple way to end the match
 	get_tree().paused = true
+
+func _on_game_timer_timeout():
+	get_tree().paused = true
+	var final_scores = []
+	for player in allPlayers:
+		final_scores.append({"player": player, "score": player.get_final_score()})
+	
+	final_scores.sort_custom(func(a, b): return a.score > b.score)
+	var winner = final_scores[0].player
+	print("--- GAME OVER (Time) ---")
+	print("Winner: %s with %.2f points" % [winner.name, final_scores[0].score])

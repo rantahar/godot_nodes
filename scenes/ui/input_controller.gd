@@ -9,7 +9,7 @@ var camera: Camera2D
 @export var edge_pan_margin: int = 40
 @export var min_zoom: float = 0.1
 @export var max_zoom: float = 5.0
-@export var camera_bounds: Rect2 = Rect2(0, 0, 3000, 3000)
+@export var camera_bounds: Rect2 = Rect2(-300, 0, 3000, 2000)
 
 # Selection, player
 var selected_objects: Array[Node2D] = []
@@ -21,24 +21,32 @@ var CLICK_DRAG_THRESHOLD = 10
 var player: Player = null
 var level = null
 
+
+func set_level(level):
+	self.level = level
+
+func set_camera(_camera):
+	self.camera = _camera
+	await get_tree().process_frame
+	
+	if is_instance_valid(level):
+		var n_tiles : Rect2 = level.tile_map.get_used_rect()
+		var tile_size : Vector2 = level.tile_map.tile_set.tile_size
+		var map_size = (n_tiles.size + Vector2(1,1)) * tile_size
+		camera_bounds = Rect2(Vector2.ZERO, map_size)
+		
+	else:
+		print("Error: Could not find tile_map to set camera bounds.")
+
 func set_player(player_node):
 	player = player_node
-
-func _on_build_button_pressed(mode, object):
-	if selected_objects:
-		var expansion = null
-		if  object is Structure:
-			expansion = object.get_parent()
-		else:
-			expansion = object
-		player.build_structure(expansion, mode)
 
 func _on_production_toggle_pressed():
 	for object in selected_objects:
 		if is_instance_valid(object):
 			object.toggle_abilities()
 
-func _process(delta):	
+func _process(delta):
 	if is_dragging:
 		var current_mouse_pos = get_viewport().get_mouse_position()
 		selection_box.size = current_mouse_pos - drag_start_pos
@@ -65,8 +73,18 @@ func _process(delta):
 		camera.position += pan_direction * pan_speed * delta / camera.zoom
 
 		var half_viewport = get_viewport().get_visible_rect().size / (2 * camera.zoom)
-		camera.position.x = clamp(camera.position.x, camera_bounds.position.x + half_viewport.x, camera_bounds.end.x - half_viewport.x)
-		camera.position.y = clamp(camera.position.y, camera_bounds.position.y + half_viewport.y, camera_bounds.end.y - half_viewport.y)
+		var margin_left   = 200.0 / camera.zoom.x
+		var margin_right  = 50.0 / camera.zoom.x
+		var margin_top    = 50.0 / camera.zoom.y
+		var margin_bottom = 50.0 / camera.zoom.y
+		
+		var min_x = camera_bounds.position.x + half_viewport.x - margin_left
+		var max_x = camera_bounds.end.x - half_viewport.x + margin_right
+		var min_y = camera_bounds.position.y + half_viewport.y - margin_top
+		var max_y = camera_bounds.end.y - half_viewport.y + margin_bottom
+		
+		camera.position.x = clamp(camera.position.x, min_x, max_x)
+		camera.position.y = clamp(camera.position.y, min_y, max_y)
 
 
 func clear_selection():

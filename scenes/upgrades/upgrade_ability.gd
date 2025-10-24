@@ -12,19 +12,35 @@ func _ready():
 	upgrade_cost = ability_data.cost
 	upgrade_time = ability_data.build_time
 
-func execute():
-	if not charge_ability_cost(upgrade_cost):
+func is_available() -> bool:
+	var player = parent.grid.controller
+	if player.has_upgrade(ability_name):
+		return false
+	if is_upgrading:
+		return false
+	return super()
+
+func execute(player: Player):
+	if is_upgrading:
 		return false
 	
 	is_upgrading = true
 	upgrade_progress = 0.0
+	packets_charged = 0
 	return true
 	
 func _process(delta):
 	if is_upgrading:
+		var progress_fraction = 0.0
+		if upgrade_time > 0:
+			progress_fraction = upgrade_progress / upgrade_time
+		if not charge_cost_up_to(progress_fraction):
+			return
+		
 		upgrade_progress += delta
 		if upgrade_progress >= upgrade_time:
-			complete_upgrade()
+			if charge_cost_up_to(1.0):
+				complete_upgrade()
 
 func complete_upgrade():
 	is_upgrading = false

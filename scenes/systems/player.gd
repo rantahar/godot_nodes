@@ -2,11 +2,10 @@ class_name Player
 extends Node
 
 signal resources_updated(resources)
-signal build_approved(structure_data, position, grids, connections)
 signal player_won(player, time_elapsed)
 
 const MAX_BUILD_DISTANCE = 128
-const WIN_CONDITION_RESOURCES = 100000
+const WIN_CONDITION_SCORE = 1000
 var has_won: bool = false
 @export var color: Color = Color.GREEN
 
@@ -14,6 +13,11 @@ var main_buildings: Array[MainBuilding] = []
 var grids: Array[Grid] = []
 var level: LevelLogic = null
 var completed_upgrades: Array[String] = []
+
+var red_score: float = 0.0
+var blue_score: float = 0.0
+var green_score: float = 0.0
+var gray_score: float = 0.0
 
 var resources: Dictionary:
 	get:
@@ -29,13 +33,43 @@ var resources: Dictionary:
 					total[type] += grid.resources[type]
 		return total
 
+func _on_score_generated(doctrine: String, amount: float, scoring_player: Player):
+	if scoring_player != self:
+		return
+	
+	match doctrine:
+		"red":
+			red_score += amount
+		"blue":
+			blue_score += amount
+		"green":
+			green_score += amount
+		"gray":
+			gray_score += amount
+	
+	print(self, " scores:")
+	print("red: ", red_score)
+	print("blue: ", blue_score)
+	print("green: ", green_score)
+	print("gray: ", gray_score)
+	check_win_condition()
+
+func get_final_score() -> float:
+	return max(red_score, blue_score, green_score, gray_score)
+
 func _ready():
 	for grid in grids:
 		grid.grid_may_need_split.connect(_on_grid_may_need_split.bind(grid))
+	EventBus.score_generated.connect(_on_score_generated)
 
 func _on_resources_updated():
 	emit_signal("resources_updated", resources)
-	if not has_won and resources["crystal"] >= WIN_CONDITION_RESOURCES:
+
+func check_win_condition():
+	if has_won:
+		return
+
+	if get_final_score() >= WIN_CONDITION_SCORE:
 		has_won = true
 		var time_msec = Time.get_ticks_msec()
 		emit_signal("player_won", self, time_msec)
@@ -50,16 +84,6 @@ func find_build_grid_for(expansion: ExpansionNode, structure_data):
 		for connection in expansion.connected_nodes:
 			if not connection.is_free and connection.grid in grids:
 				return connection.grid
-
-func can_claim_expansion(expansion: ExpansionNode) -> bool:
-	if not expansion.is_free:
-		return false
-
-	for connection in expansion.connected_nodes:
-		if not connection.is_free and connection.grid in grids:
-			if is_instance_valid(connection.main_building) and connection.main_building.is_built:
-				return true
-	return false
 
 func has_upgrade(upgrade_name: String) -> bool:
 	return upgrade_name in completed_upgrades
@@ -157,24 +181,56 @@ func find_connected_expansions_from(start: ExpansionNode) -> Array[ExpansionNode
 	
 	return result
 
-func build_structure(expansion, build_mode, free = false) -> bool:
-	if not build_mode:
+func claim_expansion(expansion: ExpansionNode, structure_type: String) -> bool:
+	if not expansion.is_free:
+		print("Claim failed: Expansion not free.")
 		return false
 	
-	var data = GameData
-	var structure_data = data.buildable_structures[build_mode]
-	var grid = find_build_grid_for(expansion, structure_data)
-	if free:
-		grid = grids[0]
-	print("grid ", grid)
+	var structure_data = GameData.buildable_structures[structure_type]
+	
+	var grid_to_join = null
+	for connection in expansion.connected_nodes:
+		if not connection.is_free and connection.grid in grids:
+			if is_instance_valid(connection.main_building) and connection.main_building.is_built:
+				grid_to_join = connection.grid
+				break
+			
+	if not grid_to_join:
+		print("Claim failed: No adjacent friendly *built* grid.")
+		return false
+	if not grid_to_join.can_build_expansion():
+		print("Claim failed: Grid at capacity.")
+		return false
+	if not expansion.is_free:
+		print("Build failed: Expansion not free.")
+		return false
+
+	expansion.claim(structure_data, grid_to_join)
+	return true
+
+func can_claim_expansion(expansion: ExpansionNode) -> bool:
+	if not expansion.is_free:
+		return false
+
+	for connection in expansion.connected_nodes:
+		if not connection.is_free and connection.grid in grids:
+			if is_instance_valid(connection.main_building) and connection.main_building.is_built:
+				return true
+	return false
+
+func build_structure(expansion, structure_type) -> bool:
+	if not structure_type:
+		return false
+	
+	var structure_data = GameData.buildable_structures[structure_type]
+	var grid = expansion.grid
+	if not is_instance_valid(grid) or grid not in grids:
+		print("Build failed: Not a friendly grid.")
+		return false
 	
 	if not expansion.can_build(structure_data, grid):
-		print("Build failed: No valid slots available.")
+		print("Build failed: No valid slots available or prereqs not met.")
 		return false
 	
-	if not free:
-		if not is_instance_valid(grid):
-			print("Build failed: No valid friendly grid.")
-	
-	expansion.build(structure_data, grid)
+	expansion.build_structure(structure_data)
 	return true

@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cptcnyhrxje5c"]
+
+[ext_resource type="PackedScene" uid="uid://c50k7c0xkof47" path="res://scenes/abilities/build_ability.tscn" id="1_eqnbo"]
+[ext_resource type="Script" path="res://scenes/abilities/expand_ability.gd" id="2_ce8yv"]
+
+[node name="ExpandAbility" instance=ExtResource("1_eqnbo")]
+script = ExtResource("2_ce8yv")

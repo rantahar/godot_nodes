@@ -12,5 +12,5 @@ func _ready() -> void:
 func is_available() -> bool:
 	return check_prerequisites()
 
-func execute():
+func execute(player: Player):
 	pass

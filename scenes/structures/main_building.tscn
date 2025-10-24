@@ -48,13 +48,17 @@ ability_name = "build_cannon"
 button_text = "Green Refinery"
 ability_name = "build_green_refinery"
 
-[node name="BuildAbility5" parent="." index="15" instance=ExtResource("4_n6fam")]
+[node name="BuildAbility7" parent="." index="15" instance=ExtResource("4_n6fam")]
+button_text = "Terraformer"
+ability_name = "build_terraformer"
+
+[node name="BuildAbility5" parent="." index="16" instance=ExtResource("4_n6fam")]
 button_text = "Blue Refinery"
 ability_name = "build_blue_refinery"
 
-[node name="BuildAbility6" parent="." index="16" instance=ExtResource("4_n6fam")]
+[node name="BuildAbility6" parent="." index="17" instance=ExtResource("4_n6fam")]
 button_text = "Red Refinery"
 ability_name = "build_red_refinery"
 
-[node name="ConstructionAbility" parent="." index="17" instance=ExtResource("5_bkfb8")]
+[node name="ConstructionAbility" parent="." index="18" instance=ExtResource("5_bkfb8")]
 ability_name = "construction"

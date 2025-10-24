@@ -8,7 +8,6 @@ var grid: Node = null
 var slot
 var expansion: ExpansionNode
 
-signal structure_selected(node)
 
 @onready var selectionIndicator = $SelectionIndicator
 @onready var maintenance_timer: Timer = $MaintenanceTimer
@@ -30,8 +29,9 @@ func _ready():
 	progress_ability = find_progress_ability()
 	disable_abilities()
 	
-	$HealthBar.max_value = max_health
+	apply_stats()
 	$HealthBar.value = health
+	
 	var shape_size = $CollisionShape2D.shape.get_rect().size
 	$HealthBar.position.y = -shape_size.y/2-8
 	$HealthBar.position.x = -shape_size.x/2 - 4
@@ -115,9 +115,6 @@ func get_abilities_in_order() -> Array[Ability]:
 			result.append(child)
 	return result
 
-func _on_area_2d_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-		emit_signal("structure_selected", self)
 
 func modulate():
 	if is_built:

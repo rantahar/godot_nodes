@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://y5rbkf1v5rrh"]
+
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_2hlah"]
+[ext_resource type="Script" path="res://scenes/structures/terraformer.gd" id="2_2uqsd"]
+
+[node name="Terraformer" instance=ExtResource("1_2hlah")]
+script = ExtResource("2_2uqsd")
+building_type = "terraformer"

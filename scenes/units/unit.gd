@@ -145,12 +145,6 @@ func find_target_in_expansion():
 func right_click_command(location):
 	set_movement_target(location)
 
-func charge_ability_cost(cost) -> bool:
-	if cost <= resource:
-		resource -= cost
-		return true
-	return false
-
 func get_separation_force() -> Vector2:
 	var push_vector = Vector2.ZERO
 	var neighbors = separation_area.get_overlapping_areas() 

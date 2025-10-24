@@ -40,7 +40,7 @@ func refresh_buttons():
 				var new_button = Button.new()
 				new_button.text = child.button_text
 				new_button.icon = child.button_icon
-				new_button.pressed.connect(child.execute)
+				new_button.pressed.connect(child.execute.bind(player))
 				ability_button_container.add_child(new_button)
 
 func _on_selection_changed(selected_objects: Array):

@@ -10,7 +10,6 @@ func _ready():
 
 func add_to_queue(structure: Structure):
 	build_queue.append(structure)
-	print("Added ", structure.building_type, " to build queue. Queue size: ", queue_size())
 
 func queue_size():
 	var size = build_queue.size()

@@ -8,12 +8,11 @@ var resource_amount: int
 var ability_cost: Dictionary = {}
 
 func _ready():
+	ability_name = "refine"
 	super()
-	var data = GameData
-	var stats = data.buildable_structures["refinery"]
-	resource_amount = stats["resource_amount"]
-	ability_cost = stats["resource_cost"]
-	timer.wait_time = stats["refine_time"]
+	resource_amount = ability_data["resource_amount"]
+	ability_cost = ability_data["resource_cost"]
+	timer.wait_time = ability_data["refine_time"]
 
 func enable():
 	super()

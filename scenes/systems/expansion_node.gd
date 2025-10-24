@@ -64,17 +64,12 @@ func free_slot():
 	return null
 
 func find_available_slot(structure_data):
-	if structure_data.location == "main":
-		return self
-	elif structure_data.location == "crystal":
+	if structure_data.location == "crystal":
 		return free_crystal()
 	else:
 		return free_slot()
 
 func can_build(structure_data, grid):
-	if structure_data.location == "main":
-		if not grid.can_build_expansion():
-			return false
 	if structure_data.location not in ["main", "crystal"]:
 		if not is_instance_valid(main_building):
 			print("No main building")
@@ -88,25 +83,39 @@ func can_build(structure_data, grid):
 	else:
 		return false
 
-func build(structure_data, grid):
-	var slot = find_available_slot(structure_data)
-
-	var new_node = load(structure_data.scene).instantiate()
+func instantiate_structure(scene, grid):
+	var new_node = load(scene).instantiate()
 	new_node.grid = grid
 	new_node.expansion = self
-	new_node.slot = slot
+	new_node.slot = self
 	append_structure(new_node)
+	return new_node
+
+func claim(structure_data, grid):
+	print("claim ", structure_data, grid)
+	var new_node = instantiate_structure(structure_data.scene, grid)
+	add_child(new_node)
+	is_free = false
+	main_building = new_node
+	grid.add_expansion(self)
+	if not new_node.is_built:
+		assign_main_building_to_constructor(new_node)
+
+func build_structure(structure_data):
+	var grid = self.grid
+	if not is_instance_valid(grid):
+		print("Cannot build structure: Expansion has no valid grid.")
+		return
+	print("build_structure ", structure_data, grid)
+	var slot = find_available_slot(structure_data)
+	var new_node = instantiate_structure(structure_data.scene, grid)
 	slot.add_child(new_node)
 	slot.is_free = false
-		
-	if structure_data.location == "main":
-		main_building = new_node
-		grid.add_expansion(self)
-		if not new_node.is_built:
-			assign_main_building_to_constructor(new_node)
-	elif is_instance_valid(main_building):
+	if is_instance_valid(main_building):
 		if not new_node.is_built:
 			assign_to_constructor(new_node)
+	else:
+		print("Error: Tried to build structure on un-claimed expansion.")
 
 func assign_to_constructor(structure):
 	var constructors = find_constructors()

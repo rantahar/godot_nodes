@@ -7,9 +7,6 @@ signal resources_generated(amount: Dictionary)
 var resource_amount: int
 var crystal : Crystal = null
 
-func _ready():
-	super()
-	resource_amount = GameData.buildable_structures["mine"]["generation_rate"]
 
 func enable():
 	super()

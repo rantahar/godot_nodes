@@ -7,7 +7,6 @@ var projectile_damage: int = 10
 
 @onready var fire_rate_timer: Timer = $FireRateTimer
 
-var targets_in_range: Array[Node2D] = []
 var current_target: Node2D = null
 
 func _ready():
@@ -20,7 +19,6 @@ func enable():
 func disable():
 	super()
 	current_target = null
-	targets_in_range.clear()
 
 func scan_targets():
 	if parent is Unit and is_instance_valid(parent.current_target):

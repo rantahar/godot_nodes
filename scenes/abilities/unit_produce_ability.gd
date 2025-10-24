@@ -61,6 +61,9 @@ func production_complete():
 		"target_expansion": parent.expansion
 	}
 	EventBus.emit_signal("unit_produced", unit_data)
+	
+	if is_instance_valid(grid.controller):
+		EventBus.emit_signal("score_generated", "gray", 1.0, grid.controller)
 
 func _on_unit_destroyed(unit: Unit):
 	active_units.erase(unit)

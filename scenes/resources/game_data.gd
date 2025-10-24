@@ -2,6 +2,11 @@ extends Node
 
 
 var abilities = {
+	"refine": {
+		"resource_amount": 2,
+		"resource_cost": {"crystal": 2},
+		"refine_time": 1,
+	},
 	# upgrades including cost
 	"main_building_level_1": {
 		"name": "main_building_level_1",
@@ -56,8 +61,13 @@ var abilities = {
 	},
 	"build_green_refinery": {
 		"structure_type": "green_refinery"
+	},
+	"build_terraformer": {
+		"prerequisites": {
+			"structure": "green_refinery"
+		},
+		"structure_type": "terraformer"
 	}
-	
 }
 
 var buildable_structures = {
@@ -74,7 +84,7 @@ var buildable_structures = {
 		"name": "mine",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/mine.tscn",
-		"cost": {"crystal": 40},
+		"cost": {"crystal": 10},
 		"build_time": 1.0,
 		"generation_rate": 2,
 		"max_health": 150,
@@ -102,11 +112,6 @@ var buildable_structures = {
 		"supply": 4,
 		"location": "building_slot"
 	},
-	"refinery": {
-		"resource_amount": 2,
-		"resource_cost": {"crystal": 2},
-		"refine_time": 1,
-	},
 	"red_refinery": {
 		"name": "red refinery",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
@@ -129,9 +134,18 @@ var buildable_structures = {
 		"name": "green refinery",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"scene": "res://scenes/structures/greenrefinery.tscn",
-		"cost": {"crystal": 200},
-		"build_time": 15.0,
+		"cost": {"crystal": 20},
+		"build_time": 1.0,
 		"max_health": 600,
+		"location": "building_slot"
+	},
+	"terraformer": {
+		"name": "Terraformer",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Green/Default/button_round_flat.png"),
+		"scene": "res://scenes/structures/terraformer.tscn",
+		"cost": {"crystal": 40, "green_crystal": 5},
+		"build_time": 3.0,
+		"max_health": 1000,
 		"location": "building_slot"
 	},
 }
