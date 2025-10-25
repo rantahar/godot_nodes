@@ -1,29 +1,31 @@
 extends Node2D
 
 const CELL_SIZE: float = 16.0
-const SOURCE_OXYGEN = 10.0
-const TERRAFORM_THRESHOLD = 1
+const SOURCE_OXYGEN = 2
+const TERRAFORM_THRESHOLD = 1.0
 const DIFFUSION_STEP_TIME = 0.5
-const CORROSION_rate = 0.4
+const MAX_RANGE = 50
+const SELF_WEIGHT = 2.0
+const SPREAD_RATE = 0.1
+const DECAY_RATE = 0.2
 
 # Visuals
 const TERRAFORM_ALPHA: float = 0.35
 
 var terraformed_cells: Dictionary = {}
 var terraformer_sources: Array[Terraformer] = []
-var source_frontiers: Dictionary = {}
 var progress: float = 0
 
 const NEIGHBORS_8 = [
 	Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1),
 	Vector2i(1, 1), Vector2i(1, -1), Vector2i(-1, 1), Vector2i(-1, -1)
 ]
-var rng = RandomNumberGenerator.new()
 
 
 func _ready():
 	EventBus.terraformer_registered.connect(_on_terraformer_registered)
 	EventBus.terraformer_unregistered.connect(_on_terraformer_unregistered)
+
 
 func local_to_map(global_pos: Vector2) -> Vector2i:
 	return Vector2i(
@@ -50,57 +52,49 @@ func _on_terraformer_registered(source: Terraformer, player: Player):
 	terraformer_sources.append(source)
 	var grid_pos = local_to_map(source.global_position)
 	source.grid_position = grid_pos
-	var cell = terraformed_cells.get(grid_pos)
 	
-	if not cell:
-		terraformed_cells[grid_pos] = TerraCell.new(player, SOURCE_OXYGEN)
-	else:
-		cell.owner = player
-		cell.oxygen = SOURCE_OXYGEN
-		cell.source_amount = SOURCE_OXYGEN
+	if not terraformed_cells.has(grid_pos):
+		terraformed_cells[grid_pos] = TerraCell.new(player, SOURCE_OXYGEN, grid_pos)
 	
-	var new_frontier: Dictionary = {}
-	_add_neighbors_to_frontier(grid_pos, grid_pos, new_frontier, player)
-	source_frontiers[source] = new_frontier
+	for x in range(-MAX_RANGE, MAX_RANGE + 1):
+		for y in range(-MAX_RANGE, MAX_RANGE + 1):
+			var r = sqrt(x*x + y*y)
+			if r <= MAX_RANGE and r > 0:
+				var pos = grid_pos + Vector2i(x, y)
+				if not terraformed_cells.has(pos):
+					terraformed_cells[pos] = TerraCell.new(null, 0.0, pos)
+				var cell = terraformed_cells[pos]
+				cell.potential[player] = cell.potential.get(player, 0.0) + 1.0 / r
 
 func _on_terraformer_unregistered(source: Terraformer):
-	if source in terraformer_sources:
-		terraformer_sources.erase(source)
-	if source in source_frontiers:
-		source_frontiers.erase(source)
+	if source not in terraformer_sources:
+		return
 	
-	if terraformed_cells.has(source.grid_pos):
-		var cell = terraformed_cells.get(source.grid_pos)
+	terraformer_sources.erase(source)
+	var grid_pos = source.grid_position
+	var player = source.grid.controller
+	
+	for x in range(-MAX_RANGE, MAX_RANGE + 1):
+		for y in range(-MAX_RANGE, MAX_RANGE + 1):
+			var r = sqrt(x*x + y*y)
+			if r <= MAX_RANGE and r > 0:
+				var pos = grid_pos + Vector2i(x, y)
+				var cell = terraformed_cells.get(pos)
+				if cell:
+					cell.potential[player] -= 1.0 / r
+					if cell.potential[player] <= 0:
+						cell.potential.erase(player)
+					if not cell.potential and cell.owner == null:
+						terraformed_cells.erase(pos)
 
-func damage_cell(position: Vector2, amount):
-	var coord = map_to_local(position)
-	
+func damage_cell(position: Vector2i, amount: float):
 	if not terraformed_cells.has(position):
 		return
+	
 	terraformed_cells[position].oxygen -= amount
-	if terraformed_cells[position].oxygen >= 0:
-		return
-	
-	terraformed_cells.erase(position)
-	
-	# Find all unique players adjacent to this new "hole".
-	var players: Dictionary = {}
-	for offset in NEIGHBORS_8:
-		var neighbor_pos = position + offset
-		var n_cell: TerraCell = terraformed_cells.get(neighbor_pos)
-		if n_cell and n_cell.owner and n_cell.oxygen > TERRAFORM_THRESHOLD:
-			players[n_cell.owner] = true
+	if terraformed_cells[position].oxygen <= 0:
+		terraformed_cells.erase(position)
 
-	# Add the destroyed position found players frontiers
-	for source in terraformer_sources:
-		if not is_instance_valid(source) or not is_instance_valid(source.grid):
-			continue
-		var player = source.grid.controller
-		if players.has(player):
-			var frontier: Dictionary = source_frontiers.get(source)
-			if frontier != null and not frontier.has(position):
-				var dist_sq = source.grid_position.distance_squared_to(position)
-				frontier[position] = dist_sq
 
 func get_score_for_player(player: Player) -> int:
 	var score = 0
@@ -115,11 +109,9 @@ func _draw():
 	
 	for pos in terraformed_cells:
 		var cell: TerraCell = terraformed_cells[pos]
-		var top_left_corner = map_to_local_corner(pos)
-		print(pos, top_left_corner, cell.oxygen)
 		
 		if cell.owner and cell.oxygen > TERRAFORM_THRESHOLD:
-			# var top_left_corner = map_to_local_corner(pos)
+			var top_left_corner = map_to_local_corner(pos)
 			var player_color = cell.owner.color
 			
 			var alpha = clampf(cell.oxygen / SOURCE_OXYGEN, 0.1, 1.0) * 0.2
@@ -127,87 +119,56 @@ func _draw():
 			
 			draw_rect(Rect2(top_left_corner, rect_size), draw_color)
 
-func _add_neighbors_to_frontier(center_pos: Vector2i, source_grid_pos: Vector2i, frontier: Dictionary, player: Player):
+func update_cell(pos: Vector2i):
+	var cell = terraformed_cells[pos]
+	
+	if cell.owner:
+		var owner_potential = cell.potential.get(cell.owner, 0.0)
+		var enemy_potential = 0.0
+		for player in cell.potential:
+			if player != cell.owner:
+				enemy_potential += cell.potential[player]
+		var net_potential = owner_potential - enemy_potential
+		if net_potential < 0 and randf() < abs(net_potential) * DECAY_RATE:
+			cell.oxygen = 0
+			cell.owner = null
+			return
+	
+	var neighbor_counts: Dictionary = {}
+	
 	for offset in NEIGHBORS_8:
-		var neighbor_pos = center_pos + offset
-		if frontier.has(neighbor_pos):
-			continue
-			
-		var n_cell: TerraCell = terraformed_cells.get(neighbor_pos)
-		if n_cell and n_cell.owner == player:
-			continue
-		
-		frontier[neighbor_pos] = source_grid_pos.distance_squared_to(neighbor_pos)
+		var neighbor_pos = pos + offset
+		var neighbor = terraformed_cells.get(neighbor_pos)
+		if neighbor and neighbor.owner and neighbor.oxygen > TERRAFORM_THRESHOLD:
+			var player = neighbor.owner
+			neighbor_counts[player] = neighbor_counts.get(player, 0) + neighbor.oxygen
+	
+	if cell.owner:
+		neighbor_counts[cell.owner] = neighbor_counts.get(cell.owner, 0) + SELF_WEIGHT * cell.oxygen
+	
+	var max_count = 0
+	var winner: Player = null
+	for player in neighbor_counts:
+		if neighbor_counts[player] > max_count:
+			max_count = neighbor_counts[player]
+			winner = player
+	
+	var spread_chance = cell.potential[winner] * max_count * SPREAD_RATE
+	
+	if winner and randf() < min(1.0, spread_chance):
+		cell.owner = winner
+		cell.oxygen = SOURCE_OXYGEN
 
 func _process(delta):
 	progress += delta
 	if progress < DIFFUSION_STEP_TIME:
 		return
-	else:
-		progress -= DIFFUSION_STEP_TIME
+	progress -= DIFFUSION_STEP_TIME
 	
 	if terraformed_cells.is_empty():
 		return
-	queue_redraw()
 	
-	for source in terraformer_sources:
-		if not is_instance_valid(source):
-			_on_terraformer_unregistered(source)
-			continue
-		
-		if not is_instance_valid(source.grid) or not is_instance_valid(source.grid.controller):
-			continue
-		
-		var player = source.grid.controller
-		var frontier: Dictionary = source_frontiers.get(source)
-		var source_grid_pos = source.grid_position
-		
-		if not frontier or frontier.is_empty():
-			var found_frontier = false
-			for other_source in terraformer_sources:
-				if other_source == source or not is_instance_valid(other_source):
-					continue
-				if not is_instance_valid(other_source.grid) or other_source.grid.controller != player:
-					continue
-				var other_frontier: Dictionary = source_frontiers.get(other_source)
-				if other_frontier and not other_frontier.is_empty():
-					frontier.merge(other_frontier) 
-					found_frontier = true
-					break
-			if not found_frontier:
-				continue
-		
-		var source_min_dist_sq = INF
-		var source_candidates: Array[Vector2i] = []
-		var cells_to_prune: Array[Vector2i] = []
-		
-		for check_pos in frontier:
-			var cell: TerraCell = terraformed_cells.get(check_pos)
-			
-			if cell and cell.owner == player:
-				cells_to_prune.append(check_pos)
-				continue
-
-			var dist_sq = frontier[check_pos]
-			if dist_sq < source_min_dist_sq:
-				source_min_dist_sq = dist_sq
-				source_candidates = [check_pos]
-			elif abs(dist_sq - source_min_dist_sq) < 0.01:
-				source_candidates.append(check_pos)
-		
-		for pos in cells_to_prune:
-			frontier.erase(pos)
-			_add_neighbors_to_frontier(pos, source_grid_pos, frontier, player)
-		
-		if source_candidates.is_empty():
-			continue
-		
-		source_candidates.shuffle()
-		var candidate = source_candidates[0]
-		var target_cell: TerraCell = terraformed_cells.get(candidate)
-		if not target_cell:
-			terraformed_cells[candidate] = TerraCell.new(player, SOURCE_OXYGEN)
-		elif target_cell.owner != player:
-			terraformed_cells[candidate].oxygen -= CORROSION_rate * SOURCE_OXYGEN
-			if terraformed_cells[candidate].oxygen < 0:
-				terraformed_cells.erase(candidate)
+	for pos in terraformed_cells.keys():
+		update_cell(pos)
+	
+	queue_redraw()
