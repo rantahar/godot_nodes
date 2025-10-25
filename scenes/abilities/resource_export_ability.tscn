@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://jpf4yd51ihpw"]
+
+[ext_resource type="PackedScene" uid="uid://c48k251wumxqm" path="res://scenes/abilities/ability.tscn" id="1_yptt0"]
+[ext_resource type="Script" path="res://scenes/abilities/resource_export_ability.gd" id="2_1lbfk"]
+
+[node name="ResourceExportAbility" instance=ExtResource("1_yptt0")]
+script = ExtResource("2_1lbfk")

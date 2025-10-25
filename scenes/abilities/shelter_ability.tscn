@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg4arlxt77clc"]
+
+[ext_resource type="PackedScene" uid="uid://c48k251wumxqm" path="res://scenes/abilities/ability.tscn" id="1_8b8fd"]
+[ext_resource type="Script" path="res://scenes/abilities/shelter_ability.gd" id="2_tvh06"]
+
+[node name="ShelterAbility" instance=ExtResource("1_8b8fd")]
+script = ExtResource("2_tvh06")
