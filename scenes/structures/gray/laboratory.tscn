@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c686p5x73bcnb"]
+
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_s1h47"]
+[ext_resource type="PackedScene" uid="uid://jt0y3q4fn2ru" path="res://scenes/upgrades/upgrade_ability.tscn" id="2_77wue"]
+
+[node name="laboratory" instance=ExtResource("1_s1h47")]
+building_type = "laboratory"
+
+[node name="BlueMineUpgrade" parent="." index="9" instance=ExtResource("2_77wue")]
+button_text = "Advanced Mining"
+ability_name = "blue_mining_speed"

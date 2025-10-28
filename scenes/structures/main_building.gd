@@ -14,6 +14,21 @@ func _ready():
 	super()
 	progress_ability =$ConstructionAbility
 	grid.add_main_building(self)
+	_add_build_abilities()
+
+func _add_build_abilities():
+	var buildables = ["build_mine", "build_cannon", "build_laboratory",
+					  "build_factory",
+					  "build_green_refinery", "build_blue_refinery", 
+					  "build_red_refinery", "build_terraformer",
+					  "build_space_port", "build_shield",
+					  "build_shelter" ]
+	
+	for ability_name in buildables:
+		var ability = BuildAbility.new()
+		ability.ability_name = ability_name
+		add_child(ability)
+
 
 func can_build_structure():
 	var structures = expansion.structures

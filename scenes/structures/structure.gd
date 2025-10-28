@@ -4,6 +4,18 @@ extends StaticBody2D
 @export var max_health: int = 30
 @export var health: float = 1
 
+var _armor: int = 0
+var armor: int:
+	get:
+		return _armor
+	set(value):
+		var prev = _armor
+		_armor = value
+		if prev == 0 and value > 0:
+			$ShieldEffect.visible = true
+		elif prev > 0 and value == 0:
+			$ShieldEffect.visible = false
+
 var grid: Node = null
 var slot
 var expansion: ExpansionNode
@@ -54,7 +66,7 @@ func _process(delta):
 			$ProgressBar.visible = false
 	
 	if is_built:
-		enforce_ability_priority(delta)
+		enforce_ability_priority()
 
 func apply_stats():
 	if not grid or not grid.controller:
@@ -64,7 +76,7 @@ func apply_stats():
 	max_health = stats["max_health"]
 	$HealthBar.max_value = max_health
 
-func enforce_ability_priority(delta):
+func enforce_ability_priority():
 	var abilities = get_abilities_in_order()
 	
 	var an_ability_is_blocking = false
@@ -107,7 +119,6 @@ func toggle_abilities():
 	else:
 		enable_abilities()
 
-
 func get_abilities_in_order() -> Array[Ability]:
 	var result: Array[Ability] = []
 	for child in get_children():
@@ -122,7 +133,7 @@ func modulate():
 	else:
 		$Sprite2D.modulate.a = 0.5
 
-func force_navmesh_syn():
+func force_navmesh_sync():
 	global_position.x += 0.001 
 
 func finish_build() -> void:
@@ -135,7 +146,7 @@ func finish_build() -> void:
 	if is_instance_valid(nav_region):
 		$NavigationObstacle2D.affect_navigation_mesh = true
 		$NavigationObstacle2D.carve_navigation_mesh = true
-		force_navmesh_syn()
+		force_navmesh_sync()
 		nav_region.refresh()
 
 func charge_ability_cost(cost) -> bool:
@@ -150,7 +161,9 @@ func destroy():
 	queue_free()
 
 func take_damage(amount: float):
-	health -= amount
+	amount -= armor
+	if amount > 0:
+		health -= amount
 	if health <= 0:
 		destroy()
 

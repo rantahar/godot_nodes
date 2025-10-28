@@ -28,6 +28,7 @@ func _ready():
 			crystals.append(child) 
 	print("Found %s build slots and %s crystal locations for %s" % [slots.size(), crystals.size(), self.name])
 
+
 func append_structure(structure):
 	structures.append(structure)
 

@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdwnx4rh4bojc"]
+[gd_scene load_steps=8 format=3 uid="uid://cdwnx4rh4bojc"]
 
 [ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_tmvlf"]
 [ext_resource type="Script" path="res://scenes/structures/main_building.gd" id="2_20acv"]
 [ext_resource type="Texture2D" uid="uid://b6k5fq0x0l1hp" path="res://assets/check_round_greem.png" id="3_f3l57"]
 [ext_resource type="PackedScene" uid="uid://jt0y3q4fn2ru" path="res://scenes/upgrades/upgrade_ability.tscn" id="4_1lhae"]
-[ext_resource type="PackedScene" uid="uid://c50k7c0xkof47" path="res://scenes/abilities/build_ability.tscn" id="4_n6fam"]
 [ext_resource type="Script" path="res://scenes/upgrades/main_building_upgrade_2.gd" id="5_21xpn"]
 [ext_resource type="PackedScene" uid="uid://d3oes1kkdejq" path="res://scenes/abilities/construction_ability.tscn" id="5_bkfb8"]
 [ext_resource type="Script" path="res://scenes/upgrades/main_building_upgrade_1.gd" id="5_wyl7o"]
@@ -28,45 +27,5 @@ script = ExtResource("5_21xpn")
 button_text = "Upgrade"
 ability_name = "main_building_level_2"
 
-[node name="BlueMineUpgrade" parent="." index="10" instance=ExtResource("4_1lhae")]
-button_text = "Advanced Mining"
-ability_name = "blue_mining_speed"
-
-[node name="BuildMine" parent="." index="11" instance=ExtResource("4_n6fam")]
-button_text = "Mine"
-ability_name = "build_mine"
-
-[node name="BuildFactory" parent="." index="12" instance=ExtResource("4_n6fam")]
-button_text = "Factory"
-ability_name = "build_factory"
-
-[node name="BuildCannon" parent="." index="13" instance=ExtResource("4_n6fam")]
-button_text = "Cannon"
-ability_name = "build_cannon"
-
-[node name="BuildGreenRefinery" parent="." index="14" instance=ExtResource("4_n6fam")]
-button_text = "Green Refinery"
-ability_name = "build_green_refinery"
-
-[node name="BuildTerrafomer" parent="." index="15" instance=ExtResource("4_n6fam")]
-button_text = "Terraformer"
-ability_name = "build_terraformer"
-
-[node name="BuildBlueRefinery" parent="." index="16" instance=ExtResource("4_n6fam")]
-button_text = "Blue Refinery"
-ability_name = "build_blue_refinery"
-
-[node name="BuildSpacePort" parent="." index="17" instance=ExtResource("4_n6fam")]
-button_text = "Space Port"
-ability_name = "build_space_port"
-
-[node name="BuildRedRefinery" parent="." index="18" instance=ExtResource("4_n6fam")]
-button_text = "Red Refinery"
-ability_name = "build_red_refinery"
-
-[node name="BuildShelter" parent="." index="19" instance=ExtResource("4_n6fam")]
-button_text = "Shelter"
-ability_name = "build_shelter_ability"
-
-[node name="ConstructionAbility" parent="." index="20" instance=ExtResource("5_bkfb8")]
+[node name="ConstructionAbility" parent="." index="10" instance=ExtResource("5_bkfb8")]
 ability_name = "construction"

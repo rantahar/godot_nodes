@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cm48ukfjm7o21"]
 
 [ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_t1lhj"]
-[ext_resource type="Script" path="res://scenes/structures/factory.gd" id="2_85ayf"]
-[ext_resource type="Texture2D" uid="uid://7rj6clk0rwvq" path="res://assets/button_square_red.png" id="2_wv2ad"]
+[ext_resource type="Script" path="res://scenes/structures/gray/factory.gd" id="2_85ayf"]
+[ext_resource type="Texture2D" uid="uid://chg2dpw2tmu4n" path="res://assets/factory.png" id="3_q2341"]
 [ext_resource type="PackedScene" uid="uid://b0iovj8k0md8v" path="res://scenes/abilities/unit_produce_ability.tscn" id="4_x2hnn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hpnyv"]
@@ -16,12 +16,10 @@ script = ExtResource("2_85ayf")
 building_type = "factory"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hpnyv")
 
 [node name="Sprite2D" parent="." index="1"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_wv2ad")
+texture = ExtResource("3_q2341")
 
 [node name="Area2D" parent="." index="2"]
 monitoring = false
@@ -31,6 +29,7 @@ monitorable = false
 shape = SubResource("RectangleShape2D_cn0b7")
 
 [node name="NavigationObstacle2D" parent="." index="3"]
+visible = false
 radius = 0.0
 vertices = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
 

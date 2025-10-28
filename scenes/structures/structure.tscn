@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0564djdkh2do"]
+[gd_scene load_steps=9 format=3 uid="uid://d0564djdkh2do"]
 
 [ext_resource type="Script" path="res://scenes/structures/structure.gd" id="1_34bv7"]
 [ext_resource type="Texture2D" uid="uid://cddfbhrvw4mgx" path="res://assets/laserRed01.png" id="2_k3etx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bm5e0kkoo08vo" path="res://assets/kenney_ui-pack/PNG/Green/Default/slide_horizontal_color.png" id="4_5up6g"]
 [ext_resource type="Texture2D" uid="uid://dau3bmo8hqm3r" path="res://assets/icon_cross.png" id="5_elkhm"]
 [ext_resource type="Texture2D" uid="uid://mkm2upguragx" path="res://assets/kenney_ui-pack/PNG/Blue/Default/slide_horizontal_color.png" id="6_4hbhq"]
+[ext_resource type="Texture2D" uid="uid://d3yses3ryouc2" path="res://assets/shield_effect.png" id="7_12cr7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fricf"]
 radius = 16.0
@@ -61,3 +62,7 @@ offset_bottom = -9.0
 scale = Vector2(0.5, 0.5)
 value = 100.0
 texture_progress = ExtResource("6_4hbhq")
+
+[node name="ShieldEffect" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("7_12cr7")

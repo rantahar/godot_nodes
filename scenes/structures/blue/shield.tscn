@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt7yuh61kn8ox"]
+
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_c64we"]
+[ext_resource type="Script" path="res://scenes/structures/blue/shield.gd" id="2_plale"]
+
+[node name="Shield" instance=ExtResource("1_c64we")]
+script = ExtResource("2_plale")
+building_type = "shield"

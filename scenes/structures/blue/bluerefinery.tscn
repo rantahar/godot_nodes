@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmw1boxj3m4o"]
+
+[ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_ad3qu"]
+[ext_resource type="Script" path="res://scenes/structures/refinery.gd" id="2_xxpx7"]
+[ext_resource type="Texture2D" uid="uid://cvxgqvtbh0tha" path="res://assets/kenney_ui-pack/PNG/Blue/Default/arrow_basic_n.png" id="3_hgvde"]
+[ext_resource type="PackedScene" uid="uid://hej5e4id8n8e" path="res://scenes/abilities/refine_ability.tscn" id="4_l5hmb"]
+
+[node name="bluerefinery" instance=ExtResource("1_ad3qu")]
+script = ExtResource("2_xxpx7")
+building_type = "blue_refinery"
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -2)
+texture = ExtResource("3_hgvde")
+
+[node name="RefineAbility" parent="." index="8" instance=ExtResource("4_l5hmb")]
+resource_generated = "blue_crystal"
+ability_name = "refinery"

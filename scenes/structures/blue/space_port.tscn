@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_eo60p"]
 [ext_resource type="PackedScene" uid="uid://jpf4yd51ihpw" path="res://scenes/abilities/resource_export_ability.tscn" id="2_5taxa"]
-[ext_resource type="Script" path="res://scenes/structures/space_port.gd" id="2_dod00"]
+[ext_resource type="Script" path="res://scenes/structures/blue/space_port.gd" id="2_dod00"]
 
 [node name="SpacePort" instance=ExtResource("1_eo60p")]
 script = ExtResource("2_dod00")
