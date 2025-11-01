@@ -43,8 +43,28 @@ func try_to_build_mine():
 				return
 				
 func try_to_build_cannon():
+	var main_level = 0
 	for grid in grids:
 		for expansion in grid.expansions:
-			var result = build_structure(expansion, "cannon")
-			if result:
-				return
+			if expansion.main_building.level > main_level:
+				main_level = expansion.main_building.level
+	
+	if main_level <= 1:
+		for grid in grids:
+			for expansion in grid.expansions:
+				var result = expansion.main_building.execute_button_ability(
+					"main_building_level_2",
+					self
+				)
+				if result:
+					return
+	
+	else:
+		for grid in grids:
+			for expansion in grid.expansions:
+				var result = expansion.main_building.execute_button_ability(
+					"build_cannon",
+					self
+				)
+				if result:
+					return

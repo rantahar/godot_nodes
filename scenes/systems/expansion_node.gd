@@ -64,6 +64,15 @@ func free_slot():
 			return slot
 	return null
 
+
+func execute_button_ability(ability_name: String, player: Player) -> bool:
+	for child in get_children():
+		if child is ButtonAbility and child.ability_name == ability_name and child.is_available():
+			var result = child.execute(player)
+			return result
+	return false
+
+
 func find_available_slot(structure_data):
 	if structure_data.location == "crystal":
 		return free_crystal()
@@ -103,10 +112,9 @@ func claim(structure_data, grid):
 		assign_main_building_to_constructor(new_node)
 
 func build_structure(structure_data):
-	var grid = self.grid
 	if not is_instance_valid(grid):
 		print("Cannot build structure: Expansion has no valid grid.")
-		return
+		return false
 	print("build_structure ", structure_data, grid)
 	var slot = find_available_slot(structure_data)
 	var new_node = instantiate_structure(structure_data.scene, grid)

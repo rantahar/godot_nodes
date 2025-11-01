@@ -13,6 +13,7 @@ extends Node2D
 # stats
 var start_time_msec: int = 0
 @onready var game_timer: Timer = $GameTimer
+var game_time: int = 0
 
 var level : Node = null
 
@@ -41,6 +42,8 @@ func _ready():
 			init_main.health = init_main.max_health
 			init_main.finish_build()
 			init_grid.resources_updated.connect(controller._on_resources_updated)
+			for i in range(20):
+				controller.build_structure(expansion, "mine")
 	
 	hud.set_player(localPlayer)
 	inputController.set_player(localPlayer)
@@ -54,12 +57,5 @@ func _on_player_won(player: Player, time_msec: int):
 	get_tree().paused = true
 
 func _on_game_timer_timeout():
-	get_tree().paused = true
-	var final_scores = []
-	for player in allPlayers:
-		final_scores.append({"player": player, "score": player.get_final_score()})
-	
-	final_scores.sort_custom(func(a, b): return a.score > b.score)
-	var winner = final_scores[0].player
-	print("--- GAME OVER (Time) ---")
-	print("Winner: %s with %.2f points" % [winner.name, final_scores[0].score])
+	game_time += 1.0
+	print("Game Time:", game_time)

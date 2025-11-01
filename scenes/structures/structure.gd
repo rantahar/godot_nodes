@@ -68,6 +68,13 @@ func _process(delta):
 	if is_built:
 		enforce_ability_priority()
 
+func execute_button_ability(ability_name: String, player: Player) -> bool:
+	for child in get_children():
+		if child is ButtonAbility and child.ability_name == ability_name and child.is_available():
+			var result = child.execute(player)
+			return result
+	return false
+
 func apply_stats():
 	if not grid or not grid.controller:
 		return

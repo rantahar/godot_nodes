@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdwnx4rh4bojc"]
+[gd_scene load_steps=7 format=3 uid="uid://cdwnx4rh4bojc"]
 
 [ext_resource type="PackedScene" uid="uid://d0564djdkh2do" path="res://scenes/structures/structure.tscn" id="1_tmvlf"]
 [ext_resource type="Script" path="res://scenes/structures/main_building.gd" id="2_20acv"]
 [ext_resource type="Texture2D" uid="uid://b6k5fq0x0l1hp" path="res://assets/check_round_greem.png" id="3_f3l57"]
 [ext_resource type="PackedScene" uid="uid://jt0y3q4fn2ru" path="res://scenes/upgrades/upgrade_ability.tscn" id="4_1lhae"]
-[ext_resource type="Script" path="res://scenes/upgrades/main_building_upgrade_2.gd" id="5_21xpn"]
 [ext_resource type="PackedScene" uid="uid://d3oes1kkdejq" path="res://scenes/abilities/construction_ability.tscn" id="5_bkfb8"]
-[ext_resource type="Script" path="res://scenes/upgrades/main_building_upgrade_1.gd" id="5_wyl7o"]
+[ext_resource type="Script" path="res://scenes/upgrades/main_building_upgrade.gd" id="5_n55t6"]
 
 [node name="MainBuilding" instance=ExtResource("1_tmvlf")]
 script = ExtResource("2_20acv")
@@ -18,14 +17,22 @@ texture = ExtResource("3_f3l57")
 
 [node name="UpgradeAbility0" parent="." index="8" instance=ExtResource("4_1lhae")]
 rotation = -0.00068458
-script = ExtResource("5_wyl7o")
+script = ExtResource("5_n55t6")
+level = 0
 button_text = "Upgrade"
 ability_name = "main_building_level_1"
 
 [node name="UpgradeAbility1" parent="." index="9" instance=ExtResource("4_1lhae")]
-script = ExtResource("5_21xpn")
+script = ExtResource("5_n55t6")
+level = 1
 button_text = "Upgrade"
 ability_name = "main_building_level_2"
 
-[node name="ConstructionAbility" parent="." index="10" instance=ExtResource("5_bkfb8")]
+[node name="UpgradeAbility2" parent="." index="10" instance=ExtResource("4_1lhae")]
+script = ExtResource("5_n55t6")
+level = 2
+button_text = "Upgrade"
+ability_name = "main_building_level_3"
+
+[node name="ConstructionAbility" parent="." index="11" instance=ExtResource("5_bkfb8")]
 ability_name = "construction"

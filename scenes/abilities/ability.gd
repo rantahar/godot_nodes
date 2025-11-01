@@ -33,6 +33,17 @@ func check_prerequisites() -> bool:
 		if not grid or not grid.has_structure_type(prereqs["structure"]):
 			return false
 	
+	if prereqs.has("main_level"):
+		var grid = parent.grid if parent.grid else null
+		if not grid:
+			return false
+		for expansion in grid.expansions:
+			for structure in expansion.structures:
+				if structure.building_type == "main_building":
+					if structure.level >= prereqs["main_level"]:
+						return true
+		return false
+	
 	return true
 
 func enable():

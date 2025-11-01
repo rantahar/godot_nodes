@@ -20,11 +20,12 @@ var resources: Dictionary = {
 
 var total_node_capacity: int:
 	get:
-		var total = 1
+		var level = 0
 		for mb in main_buildings:
-			total += mb.max_child_nodes
-		print("total_node_capacity ", total)
-		return total
+			if mb.level > level:
+				level = mb.level
+		var capacity = 2*level
+		return capacity
 
 func _init():
 	EventBus.resources_generated.connect(_on_resources_generated)

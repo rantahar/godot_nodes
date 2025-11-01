@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://tfl8g6kp58wu" path="res://scenes/ui/hud.tscn" id="2_wfoj6"]
 [ext_resource type="PackedScene" uid="uid://ct82g1ujntueq" path="res://scenes/levels/map1.tscn" id="3_rrnob"]
 [ext_resource type="Script" path="res://scenes/systems/player.gd" id="4_e6spv"]
-[ext_resource type="Script" path="res://scenes/systems/AIPlayer.gd" id="5_la7jx"]
+[ext_resource type="Script" path="res://scenes/systems/ExpandingAIPlayer.gd" id="5_0dh7c"]
 [ext_resource type="Script" path="res://scenes/ui/input_controller.gd" id="6_bcaeg"]
 [ext_resource type="Script" path="res://scenes/systems/terraform_manager.gd" id="7_81gkn"]
 
@@ -29,7 +29,7 @@ color = Color(0, 0.827451, 0, 0.290196)
 script = ExtResource("4_e6spv")
 
 [node name="AIPlayer" type="Node" parent="."]
-script = ExtResource("5_la7jx")
+script = ExtResource("5_0dh7c")
 color = Color(1, 0, 0, 1)
 
 [node name="DecisionTimer" type="Timer" parent="AIPlayer"]
@@ -41,6 +41,7 @@ script = ExtResource("6_bcaeg")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="GameTimer" type="Timer" parent="."]
+autostart = true
 
 [node name="TerraformManager" type="Node2D" parent="."]
 z_index = 6

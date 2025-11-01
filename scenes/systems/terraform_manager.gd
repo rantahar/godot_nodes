@@ -153,11 +153,12 @@ func update_cell(pos: Vector2i):
 			max_count = neighbor_counts[player]
 			winner = player
 	
-	var spread_chance = cell.potential[winner] * max_count * SPREAD_RATE
+	if winner and cell.potential.has(winner):
+		var spread_chance = cell.potential[winner] * max_count * SPREAD_RATE
 	
-	if winner and randf() < min(1.0, spread_chance):
-		cell.owner = winner
-		cell.oxygen = SOURCE_OXYGEN
+		if randf() < min(1.0, spread_chance):
+			cell.owner = winner
+			cell.oxygen = SOURCE_OXYGEN
 
 func _process(delta):
 	progress += delta

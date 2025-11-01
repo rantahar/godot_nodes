@@ -5,7 +5,7 @@ extends Structure
 var max_child_nodes: int:
 	get: return 2*level
 var max_structures: int:
-	get: return 2+2*level
+	get: return 3+2*level
 
 @onready var construction_ability = $ConstructionAbility
 

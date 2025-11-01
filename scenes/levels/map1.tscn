@@ -172,465 +172,348 @@ tile_map_data = PackedByteArray("AAACAAEAAAALAAAAAAACAAIAAAALAAEAAAABAAIAAAAKAAE
 tile_set = SubResource("TileSet_rm1wn")
 
 [node name="ExpansionNode" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
-position = Vector2(330, 248)
+position = Vector2(284, 251)
 player_start_index = 0
 connected_nodes = [NodePath("../ExpansionNode3")]
 
 [node name="Crystal" parent="ExpansionNode" instance=ExtResource("4_hmg06")]
-position = Vector2(-196, -104)
+position = Vector2(-92, -65)
 
 [node name="Crystal2" parent="ExpansionNode" instance=ExtResource("4_hmg06")]
-position = Vector2(-127, -106)
+position = Vector2(-5, -99)
 
 [node name="Crystal3" parent="ExpansionNode" instance=ExtResource("4_hmg06")]
-position = Vector2(-68, -109)
-
-[node name="Crystal4" parent="ExpansionNode" instance=ExtResource("4_hmg06")]
-position = Vector2(-13, -108)
-
-[node name="Crystal5" parent="ExpansionNode" instance=ExtResource("4_hmg06")]
-position = Vector2(52, -107)
-
-[node name="Crystal6" parent="ExpansionNode" instance=ExtResource("4_hmg06")]
-position = Vector2(120, -106)
+position = Vector2(75, -59)
 
 [node name="BuildingSlot" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-184, -19)
+position = Vector2(66, 7)
 
 [node name="BuildingSlot2" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-128, -18)
+position = Vector2(122, 8)
 
 [node name="BuildingSlot3" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-77, -17)
+position = Vector2(173, 9)
 
 [node name="BuildingSlot4" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-185, 51)
+position = Vector2(65, 77)
 
 [node name="BuildingSlot5" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-129, 52)
+position = Vector2(121, 78)
 
 [node name="BuildingSlot6" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-78, 53)
+position = Vector2(172, 79)
 
 [node name="BuildingSlot7" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-186, 129)
+position = Vector2(64, 155)
 
 [node name="BuildingSlot8" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-130, 130)
+position = Vector2(120, 156)
 
 [node name="BuildingSlot9" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-79, 131)
-
-[node name="BuildingSlot10" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(-1, 129)
-
-[node name="BuildingSlot11" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(55, 130)
-
-[node name="BuildingSlot12" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(106, 131)
-
-[node name="BuildingSlot13" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(130, 68)
-
-[node name="BuildingSlot14" parent="ExpansionNode" instance=ExtResource("5_2wpow")]
-position = Vector2(126, 12)
+position = Vector2(171, 157)
 
 [node name="ExpansionNode2" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
-position = Vector2(1911, 1389)
+position = Vector2(1994, 1399)
 rotation = 0.0161998
 player_start_index = 1
 connected_nodes = [NodePath("../ExpansionNode6")]
 
 [node name="Crystal" parent="ExpansionNode2" instance=ExtResource("4_hmg06")]
-position = Vector2(-113.01, 123.773)
+position = Vector2(-76.7424, 78.2533)
 rotation = 6.18585
 
 [node name="Crystal2" parent="ExpansionNode2" instance=ExtResource("4_hmg06")]
-position = Vector2(-44.0098, 121.773)
+position = Vector2(4.57096, 96.9386)
 rotation = 6.18585
 
 [node name="Crystal3" parent="ExpansionNode2" instance=ExtResource("4_hmg06")]
-position = Vector2(14.9902, 118.773)
-rotation = 6.18585
-
-[node name="Crystal4" parent="ExpansionNode2" instance=ExtResource("4_hmg06")]
-position = Vector2(69.9902, 119.773)
-rotation = 6.18585
-
-[node name="Crystal5" parent="ExpansionNode2" instance=ExtResource("4_hmg06")]
-position = Vector2(134.99, 120.773)
-rotation = 6.18585
-
-[node name="Crystal6" parent="ExpansionNode2" instance=ExtResource("4_hmg06")]
-position = Vector2(202.99, 121.773)
+position = Vector2(81.9127, 55.6803)
 rotation = 6.18585
 
 [node name="BuildingSlot" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(80.2157, -135.317)
+position = Vector2(-191.024, -147.925)
 
 [node name="BuildingSlot2" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(136.216, -134.317)
+position = Vector2(-135.024, -146.925)
 
 [node name="BuildingSlot3" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(187.216, -133.317)
+position = Vector2(-84.0238, -145.925)
 
 [node name="BuildingSlot4" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(79.2157, -65.3172)
+position = Vector2(-192.024, -77.9253)
 
 [node name="BuildingSlot5" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(135.216, -64.3172)
+position = Vector2(-136.024, -76.9253)
 
 [node name="BuildingSlot6" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(186.216, -63.3172)
+position = Vector2(-85.0238, -75.9253)
 
 [node name="BuildingSlot7" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(78.2157, 12.6828)
+position = Vector2(-193.024, 0.0747395)
 
 [node name="BuildingSlot8" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(134.216, 13.6828)
+position = Vector2(-137.024, 1.07474)
 
 [node name="BuildingSlot9" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(180.219, 12.0821)
-
-[node name="BuildingSlot10" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(-82.1763, -133.686)
-
-[node name="BuildingSlot11" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(-26.1763, -132.686)
-
-[node name="BuildingSlot12" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(24.8237, -131.686)
-
-[node name="BuildingSlot13" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(-111.71, 18.8121)
-
-[node name="BuildingSlot14" parent="ExpansionNode2" instance=ExtResource("5_2wpow")]
-position = Vector2(-114.892, -54.146)
+position = Vector2(-91.0208, -0.525961)
 
 [node name="ExpansionNode3" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
-position = Vector2(746, 275)
+position = Vector2(668, 278)
 connected_nodes = [NodePath("../ExpansionNode"), NodePath("../ExpansionNode4"), NodePath("../ExpansionNode9")]
 
 [node name="Crystal" parent="ExpansionNode3" instance=ExtResource("4_hmg06")]
-position = Vector2(-196, -104)
+position = Vector2(-20, -101)
 
 [node name="Crystal2" parent="ExpansionNode3" instance=ExtResource("4_hmg06")]
-position = Vector2(-127, -106)
+position = Vector2(52, -85)
 
 [node name="Crystal3" parent="ExpansionNode3" instance=ExtResource("4_hmg06")]
-position = Vector2(-68, -109)
-
-[node name="Crystal4" parent="ExpansionNode3" instance=ExtResource("4_hmg06")]
-position = Vector2(-13, -108)
+position = Vector2(88, -24)
 
 [node name="BuildingSlot" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-184, -19)
+position = Vector2(-76, 72)
 
 [node name="BuildingSlot2" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-128, -18)
+position = Vector2(-20, 73)
 
 [node name="BuildingSlot3" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-77, -17)
+position = Vector2(31, 74)
 
 [node name="BuildingSlot4" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-185, 51)
+position = Vector2(91, 77)
 
 [node name="BuildingSlot5" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-129, 52)
+position = Vector2(-71, 151)
 
 [node name="BuildingSlot6" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-78, 53)
+position = Vector2(-15, 148)
 
 [node name="BuildingSlot7" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-186, 129)
+position = Vector2(37, 146)
 
 [node name="BuildingSlot8" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-130, 130)
-
-[node name="BuildingSlot9" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-79, 131)
-
-[node name="BuildingSlot10" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-101, 215)
-
-[node name="BuildingSlot11" parent="ExpansionNode3" instance=ExtResource("5_2wpow")]
-position = Vector2(-45, 216)
+position = Vector2(100, 143)
 
 [node name="ExpansionNode4" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
-position = Vector2(172, 781)
+position = Vector2(199, 694)
 connected_nodes = [NodePath("../ExpansionNode3"), NodePath("../ExpansionNode5"), NodePath("../ExpansionNode9")]
 
 [node name="Crystal" parent="ExpansionNode4" instance=ExtResource("4_hmg06")]
-position = Vector2(-37, -133)
+position = Vector2(-96, 14)
 
 [node name="Crystal2" parent="ExpansionNode4" instance=ExtResource("4_hmg06")]
-position = Vector2(32, -135)
+position = Vector2(-60, -61)
 
 [node name="Crystal3" parent="ExpansionNode4" instance=ExtResource("4_hmg06")]
-position = Vector2(91, -138)
-
-[node name="Crystal4" parent="ExpansionNode4" instance=ExtResource("4_hmg06")]
-position = Vector2(146, -137)
+position = Vector2(25, -74)
 
 [node name="BuildingSlot" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(76, -28)
+position = Vector2(85, -32)
 
 [node name="BuildingSlot2" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(132, -27)
+position = Vector2(141, -31)
 
 [node name="BuildingSlot3" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(183, -26)
+position = Vector2(192, -30)
 
 [node name="BuildingSlot4" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(75, 42)
+position = Vector2(84, 38)
 
 [node name="BuildingSlot5" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(131, 43)
+position = Vector2(140, 39)
 
 [node name="BuildingSlot6" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(182, 44)
+position = Vector2(191, 40)
 
 [node name="BuildingSlot7" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(74, 120)
+position = Vector2(83, 116)
 
 [node name="BuildingSlot8" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(130, 121)
+position = Vector2(139, 117)
 
 [node name="BuildingSlot9" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(181, 122)
-
-[node name="BuildingSlot10" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(87, 207)
-
-[node name="BuildingSlot11" parent="ExpansionNode4" instance=ExtResource("5_2wpow")]
-position = Vector2(272, -121)
+position = Vector2(190, 118)
 
 [node name="ExpansionNode5" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
 position = Vector2(358, 1374)
 connected_nodes = [NodePath("../ExpansionNode4"), NodePath("../ExpansionNode9")]
 
 [node name="Crystal" parent="ExpansionNode5" instance=ExtResource("4_hmg06")]
-position = Vector2(-163, 113)
+position = Vector2(-99, 65)
 
 [node name="Crystal2" parent="ExpansionNode5" instance=ExtResource("4_hmg06")]
-position = Vector2(-94, 111)
+position = Vector2(-47, 114)
 
 [node name="Crystal3" parent="ExpansionNode5" instance=ExtResource("4_hmg06")]
-position = Vector2(-35, 108)
+position = Vector2(28, 113)
 
 [node name="Crystal4" parent="ExpansionNode5" instance=ExtResource("4_hmg06")]
-position = Vector2(20, 109)
-
-[node name="Crystal5" parent="ExpansionNode5" instance=ExtResource("4_hmg06")]
-position = Vector2(85, 110)
-
-[node name="Crystal6" parent="ExpansionNode5" instance=ExtResource("4_hmg06")]
-position = Vector2(153, 111)
+position = Vector2(92, 76)
 
 [node name="BuildingSlot" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(-186, -48)
+position = Vector2(-205, -61)
 
 [node name="BuildingSlot2" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(-130, -47)
+position = Vector2(-149, -60)
 
 [node name="BuildingSlot3" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(-79, -46)
+position = Vector2(-98, -59)
 
 [node name="BuildingSlot4" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(-187, 22)
+position = Vector2(-206, 9)
 
 [node name="BuildingSlot5" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(-131, 23)
+position = Vector2(-150, 10)
 
 [node name="BuildingSlot6" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(-80, 24)
+position = Vector2(-99, 11)
 
 [node name="BuildingSlot7" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(128, -46)
+position = Vector2(109, -59)
 
 [node name="BuildingSlot8" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(184, -45)
+position = Vector2(165, -58)
 
 [node name="BuildingSlot9" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(235, -44)
+position = Vector2(216, -57)
 
 [node name="BuildingSlot10" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(121, 27)
+position = Vector2(102, 14)
 
 [node name="BuildingSlot11" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(177, 28)
+position = Vector2(158, 15)
 
 [node name="BuildingSlot12" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(228, 29)
-
-[node name="BuildingSlot13" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(110, -122)
-
-[node name="BuildingSlot14" parent="ExpansionNode5" instance=ExtResource("5_2wpow")]
-position = Vector2(9, -124)
+position = Vector2(209, 16)
 
 [node name="ExpansionNode6" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
-position = Vector2(1502, 1321)
+position = Vector2(1526, 1399)
 connected_nodes = [NodePath("../ExpansionNode2"), NodePath("../ExpansionNode8"), NodePath("../ExpansionNode9")]
 
 [node name="Crystal" parent="ExpansionNode6" instance=ExtResource("4_hmg06")]
-position = Vector2(-26, 138)
+position = Vector2(-88, -11)
 
 [node name="Crystal2" parent="ExpansionNode6" instance=ExtResource("4_hmg06")]
-position = Vector2(43, 136)
+position = Vector2(-59, 77)
 
 [node name="Crystal3" parent="ExpansionNode6" instance=ExtResource("4_hmg06")]
-position = Vector2(102, 133)
-
-[node name="Crystal4" parent="ExpansionNode6" instance=ExtResource("4_hmg06")]
-position = Vector2(157, 134)
+position = Vector2(10, 84)
 
 [node name="BuildingSlot" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(76, -93)
+position = Vector2(-61, -197)
 
 [node name="BuildingSlot2" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(132, -92)
+position = Vector2(-5, -196)
 
 [node name="BuildingSlot3" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(183, -91)
+position = Vector2(60, -195)
 
 [node name="BuildingSlot4" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(75, -23)
+position = Vector2(134, -193)
 
 [node name="BuildingSlot5" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(131, -22)
+position = Vector2(-58, -129)
 
 [node name="BuildingSlot6" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(182, -21)
+position = Vector2(-3, -129)
 
 [node name="BuildingSlot7" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(74, 55)
+position = Vector2(62, -125)
 
 [node name="BuildingSlot8" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(130, 56)
-
-[node name="BuildingSlot9" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(181, 57)
-
-[node name="BuildingSlot10" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(23, -187)
-
-[node name="BuildingSlot11" parent="ExpansionNode6" instance=ExtResource("5_2wpow")]
-position = Vector2(79, -186)
+position = Vector2(133, -129)
 
 [node name="ExpansionNode7" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
 position = Vector2(1858, 282)
 connected_nodes = [NodePath("../ExpansionNode9"), NodePath("../ExpansionNode8")]
 
 [node name="Crystal" parent="ExpansionNode7" instance=ExtResource("4_hmg06")]
-position = Vector2(-159, -105)
+position = Vector2(-91, -80)
 
 [node name="Crystal2" parent="ExpansionNode7" instance=ExtResource("4_hmg06")]
-position = Vector2(-90, -107)
+position = Vector2(-46, -115)
 
 [node name="Crystal3" parent="ExpansionNode7" instance=ExtResource("4_hmg06")]
-position = Vector2(-31, -110)
+position = Vector2(36, -116)
 
 [node name="Crystal4" parent="ExpansionNode7" instance=ExtResource("4_hmg06")]
-position = Vector2(24, -109)
-
-[node name="Crystal5" parent="ExpansionNode7" instance=ExtResource("4_hmg06")]
-position = Vector2(89, -108)
-
-[node name="Crystal6" parent="ExpansionNode7" instance=ExtResource("4_hmg06")]
-position = Vector2(157, -107)
+position = Vector2(95, -82)
 
 [node name="BuildingSlot" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(-186, -48)
+position = Vector2(-204, -20)
 
 [node name="BuildingSlot2" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(-130, -47)
+position = Vector2(-148, -19)
 
 [node name="BuildingSlot3" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(-79, -46)
+position = Vector2(-97, -18)
 
 [node name="BuildingSlot4" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(-187, 22)
+position = Vector2(-205, 50)
 
 [node name="BuildingSlot5" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(-131, 23)
+position = Vector2(-149, 51)
 
 [node name="BuildingSlot6" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(-80, 24)
+position = Vector2(-98, 52)
 
 [node name="BuildingSlot7" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(128, -46)
+position = Vector2(110, -18)
 
 [node name="BuildingSlot8" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(184, -45)
+position = Vector2(166, -17)
 
 [node name="BuildingSlot9" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(235, -44)
+position = Vector2(217, -16)
 
 [node name="BuildingSlot10" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(121, 27)
+position = Vector2(103, 55)
 
 [node name="BuildingSlot11" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(177, 28)
+position = Vector2(159, 56)
 
 [node name="BuildingSlot12" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(228, 29)
-
-[node name="BuildingSlot13" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(60, 122)
-
-[node name="BuildingSlot14" parent="ExpansionNode7" instance=ExtResource("5_2wpow")]
-position = Vector2(-41, 120)
+position = Vector2(210, 57)
 
 [node name="ExpansionNode8" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
-position = Vector2(2036, 883)
+position = Vector2(2042, 943)
 connected_nodes = [NodePath("../ExpansionNode7"), NodePath("../ExpansionNode9"), NodePath("../ExpansionNode6")]
 
-[node name="Crystal" parent="ExpansionNode8" instance=ExtResource("4_hmg06")]
-position = Vector2(-93, 99)
-
 [node name="Crystal2" parent="ExpansionNode8" instance=ExtResource("4_hmg06")]
-position = Vector2(-24, 97)
+position = Vector2(-20, 87)
 
 [node name="Crystal3" parent="ExpansionNode8" instance=ExtResource("4_hmg06")]
-position = Vector2(35, 94)
+position = Vector2(74, 76)
 
 [node name="Crystal4" parent="ExpansionNode8" instance=ExtResource("4_hmg06")]
-position = Vector2(90, 95)
+position = Vector2(97, -1)
 
 [node name="BuildingSlot" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-192, -128)
+position = Vector2(-196, -96)
 
 [node name="BuildingSlot2" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-136, -127)
+position = Vector2(-140, -95)
 
 [node name="BuildingSlot3" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-85, -126)
+position = Vector2(-89, -94)
 
 [node name="BuildingSlot4" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-193, -58)
+position = Vector2(-197, -26)
 
 [node name="BuildingSlot5" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-137, -57)
+position = Vector2(-141, -25)
 
 [node name="BuildingSlot6" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-86, -56)
+position = Vector2(-90, -24)
 
 [node name="BuildingSlot7" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-194, 20)
+position = Vector2(-198, 52)
 
 [node name="BuildingSlot8" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-138, 21)
+position = Vector2(-142, 53)
 
 [node name="BuildingSlot9" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-87, 22)
-
-[node name="BuildingSlot10" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-263, -229)
-
-[node name="BuildingSlot11" parent="ExpansionNode8" instance=ExtResource("5_2wpow")]
-position = Vector2(-262, 91)
+position = Vector2(-91, 54)
 
 [node name="ExpansionNode9" parent="." node_paths=PackedStringArray("connected_nodes") instance=ExtResource("3_25nm3")]
 position = Vector2(1092, 788)
@@ -640,19 +523,13 @@ connected_nodes = [NodePath("../ExpansionNode3"), NodePath("../ExpansionNode4"),
 position = Vector2(-68, -122)
 
 [node name="Crystal2" parent="ExpansionNode9" instance=ExtResource("4_hmg06")]
-position = Vector2(1, -124)
+position = Vector2(62, -117)
 
 [node name="Crystal3" parent="ExpansionNode9" instance=ExtResource("4_hmg06")]
-position = Vector2(60, -127)
+position = Vector2(57, 109)
 
 [node name="Crystal4" parent="ExpansionNode9" instance=ExtResource("4_hmg06")]
-position = Vector2(-79, 164)
-
-[node name="Crystal5" parent="ExpansionNode9" instance=ExtResource("4_hmg06")]
-position = Vector2(-14, 165)
-
-[node name="Crystal6" parent="ExpansionNode9" instance=ExtResource("4_hmg06")]
-position = Vector2(54, 166)
+position = Vector2(-64, 108)
 
 [node name="BuildingSlot" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
 position = Vector2(-194, -59)
@@ -672,15 +549,6 @@ position = Vector2(-139, 12)
 [node name="BuildingSlot6" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
 position = Vector2(-88, 13)
 
-[node name="BuildingSlot7" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
-position = Vector2(-196, 89)
-
-[node name="BuildingSlot8" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
-position = Vector2(-140, 90)
-
-[node name="BuildingSlot9" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
-position = Vector2(-89, 91)
-
 [node name="BuildingSlot10" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
 position = Vector2(80, -45)
 
@@ -698,15 +566,6 @@ position = Vector2(135, 26)
 
 [node name="BuildingSlot15" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
 position = Vector2(186, 27)
-
-[node name="BuildingSlot16" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
-position = Vector2(78, 103)
-
-[node name="BuildingSlot17" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
-position = Vector2(134, 104)
-
-[node name="BuildingSlot18" parent="ExpansionNode9" instance=ExtResource("5_2wpow")]
-position = Vector2(185, 105)
 
 [node name="RebakeTimer" type="Timer" parent="."]
 one_shot = true

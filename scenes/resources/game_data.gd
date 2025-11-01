@@ -19,15 +19,19 @@ var abilities = {
 		"name": "main_building_level_1",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"cost": {"crystal": 50},
-		"build_time": 30.0,
-		"prerequisites": {},
+		"build_time": 15.0,
 	},
 	"main_building_level_2": {
 		"name": "main_building_level_2",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 		"cost": {"crystal": 100},
 		"build_time": 30.0,
-		"prerequisites": {},
+	},
+	"main_building_level_3": {
+		"name": "main_building_level_3",
+		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
+		"cost": {"crystal": 200},
+		"build_time": 40.0,
 	},
 	"blue_mining_speed": {
 		"name": "blue_mining_speed",
@@ -56,32 +60,37 @@ var abilities = {
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 	},
 	"build_cannon": {
+		"prerequisites": {
+			"main_level": 2
+		},
 		"structure_type": "cannon",
 		"button_text": "Cannon",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 	},
 	"build_laboratory": {
+		"prerequisites": {
+			"main_level": 2
+		},
 		"structure_type": "laboratory",
 		"button_text": "Laboratory",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 	},
 	"build_factory": {
-		"prerequisites": {
-			"structure": "laboratory"
-		},
 		"structure_type": "factory",
 		"button_text": "Factory",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 	},
 	
 	"build_red_refinery": {
+
 		"structure_type": "red_refinery",
 		"button_text": "Red Refinery",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 	},
 	"build_shelter": {
 		"prerequisites": {
-			"structure": "red_refinery"
+			"structure": "red_refinery",
+			"main_level": 2
 		},
 		"structure_type": "shelter",
 		"button_text": "Shelter",
@@ -95,7 +104,8 @@ var abilities = {
 	},
 	"build_space_port": {
 		"prerequisites": {
-			"structure": "blue_refinery"
+			"structure": "blue_refinery",
+			"main_level": 2
 		},
 		"structure_type": "space_port",
 		"button_text": "Space Port",
@@ -103,7 +113,8 @@ var abilities = {
 	},
 	"build_shield": {
 		"prerequisites": {
-			"structure": "blue_refinery"
+			"structure": "blue_refinery",
+			"main_level": 2
 		},
 		"structure_type": "shield",
 		"button_text": "Shield",
@@ -111,13 +122,15 @@ var abilities = {
 	},
 		
 	"build_green_refinery": {
+
 		"structure_type": "green_refinery",
 		"button_text": "Green Refinery",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
 	},
 	"build_terraformer": {
 		"prerequisites": {
-			"structure": "green_refinery"
+			"structure": "green_refinery",
+			"main_level": 2
 		},
 		"structure_type": "terraformer",
 		"button_text": "Terraformer",
@@ -129,16 +142,16 @@ var buildable_structures = {
 	"main_building": {
 		"name": "network_node",
 		"scene": "res://scenes/structures/main_building.tscn",
-		"cost": {"crystal": 300},
-		"build_time": 30.0,
-		"max_health": 1500,
+		"cost": {"crystal": 120},
+		"build_time": 10.0,
+		"max_health": 1000,
 		"location": "main"
 	},
 	"mine": {
 		"name": "mine",
 		"scene": "res://scenes/structures/gray/mine.tscn",
-		"cost": {"crystal": 10},
-		"build_time": 1.0,
+		"cost": {"crystal": 20},
+		"build_time": 5.0,
 		"generation_rate": 2,
 		"max_health": 150,
 		"location": "crystal"
@@ -183,9 +196,9 @@ var buildable_structures = {
 	"shelter": {
 		"name": "shelter",
 		"scene": "res://scenes/structures/red/shelter.tscn",
-		"cost": {"crystal": 150},
+		"cost": {"crystal": 150, "red_crystal": 50},
 		"build_time": 10.0,
-		"max_health": 700,
+		"max_health": 400,
 		"location": "building_slot"
 	},
 
@@ -193,14 +206,14 @@ var buildable_structures = {
 		"name": "blue refinery",
 		"scene": "res://scenes/structures/blue/bluerefinery.tscn",
 		"cost": {"crystal": 200},
-		"build_time": 1.0,
+		"build_time": 15.0,
 		"max_health": 600,
 		"location": "building_slot"
 	},
 	"space_port": {
 		"name": "space port",
 		"scene": "res://scenes/structures/blue/space_port.tscn",
-		"cost": {"crystal": 300, "blue_crystal": 20},
+		"cost": {"crystal": 300, "blue_crystal": 50},
 		"build_time": 20.0,
 		"max_health": 800,
 		"location": "building_slot"
@@ -218,7 +231,7 @@ var buildable_structures = {
 	"green_refinery": {
 		"name": "green refinery",
 		"scene": "res://scenes/structures/green/greenrefinery.tscn",
-		"cost": {"crystal": 20},
+		"cost": {"crystal": 200},
 		"build_time": 1.0,
 		"max_health": 600,
 		"location": "building_slot"
@@ -226,9 +239,9 @@ var buildable_structures = {
 	"terraformer": {
 		"name": "Terraformer",
 		"scene": "res://scenes/structures/green/terraformer.tscn",
-		"cost": {"crystal": 40, "green_crystal": 5},
-		"build_time": 3.0,
-		"max_health": 1000,
+		"cost": {"crystal": 300, "green_crystal": 50},
+		"build_time": 20.0,
+		"max_health": 500,
 		"location": "building_slot"
 	},
 
@@ -238,8 +251,8 @@ var buildable_units = {
 	"gun_unit": {
 		"scene": "res://scenes/units/gun_unit.tscn",
 		"icon": preload("res://assets/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png"),
-		"cost": {"crystal": 50},
-		"build_time": 10.0,
+		"cost": {"crystal": 30},
+		"build_time": 6.0,
 		"max_health": 75,
 		"speed": 100,
 		"damage": 10,

@@ -12,4 +12,3 @@ func _process(delta):
 	var grid = parent.grid
 	
 	grid.spend_resources({"crystal": export_amount})
-	grid.controller.add_score(export_amount)

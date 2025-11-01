@@ -12,4 +12,5 @@ func _ready():
 	structure_data = GameData.buildable_structures[structure_to_build]
 
 func execute(player: Player):
-	player.build_structure(parent.expansion, structure_to_build)
+	var result = player.build_structure(parent.expansion, structure_to_build)
+	return result

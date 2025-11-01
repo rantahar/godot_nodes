@@ -13,4 +13,4 @@ func is_available() -> bool:
 	return check_prerequisites()
 
 func execute(player: Player):
-	pass
+	return false
